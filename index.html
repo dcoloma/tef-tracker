@@ -107,7 +107,7 @@
 <script type="text/javascript" src="asyncStorage.js" ></script>
 <script> 
 
-  var time = "24";
+  var time = "1";
   var queryTime = "-" + time + "h";
 
   function configureVisibility()
@@ -199,7 +199,7 @@
       },
       callback: function(result) {
         s(s(document).one('#blockerCount')).replace({
-          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem;remaction=run;namedcmd=bb%2B;sharer_id=422382;list_id=5365247">BB+ (all)</a>',
+          '.item-title': '<a href="http://bit.ly/UKUhco">BB+ (all)</a>',
           '.item-value': result
         })
       },
@@ -218,7 +218,7 @@
       },
       callback: function(result) {
         s(s(document).one('#blockerCountTracking')).replace({
-          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem;remaction=run;namedcmd=open-b2g18%2B;sharer_id=422382;list_id=5365247">b2g18+ (all)</a>',
+          '.item-title': '<a href="http://bit.ly/UKTVTi">b2g18+ (all)</a>',
           '.item-value': result
         })
       },
@@ -236,7 +236,7 @@
       },
       callback: function(result) {
         s(s(document).one('#blockerCountTef')).replace({
-          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem;remaction=run;namedcmd=tef%2B;sharer_id=422382;list_id=5375126">tef+ (all)</a>',
+          '.item-title': '<a href="http://bit.ly/VFDKut">tef+ (all)</a>',
           '.item-value': result
         })
       },
@@ -261,7 +261,7 @@
       },
       callback: function(result) {
         s(s(document).one('#gaiaBlockerCount')).replace({
-          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem;remaction=run;namedcmd=gaia-bb%2B;sharer_id=422382;list_id=5365247">BB+ (Gaia)</a>',
+          '.item-title': '<a href="http://bit.ly/UYSL8p">BB+ (Gaia)</a>',
           '.item-value': result
         })
       }
@@ -282,7 +282,7 @@
       },
       callback: function(result) {
         s(s(document).one('#gaiaBlockerCountTracking')).replace({
-          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=runnamed;namedcmd=gaia-b2g18%2B;list_id=5375132">b2g18+ (Gaia)</a>',
+          '.item-title': '<a href="http://bit.ly/W3xCsW">b2g18+ (Gaia)</a>',
           '.item-value': result
         })
       }
@@ -304,7 +304,7 @@
       },
       callback: function(result) {
         s(s(document).one('#gaiaBlockerCountTef')).replace({
-          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=runnamed;namedcmd=gaia-tef%2B;list_id=5375136">tef+ (Gaia)</a>',
+          '.item-title': '<a href="http://bit.ly/W3xCsW">tef+ (Gaia)</a>',
           '.item-value': result
         })
       }
@@ -328,7 +328,7 @@
       },
       callback: function(result) {
         s(s(document).one('#platformBlockerCount')).replace({
-          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=runnamed;namedcmd=platform-bb%2B;list_id=5375137">bb+ (Platform)</a>',
+          '.item-title': '<a href="http://bit.ly/W087Ja">bb+ (Platform)</a>',
           '.item-value': result
         })
       }
@@ -349,7 +349,7 @@
       },
       callback: function(result) {
         s(s(document).one('#platformBlockerCountTracking')).replace({
-          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=runnamed;namedcmd=platform-b2g18%2B;list_id=5375144">b2g18+ (Platform)</a>',
+          '.item-title': '<a href="http://bit.ly/13vh4Q5">b2g18+ (Platform)</a>',
           '.item-value': result
         })
       }
@@ -370,7 +370,7 @@
       },
       callback: function(result) {
         s(s(document).one('#platformBlockerCountTef')).replace({
-          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=runnamed;namedcmd=platform-tef%2B;list_id=5375146">tef+ (Platform)</a>',
+          '.item-title': '<a href="http://bit.ly/11uFJoH">tef+ (Platform)</a>',
           '.item-value': result
         })
       }
@@ -556,6 +556,52 @@
         })
 
 
+     if (newNames.length) {
+          console.log("Procesar " + newNames);
+          if (newNames.indexOf("alberto.pastor") != -1)
+          {
+            addNotification('#pastoret');
+          }
+          if (newNames.indexOf("fbsc" ) != -1)
+          {
+            addNotification('#borja') 
+          }
+          if (newNames.indexOf("francisco.jordano" ) != -1)
+          {
+            addNotification('#jordano') 
+          }
+          
+          
+          
+          if (newNames.indexOf("josea.olivera" ) != -1)
+            addNotification('#jaoo') 
+          if (newNames.indexOf("ferjmoreno" ) != -1)
+            addNotification('#ferjm')
+          if (newNames.indexOf("frsela" ) != -1)
+            addNotification('#frsela')
+          if (newNames.indexOf("acperez" ) != -1)
+            addNotification('#acperez')
+          if (newNames.indexOf("salva" ) != -1)
+            addNotification('#salva')    
+          if (newNames.indexOf("igonzaleznicolas" ) != -1)
+            addNotification('#isma')    
+          if (newNames.indexOf("crdlc" ) != -1)
+            addNotification('#crdlc')    
+          if (newNames.indexOf("jmcf" ) != -1)
+            addNotification('#cantera')                 
+          if (newNames.indexOf("fernando.campo" ) != -1)
+            addNotification('#fcampo')                 
+          if (newNames.indexOf("gtorodelvalle" ) != -1)
+            addNotification('#toro')
+          if (newNames.indexOf("willyaranda" ) != -1)
+            addNotification('#willyaranda')
+          if (newNames.indexOf("amac" ) != -1)
+            addNotification('#amac')
+          if (newNames.indexOf("macajc" ) != -1)
+            addNotification('#carmen')
+            
+          showNotifications();
+        }
       }
     })
 
@@ -577,7 +623,7 @@
       callback: function(results) {
         var count = (results && results.length) ? results.length + '!' : '0 :('
         var lastHour = s('#lastHourTracking')
-        lastHour.innerHTML = '<div class="item-title" style="margin-bottom: 0.5em;">Fixed in the ' + time + ' hours' + count + '</div>'
+        lastHour.innerHTML = '<div class="item-title" style="margin-bottom: 0.5em;">Fixed in the last ' + time + ' hours ' + count + '</div>'
         results.forEach(function(result) {
           lastHour.innerHTML += '<div class="item-title"> * ' +
             '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (' + result.assigned_to.name + ')</div>'
@@ -597,6 +643,54 @@
             newNames.push(bug.assigned_to.name)
           }
         })
+
+        if (newNames.length) {
+          console.log("Procesar " + newNames);
+          if (newNames.indexOf("alberto.pastor") != -1)
+          {
+            addNotification('#pastoret');
+          }
+          if (newNames.indexOf("fbsc" ) != -1)
+          {
+            addNotification('#borja') 
+          }
+          if (newNames.indexOf("francisco.jordano" ) != -1)
+          {
+            addNotification('#jordano') 
+          }
+          
+          
+          
+          if (newNames.indexOf("josea.olivera" ) != -1)
+            addNotification('#jaoo') 
+          if (newNames.indexOf("ferjmoreno" ) != -1)
+            addNotification('#ferjm')
+          if (newNames.indexOf("frsela" ) != -1)
+            addNotification('#frsela')
+          if (newNames.indexOf("acperez" ) != -1)
+            addNotification('#acperez')
+          if (newNames.indexOf("salva" ) != -1)
+            addNotification('#salva')    
+          if (newNames.indexOf("igonzaleznicolas" ) != -1)
+            addNotification('#isma')    
+          if (newNames.indexOf("crdlc" ) != -1)
+            addNotification('#crdlc')    
+          if (newNames.indexOf("jmcf" ) != -1)
+            addNotification('#cantera')                 
+          if (newNames.indexOf("fernando.campo" ) != -1)
+            addNotification('#fcampo')                 
+          if (newNames.indexOf("gtorodelvalle" ) != -1)
+            addNotification('#toro')
+          if (newNames.indexOf("willyaranda" ) != -1)
+            addNotification('#willyaranda')
+          if (newNames.indexOf("amac" ) != -1)
+            addNotification('#amac')
+          if (newNames.indexOf("macajc" ) != -1)
+            addNotification('#carmen')
+            
+          showNotifications();
+        }
+
 
 
       }
@@ -620,7 +714,7 @@
       callback: function(results) {
         var count = (results && results.length) ? results.length + '!' : '0 :('
         var lastHour = s('#lastHourTef')
-        lastHour.innerHTML = '<div class="item-title" style="margin-bottom: 0.5em;">Fixed in the ' + time + ' hours' + count + '</div>'
+        lastHour.innerHTML = '<div class="item-title" style="margin-bottom: 0.5em;">Fixed in the last ' + time + ' hours ' + count + '</div>'
         results.forEach(function(result) {
           lastHourTef.innerHTML += '<div class="item-title"> * ' +
             '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (' + result.assigned_to.name + ')</div>'
@@ -640,7 +734,61 @@
             newNames.push(bug.assigned_to.name)
           }
         })
+        
+        
+        if (newNames.length) {
+          console.log("Procesar " + newNames);
+          if (newNames.indexOf("alberto.pastor") != -1)
+          {
+            addNotification('#pastoret');
+          }
+          if (newNames.indexOf("fbsc" ) != -1)
+          {
+            addNotification('#borja') 
+          }
+          if (newNames.indexOf("francisco.jordano" ) != -1)
+          {
+            addNotification('#jordano') 
+          }
+          
+          
+          
+          if (newNames.indexOf("josea.olivera" ) != -1)
+            addNotification('#jaoo') 
+          if (newNames.indexOf("ferjmoreno" ) != -1)
+            addNotification('#ferjm')
+          if (newNames.indexOf("frsela" ) != -1)
+            addNotification('#frsela')
+          if (newNames.indexOf("acperez" ) != -1)
+            addNotification('#acperez')
+          if (newNames.indexOf("salva" ) != -1)
+            addNotification('#salva')    
+          if (newNames.indexOf("igonzaleznicolas" ) != -1)
+            addNotification('#isma')    
+          if (newNames.indexOf("crdlc" ) != -1)
+            addNotification('#crdlc')    
+          if (newNames.indexOf("jmcf" ) != -1)
+            addNotification('#cantera')                 
+          if (newNames.indexOf("fernando.campo" ) != -1)
+            addNotification('#fcampo')                 
+          if (newNames.indexOf("gtorodelvalle" ) != -1)
+            addNotification('#toro')
+          if (newNames.indexOf("willyaranda" ) != -1)
+            addNotification('#willyaranda')
+          if (newNames.indexOf("amac" ) != -1)
+            addNotification('#amac')
+          if (newNames.indexOf("macajc" ) != -1)
+            addNotification('#carmen')
+            
+          showNotifications();
+        }
+
+        
       }
+      
+      
+      
+      
     })
 
 
@@ -652,7 +800,9 @@
 
     function executeSearches() {
       addNotification('#wrong');
-      processNotifications();
+      showNotifications();
+      
+      //processNotifications();
       searches.forEach(function(search) {
         Bugzilla.ajax({
           url: '/' + search.type,
@@ -664,8 +814,8 @@
           error: function(err) { console.log('err', err) }
         })
       })
-      processNotifications();
-      processingNotifications = false;
+      //processNotifications();
+      //processingNotifications = false;
 
       // reset countdown clock
       countdown('#countdown', 5, 0);
@@ -673,10 +823,28 @@
 
     function addNotification(selector) {
       notifications.push(selector)
-      setTimeout(processNotifications, 50)
+      //setTimeout(processNotifications, 50)
     }
 
     var processingNotifications = false
+
+    function showNotifications()
+    {
+      console.log("showNotifications " + notifications);
+      var selector = notifications.shift()
+      if (selector) {
+        $(selector).
+          center().
+          fadeIn(1500, function() {
+            setTimeout(function() {
+              console.log("should be waiting");
+              $(selector).fadeOut(1000, function() {
+                showNotifications();  
+              })
+            }, 4000)
+          })
+       }
+    }
 
     function processNotifications() {
       console.log("Processing Notifications " + processingNotifications);
@@ -858,3 +1026,87 @@
   <h1> Checking Bug Status </h1>
   <div><img src='wrong-small.png' height=300px width=240px></div>
 </div>
+
+
+<div id='pastoret' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> PASTORET (:alberto.pastor) fixed a bug </h3>
+  <div><img src='pastor.jpg'></div>  
+</div>
+
+<div id='borja' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> BOOOOJA (:borjasalguero) fixed a bug </h3>
+  <div><img src='borja.jpg'></div>  
+</div>
+
+<div id='toro' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> Yerman (:gtorodelvalle) fixed a bug </h3>
+  <div><img src='german.jpg'></div>  
+</div>
+
+<div id='fcampo' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> fcampo (:fernando.campo) fixed a bug </h3>
+  <div><img src='fcampo.jpg'></div>  
+</div>
+
+<div id='jordano' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> arcturus (:francisco.jordano) fixed a bug </h3>
+  <div><img src='jordano.jpg'></div>  
+</div>
+
+<div id='cantera' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> cantera fixed a bug </h3>
+  <div><img src='cantera.jpg'></div>  
+</div>
+
+<div id='crdlc' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> cristian fixed a bug </h3>
+  <div><img src='crdlc.jpg'></div>  
+</div>
+
+<div id='basiclines' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> Isma fixed a bug </h3>
+  <div><img src='basiclines.jpg'></div>  
+</div>
+
+<div id='ferjm' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> FerJM fixed a bug </h3>
+  <div><img src='ferjm.jpg'></div>  
+</div>
+
+<div id='jaoo' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> jaoo fixed a bug </h3>
+  <div><img src='jaoo.jpg'></div>  
+</div>
+
+<div id='willyaranda' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> willyaranda fixed a bug </h3>
+  <div><img src='willy.jpg'></div>  
+</div>
+
+<div id='amac' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> amac fixed a bug </h3>
+  <div><img src='amac.jpg'></div>  
+</div>
+
+<div id='carmen' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> carmen fixed a bug </h3>
+  <div><img src='carmen.jpg'></div>  
+</div>
+
+<div id='frsela' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> frsela fixed a bug </h3>
+  <div><img src='frsela.jpg'></div>  
+</div>
+
+<div id='acperez' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> Albert fixed a bug </h3>
+  <div><img src='acperez.jpg'></div>  
+</div>
+
+<div id='salva' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> salva fixed a bug </h3>
+  <div><img src='acperez.jpg'></div>  
+</div>
+
+
+<br clear=all>
