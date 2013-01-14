@@ -1,0 +1,860 @@
+<!DOCTYPE html> 
+<meta charset="utf-8"> 
+<title>FirefoxOS.Status</title> 
+<style> 
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    margin: 0 auto;
+    background-image: url('news.jpg');
+    background-color: #fff;
+    background-size: cover;
+  }
+
+  .alertilla {
+    height: 300px;
+    width: 40px;
+  }
+
+  #header {
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+    height: 2.0em;
+    font-size: 1.2em;
+    color: #fff;
+  }
+
+  #container {
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+  }
+
+  .item {
+    width: 10em;
+    height: 10em;
+    margin: 1em;
+    margin-top: 0;
+    background-color: #bbbbbb;
+    /*box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);*/
+    box-shadow: 10px 10px 18px;
+    /*border: 0.05em solid #ccc;*/
+    text-align: center;
+    float: left;
+  }
+
+  .item-value {
+    font-weight: bold;
+    font-size: 4em;
+    margin: 0;
+    /*margin-bottom: -15px;*/
+  }
+
+  .item-title {
+    font-size: 1em;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  #blockerCount, #blockerCountTracking, #blockerCountTef, #fixedBlockerCountTef, #fixedBlockerCount, #fixedBlockerCountTracking, #createdBlockerCountTracking, #createdBlockerCountTef, #createdBlockerCount {
+    font-size: 1.2em;
+  }
+
+  #gaiaBlockerCount, #gaiaBlockerCountTracking, #gaiaBlockerCountTef {
+    font-size: 1.2em;
+  }
+
+  #platformBlockerCount, #platformBlockerCountTracking, #platformBlockerCountTef {
+    font-size: 1.2em;
+  }
+  
+  #fixedInWorkweek {
+    font-size: 1.3em;
+  }
+
+  #notes {
+    text-align: left;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 0.5em;
+  }
+
+  #lastHourBB, #lastHourTef, #lastHourTracking {
+    font-size: 1em;
+    padding: 0.5em;
+    text-align: left;
+    height: 14em;
+    width: 20em;
+  }
+
+  .alert {
+    box-shadow: 0px 0px 30px 15px red;
+  }
+
+  #jacketNames {
+    font-size: 2em;
+    font-weight: bold;
+    max-width: 493px;
+  }
+</style> 
+<script type='text/javascript' src='jquery-1.8.2.min.js'></script>
+<script type='text/javascript' src="bugzilla.js"></script> 
+<script type="text/javascript" src="eventEmitter.js" ></script>
+<script type="text/javascript" src="asyncStorage.js" ></script>
+<script> 
+
+  var time = "24";
+  var queryTime = "-" + time + "h";
+
+  function configureVisibility()
+  {
+  
+
+      var bb = true;
+      var trackingb2g = true;
+      var blockingb2g = true;
+
+      if(!bb)
+      {
+         document.getElementById("blockerCount").style.visibility = "hidden";
+         document.getElementById("gaiaBlockerCount").style.visibility = "hidden";
+         document.getElementById("platformBlockerCount").style.visibility = "hidden";
+         document.getElementById("createdBlockerCount").style.visibility = "hidden";
+         document.getElementById("fixedBlockerCount").style.visibility = "hidden";
+         document.getElementById("lastHourBB").style.visibility = "hidden";
+      }
+      if(!trackingb2g)
+      {
+         document.getElementById("blockerCountTracking").style.visibility = "hidden";
+         document.getElementById("gaiaBlockerCountTracking").style.visibility = "hidden";
+         document.getElementById("platformBlockerCountTracking").style.visibility = "hidden";
+         document.getElementById("createdBlockerCountTracking").style.visibility = "hidden";
+         document.getElementById("fixedBlockerCountTracking").style.visibility = "hidden";
+         document.getElementById("lastHourTracking").style.visibility = "hidden";
+      }
+
+  
+  }
+
+
+  // add event emitter to window scope
+  var self = this
+  EventEmitter.call(self)
+
+  // querySelector helper
+  function s(input) {
+    if ((typeof input) == 'string')
+      return document.querySelector(input)
+
+    return {
+      one: function(selector) {
+        return input.querySelector(selector)
+      },
+      all: function(selector) {
+        return input.querySelectorAll(selector)
+      },
+      replace: function(replacements) {
+        for (var k in replacements)
+          input.querySelector(k).innerHTML = replacements[k]
+      }
+    }
+  }
+
+  $(window).ready(function() {
+    /*
+    // test 
+    asyncStorage.clear(function(){})
+    asyncStorage.setItem('fixedInLastHour', {
+      bugs: [
+        {
+          assigned_to: {
+            name: 'naoki'
+          }
+        }
+      ]
+    }, function() {})
+    */
+
+    // add an object with: type (bug or count), options (bz search params) and callback (function) 
+    var searches = []
+
+    // array of selectors
+    var notifications = []
+
+// ========== ALL BLOCKER COUNT =======
+
+    // all blocker count
+    searches.push({
+      key: 'totalBlockerCount',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_basecamp',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+      },
+      callback: function(result) {
+        s(s(document).one('#blockerCount')).replace({
+          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem;remaction=run;namedcmd=bb%2B;sharer_id=422382;list_id=5365247">BB+ (all)</a>',
+          '.item-value': result
+        })
+      },
+    })
+
+
+    // all blocker count
+    searches.push({
+      key: 'totalBlockerCountTracking',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+      },
+      callback: function(result) {
+        s(s(document).one('#blockerCountTracking')).replace({
+          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem;remaction=run;namedcmd=open-b2g18%2B;sharer_id=422382;list_id=5365247">b2g18+ (all)</a>',
+          '.item-value': result
+        })
+      },
+    })
+
+    // all blocker count
+    searches.push({
+      key: 'totalBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+      },
+      callback: function(result) {
+        s(s(document).one('#blockerCountTef')).replace({
+          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem;remaction=run;namedcmd=tef%2B;sharer_id=422382;list_id=5375126">tef+ (all)</a>',
+          '.item-value': result
+        })
+      },
+    })
+
+
+// ========== GAIA BLOCKER COUNT =======
+
+
+    // gaia blocker count
+    searches.push({
+      key: 'gaiaBlockerCount',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_basecamp',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'contains',
+        'value1-0-0': 'gaia',
+      },
+      callback: function(result) {
+        s(s(document).one('#gaiaBlockerCount')).replace({
+          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem;remaction=run;namedcmd=gaia-bb%2B;sharer_id=422382;list_id=5365247">BB+ (Gaia)</a>',
+          '.item-value': result
+        })
+      }
+    })
+
+    // gaia blocker count
+    searches.push({
+      key: 'gaiaBlockerCountTracking',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'contains',
+        'value1-0-0': 'gaia',
+      },
+      callback: function(result) {
+        s(s(document).one('#gaiaBlockerCountTracking')).replace({
+          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=runnamed;namedcmd=gaia-b2g18%2B;list_id=5375132">b2g18+ (Gaia)</a>',
+          '.item-value': result
+        })
+      }
+    })
+
+
+    // gaia blocker count
+    searches.push({
+      key: 'gaiaBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'contains',
+        'value1-0-0': 'gaia',
+      },
+      callback: function(result) {
+        s(s(document).one('#gaiaBlockerCountTef')).replace({
+          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=runnamed;namedcmd=gaia-tef%2B;list_id=5375136">tef+ (Gaia)</a>',
+          '.item-value': result
+        })
+      }
+    })
+
+// ========== PLATFORM BLOCKER COUNT =======
+
+
+    // platform blocker count
+    searches.push({
+      key: 'platformBlockerCount',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_basecamp',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'not_contains',
+        'value1-0-0': 'gaia',
+      },
+      callback: function(result) {
+        s(s(document).one('#platformBlockerCount')).replace({
+          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=runnamed;namedcmd=platform-bb%2B;list_id=5375137">bb+ (Platform)</a>',
+          '.item-value': result
+        })
+      }
+    })
+
+    // platform blocker count
+    searches.push({
+      key: 'platformBlockerCountTracking',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'not_contains',
+        'value1-0-0': 'gaia',
+      },
+      callback: function(result) {
+        s(s(document).one('#platformBlockerCountTracking')).replace({
+          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=runnamed;namedcmd=platform-b2g18%2B;list_id=5375144">b2g18+ (Platform)</a>',
+          '.item-value': result
+        })
+      }
+    })
+
+    // platform blocker count
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'not_contains',
+        'value1-0-0': 'gaia',
+      },
+      callback: function(result) {
+        s(s(document).one('#platformBlockerCountTef')).replace({
+          '.item-title': '<a href="https://bugzilla.mozilla.org/buglist.cgi?cmdtype=runnamed;namedcmd=platform-tef%2B;list_id=5375146">tef+ (Platform)</a>',
+          '.item-value': result
+        })
+      }
+    })
+
+// ========== CREATED LAST HOUR COUNT =======
+
+
+  // created in last hour
+    searches.push({
+      key: 'blockersAddedInLastHour',
+      type: 'count',
+      options: {    
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_basecamp',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'changed_field': 'cf_blocking_basecamp',
+        'changed_field_to': '+',
+        'changed_after': queryTime,
+      },
+      callback: function(result) {
+        s(s(document).one('#createdBlockerCount')).replace({
+          '.item-title': 'BB+ open last ' + time + ' hours',
+          '.item-value': result
+       })
+      }
+    })
+
+
+    // fixed in last hour
+    searches.push({
+      key: 'blockersAddedInLastHourTracking',
+      type: 'count',
+      options: {    
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'changed_field': 'cf_tracking_b2g18',
+        'changed_field_to': '+',
+        'changed_after': queryTime,
+      },
+      callback: function(result) {
+        s(s(document).one('#createdBlockerCountTracking')).replace({
+          '.item-title': 'b2g18+ open last ' + time + ' hours',
+          '.item-value': result
+       })
+      }
+    })
+
+    // fixed in last hour
+    searches.push({
+      key: 'addedInLastHourTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'changed_field': 'cf_blocking_b2g',
+        'changed_field_to': 'tef+',
+        'changed_after': queryTime,
+      },
+  callback: function(result) {
+        s(s(document).one('#createdBlockerCountTef')).replace({
+          '.item-title': 'tef+ open  ' + time + ' hours',
+          '.item-value': result
+       })
+      }
+    })
+
+
+
+// ========== FIXED LAST HOUR COUNT =======
+
+
+  // fixed in last hour
+    searches.push({
+      key: 'blockersFixedInLastHour',
+      type: 'count',
+      options: {    
+        'bug_status': ['RESOLVED', 'VERIFIED'],
+        'resolution': 'FIXED',
+        'field0-0-0': 'cf_blocking_basecamp',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'changed_field': 'Resolution',
+        'changed_field_to': 'FIXED',
+        'changed_after': queryTime,
+      },
+      callback: function(result) {
+        s(s(document).one('#fixedBlockerCount')).replace({
+          '.item-title': 'BB+ fixed last ' + time + ' hours',
+          '.item-value': result
+       })
+      }
+    })
+
+
+    // fixed in last hour
+    searches.push({
+      key: 'blockersFixedInLastHourTracking',
+      type: 'count',
+      options: {    
+        'bug_status': ['RESOLVED', 'VERIFIED'],
+        'resolution': 'FIXED',
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'changed_field': 'Resolution',
+        'changed_field_to': 'FIXED',
+        'changed_after': queryTime,
+      },
+      callback: function(result) {
+        s(s(document).one('#fixedBlockerCountTracking')).replace({
+          '.item-title': 'b2g18+ fixed last ' + time + ' hours',
+          '.item-value': result
+       })
+      }
+    })
+
+    // fixed in last hour
+    searches.push({
+      key: 'fixedInLastHourTef',
+      type: 'count',
+      options: {
+        'bug_status': ['RESOLVED', 'VERIFIED'],
+        'resolution': 'FIXED',
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'changed_field': 'Resolution',
+        'changed_field_to': 'FIXED',
+        'changed_after': queryTime,
+      },
+  callback: function(result) {
+        s(s(document).one('#fixedBlockerCountTef')).replace({
+          '.item-title': 'tef+ fixed last ' + time + ' hours',
+          '.item-value': result
+       })
+      }
+    })
+
+// CULPABLES
+
+    // fixed in last hour
+    searches.push({
+      key: 'authorsfixedInLastHour',
+      type: 'bug',
+      options: {
+        'bug_status': ['RESOLVED', 'VERIFIED'],
+        'resolution': 'FIXED',
+        'field0-0-0': 'cf_blocking_basecamp',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'changed_field': 'Resolution',
+        'changed_field_to': 'FIXED',
+        'changed_after': queryTime,
+      },
+      callback: function(results) {
+        var count = (results && results.length) ? results.length + '!' : '0 :('
+        var lastHour = s('#lastHourBB')
+        lastHour.innerHTML = '<div class="item-title" style="margin-bottom: 0.5em;">Fixed in the last ' + time + ' hours ' + count + '</div>'
+        results.forEach(function(result) {
+          lastHourBB.innerHTML += '<div class="item-title"> * ' +
+            '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (' + result.assigned_to.name + ')</div>'
+        })
+      },
+      onChange: function(old, updated) {
+        var oldNames = [],
+            newNames = []
+
+        if (old) {
+          var oldNames = old.bugs.map(function(bug) {
+            return bug.assigned_to.name
+          })
+        }
+        updated.bugs.forEach(function(bug) {
+          if (oldNames.indexOf(bug.assigned_to.name) == -1) {
+            newNames.push(bug.assigned_to.name)
+          }
+        })
+
+
+      }
+    })
+
+
+   // fixed in last hour
+    searches.push({
+      key: 'authorsfixedInLastHourTracking',
+      type: 'bug',
+      options: {
+        'bug_status': ['RESOLVED', 'VERIFIED'],
+        'resolution': 'FIXED',
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'changed_field': 'Resolution',
+        'changed_field_to': 'FIXED',
+        'changed_after': queryTime,
+      },
+      callback: function(results) {
+        var count = (results && results.length) ? results.length + '!' : '0 :('
+        var lastHour = s('#lastHourTracking')
+        lastHour.innerHTML = '<div class="item-title" style="margin-bottom: 0.5em;">Fixed in the ' + time + ' hours' + count + '</div>'
+        results.forEach(function(result) {
+          lastHour.innerHTML += '<div class="item-title"> * ' +
+            '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (' + result.assigned_to.name + ')</div>'
+        })
+      },
+      onChange: function(old, updated) {
+        var oldNames = [],
+            newNames = []
+
+        if (old) {
+          var oldNames = old.bugs.map(function(bug) {
+            return bug.assigned_to.name
+          })
+        }
+        updated.bugs.forEach(function(bug) {
+          if (oldNames.indexOf(bug.assigned_to.name) == -1) {
+            newNames.push(bug.assigned_to.name)
+          }
+        })
+
+
+      }
+    })
+
+
+ // fixed in last hour
+    searches.push({
+      key: 'authorsfixedInLastHourTef',
+      type: 'bug',
+      options: {
+        'bug_status': ['RESOLVED', 'VERIFIED'],
+        'resolution': 'FIXED',
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'changed_field': 'Resolution',
+        'changed_field_to': 'FIXED',
+        'changed_after': queryTime,
+      },
+      callback: function(results) {
+        var count = (results && results.length) ? results.length + '!' : '0 :('
+        var lastHour = s('#lastHourTef')
+        lastHour.innerHTML = '<div class="item-title" style="margin-bottom: 0.5em;">Fixed in the ' + time + ' hours' + count + '</div>'
+        results.forEach(function(result) {
+          lastHourTef.innerHTML += '<div class="item-title"> * ' +
+            '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (' + result.assigned_to.name + ')</div>'
+        })
+      },
+      onChange: function(old, updated) {
+        var oldNames = [],
+            newNames = []
+
+        if (old) {
+          var oldNames = old.bugs.map(function(bug) {
+            return bug.assigned_to.name
+          })
+        }
+        updated.bugs.forEach(function(bug) {
+          if (oldNames.indexOf(bug.assigned_to.name) == -1) {
+            newNames.push(bug.assigned_to.name)
+          }
+        })
+      }
+    })
+
+
+
+/////////
+
+
+
+
+    function executeSearches() {
+      addNotification('#wrong');
+      processNotifications();
+      searches.forEach(function(search) {
+        Bugzilla.ajax({
+          url: '/' + search.type,
+          data: search.options,
+          success: function(data) {
+            search.callback(data.bugs || data.data)
+            persist(search, data)
+          },
+          error: function(err) { console.log('err', err) }
+        })
+      })
+      processNotifications();
+      processingNotifications = false;
+
+      // reset countdown clock
+      countdown('#countdown', 5, 0);
+    }
+
+    function addNotification(selector) {
+      notifications.push(selector)
+      setTimeout(processNotifications, 50)
+    }
+
+    var processingNotifications = false
+
+    function processNotifications() {
+      console.log("Processing Notifications " + processingNotifications);
+      //if (processingNotifications)
+      //  return
+      processingNotifications = true 
+      var selector = notifications.shift()
+      if (selector) {
+        $(selector).
+          center().
+          fadeIn(1500, function() {
+            setTimeout(function() {
+              $(selector).fadeOut(1000, function() {
+                processingNotifications = false
+                processNotifications()  
+              })
+            }, 4000)
+          })
+        // process next notification
+        processNotifications()
+      }
+      else
+        processingNotifications = false
+    }
+
+    // timer will update every 5 mins
+    window.setInterval(executeSearches, 5 * 60 * 1000)
+    configureVisibility();
+    executeSearches()
+  })
+
+  function persist(search, newValue) {
+    asyncStorage.getItem(search.key, function(value) {
+      asyncStorage.setItem(search.key, newValue, function() {
+        if (search.onChange)
+          search.onChange(value, newValue)
+      })
+    })
+  }
+
+  function countdown(selector, minutes, seconds) {
+    // set time for the particular countdown
+    var time = minutes*60 + seconds;
+    var interval = setInterval(function() {
+      var el = document.querySelector(selector);
+      // if the time is 0 then end the counter
+      if (time == 0) {
+        el.innerHTML = "countdown's over!";    
+        clearInterval(interval);
+        return;
+      }
+      var minutes = Math.floor( time / 60 );
+      if (minutes < 10) minutes = "0" + minutes;
+      var seconds = time % 60;
+      if (seconds < 10) seconds = "0" + seconds; 
+      var text = minutes + ':' + seconds;
+      el.innerHTML = text;
+      time--;
+    }, 1000);
+  }
+
+  jQuery.fn.center = function () {
+    this.css("position","absolute");
+    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
+                                                $(window).scrollTop()) + "px");
+    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
+                                                $(window).scrollLeft()) + "px");
+    return this;
+  }
+
+</script> 
+
+<div id='header'>
+  <h2 style='float:left;'>FirefoxOS.Status (TEF Launch)</h2>
+  <h2 style='float:right;'><span id="countdown"></span></h2>
+</div>
+<br clear=all>
+<div id='container'>
+  <div id='feedback' style='text-align: center;'></div>
+
+  <div id='blockerCount' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='gaiaBlockerCount' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='platformBlockerCount' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='createdBlockerCount' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div> 
+
+  <div id='fixedBlockerCount' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+
+
+  <div id='lastHourBB' class='item'>
+  </div>
+
+  <br clear=all>
+
+<div id='blockerCountTef' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='gaiaBlockerCountTef' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='platformBlockerCountTef' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+ 
+  <div id='createdBlockerCountTef' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div> 
+    
+  <div id='fixedBlockerCountTef' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='lastHourTef' class='item'>
+  </div>
+
+  <br clear=all>
+
+
+  <div id='blockerCountTracking' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='gaiaBlockerCountTracking' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='platformBlockerCountTracking' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+  
+  <div id='createdBlockerCountTracking' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div> 
+  
+  <div id='fixedBlockerCountTracking' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+
+  <div id='lastHourTracking' class='item'>
+  </div>
+
+  <br clear=all>
+
+  
+</div>
+
+<div id='wrong' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h1> Checking Bug Status </h1>
+  <div><img src='wrong-small.png' height=300px width=240px></div>
+</div>
