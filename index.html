@@ -35,8 +35,8 @@
   }
 
   .item {
-    width: 10em;
-    height: 10em;
+    width: 8em;
+    height: 8em;
     margin: 1em;
     margin-top: 0;
     background-color: #bbbbbb;
@@ -84,10 +84,10 @@
   }
 
   #lastHourBB, #lastHourTef, #lastHourTracking {
-    font-size: 1em;
+    font-size: 0.8em;
     padding: 0.5em;
     text-align: left;
-    height: 14em;
+    height: 13em;
     width: 20em;
   }
 
@@ -107,7 +107,7 @@
 <script type="text/javascript" src="asyncStorage.js" ></script>
 <script> 
 
-  var time = "1";
+  var time = "3";
   var queryTime = "-" + time + "h";
 
   function configureVisibility()
@@ -536,8 +536,8 @@
         var lastHour = s('#lastHourBB')
         lastHour.innerHTML = '<div class="item-title" style="margin-bottom: 0.5em;">Fixed in the last ' + time + ' hours ' + count + '</div>'
         results.forEach(function(result) {
-          lastHourBB.innerHTML += '<div class="item-title"> * ' +
-            '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (' + result.assigned_to.name + ')</div>'
+          lastHour.innerHTML += '<div class="item-title"> * ' +
+            '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (<a href=javascript:showPerson("' + result.assigned_to.name + '")>' + result.assigned_to.name + '</a>)</div>'
         })
       },
       onChange: function(old, updated) {
@@ -624,10 +624,13 @@
         var count = (results && results.length) ? results.length + '!' : '0 :('
         var lastHour = s('#lastHourTracking')
         lastHour.innerHTML = '<div class="item-title" style="margin-bottom: 0.5em;">Fixed in the last ' + time + ' hours ' + count + '</div>'
+
         results.forEach(function(result) {
           lastHour.innerHTML += '<div class="item-title"> * ' +
-            '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (' + result.assigned_to.name + ')</div>'
+            '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (<a href=javascript:showPerson("' + result.assigned_to.name + '")>' + result.assigned_to.name + '</a>)</div>'
         })
+
+
       },
       onChange: function(old, updated) {
         var oldNames = [],
@@ -717,7 +720,7 @@
         lastHour.innerHTML = '<div class="item-title" style="margin-bottom: 0.5em;">Fixed in the last ' + time + ' hours ' + count + '</div>'
         results.forEach(function(result) {
           lastHourTef.innerHTML += '<div class="item-title"> * ' +
-            '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (' + result.assigned_to.name + ')</div>'
+            '<a target="new" href="https://bugzilla.mozilla.org/show_bug.cgi?id=' + result.id + '">Bug ' + result.id + '</a> (<a href=javascript:showPerson("' + result.assigned_to.name + '")>' + result.assigned_to.name + '</a>)</div>'
         })
       },
       onChange: function(old, updated) {
@@ -739,20 +742,11 @@
         if (newNames.length) {
           console.log("Procesar " + newNames);
           if (newNames.indexOf("alberto.pastor") != -1)
-          {
             addNotification('#pastoret');
-          }
           if (newNames.indexOf("fbsc" ) != -1)
-          {
             addNotification('#borja') 
-          }
           if (newNames.indexOf("francisco.jordano" ) != -1)
-          {
             addNotification('#jordano') 
-          }
-          
-          
-          
           if (newNames.indexOf("josea.olivera" ) != -1)
             addNotification('#jaoo') 
           if (newNames.indexOf("ferjmoreno" ) != -1)
@@ -792,10 +786,7 @@
     })
 
 
-
 /////////
-
-
 
 
     function executeSearches() {
@@ -914,6 +905,73 @@
                                                 $(window).scrollLeft()) + "px");
     return this;
   }
+
+      function showPerson(name) {
+      console.log("name is " + name);
+      var selector = "";
+      switch(name)
+      {
+        case "alberto.pastor":
+            selector = '#pastoret';
+            break;
+        case "fbsc":
+            selector = '#borja';
+            break;
+        case "francisco.jordano":
+            selector = '#jordano';
+            break;
+        case "josea.olivera":
+            selector = '#jaoo';
+            break;
+        case "ferjmoreno":
+            selector = '#ferjm';
+            break;
+        case "frsela":
+            selector = '#frsela';
+            break;
+        case "acperez":
+            selector = '#acperez';
+            break;
+        case "salva":
+            selector = '#salva';
+            break;
+        case "igonzaleznicolas":
+            selector = '#isma';
+            break;
+        case "crdlc":
+            selector = '#crdlc';
+            break;
+        case "jmcf":
+            selector = '#cantera';
+            break;
+        case "fernando.campo":
+            selector = '#fcampo';
+            break;
+        case "gtorodelvalle":
+            selector = '#toro';
+            break;
+        case "willyaranda":
+            selector = '#willyaranda';
+            break;
+        case "amac":
+            selector = '#amac';
+            break;
+        case "macajc":
+            selector = '#carmenb';
+            break;
+        }
+       
+        console.log("El selector es " + selector);
+        $(selector).center().fadeIn(3000);
+        $(selector).center().fadeOut(1500);
+
+        /*$(selector).center().fadeIn(1500, function() {
+            setTimeout(function() {
+              $(selector).fadeOut(1000, null)  })})*/
+
+    }
+
+
 
 </script> 
 
@@ -1105,7 +1163,7 @@
 
 <div id='salva' class="alert" style="display:none; background-color: #fff; text-align: center;">
   <h3> salva fixed a bug </h3>
-  <div><img src='acperez.jpg'></div>  
+  <div><img src='salva.jpg'></div>  
 </div>
 
 
