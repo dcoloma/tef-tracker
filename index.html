@@ -143,6 +143,7 @@
 
   // add event emitter to window scope
   var self = this
+  var minutos = 1;
   EventEmitter.call(self)
 
   // querySelector helper
@@ -809,7 +810,7 @@
       //processingNotifications = false;
 
       // reset countdown clock
-      countdown('#countdown', 1, 0);
+      countdown('#countdown', minutos, 0);
     }
 
     function addNotification(selector) {
@@ -862,7 +863,7 @@
     }
 
     // timer will update every 5 mins
-    window.setInterval(executeSearches, 5 * 60 * 1000)
+    window.setInterval(executeSearches, minutos * 60 * 1000)
     configureVisibility();
     executeSearches()
   })
@@ -877,6 +878,7 @@
   }
 
   function countdown(selector, minutes, seconds) {
+    minutos = minutes;
     // set time for the particular countdown
     var time = minutes*60 + seconds;
     var interval = setInterval(function() {
