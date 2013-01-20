@@ -1,0 +1,4609 @@
+<!DOCTYPE html> 
+<meta charset="utf-8"> 
+<title>FirefoxOS.Status</title> 
+<style> 
+
+
+        /*** central column on page ***/
+        div#divContainer
+        {
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: Calibri;
+            padding: 0.5em 1em 1em 1em;
+ 
+            /* rounded corners */
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+ 
+            /* add gradient */
+            background-color: #808080;
+            background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#808080));
+            background: -moz-linear-gradient(top, #606060, #808080);
+ 
+            /* add box shadows */
+            -moz-box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+            -webkit-box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+        }
+ 
+        h1 {color:#FFE47A; font-size:1.5em;}
+ 
+        /*** sample table to demonstrate CSS3 formatting ***/
+        table.formatHTML5 {
+            width: 100%;
+            border-collapse:collapse;
+            text-align:left;
+            color: #606060;
+        }
+ 
+        /*** table's thead section, head row style ***/
+        table.formatHTML5 thead tr td  {
+            background-color: White;
+            vertical-align:middle;
+            padding: 0.6em;
+            font-size:0.8em;
+        }
+ 
+        /*** table's thead section, coulmns header style ***/
+        table.formatHTML5 thead tr th
+        {
+            padding: 0.5em;
+            /* add gradient */
+            background-color: #808080;
+            background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#909090));
+            background: -moz-linear-gradient(top, #606060, #909090);
+            color: #dadada;
+        }
+ 
+        /*** table's tbody section, odd rows style ***/
+        table.formatHTML5 tbody tr:nth-child(odd) {
+           background-color: #fafafa;
+        }
+ 
+        /*** hover effect to table's tbody odd rows ***/
+        table.formatHTML5 tbody tr:nth-child(odd):hover
+        {
+            cursor:pointer;
+            /* add gradient */
+            background-color: #808080;
+            background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#909090));
+            background: -moz-linear-gradient(top, #606060, #909090);
+            color: #dadada;
+        }
+ 
+        /*** table's tbody section, even rows style ***/
+        table.formatHTML5 tbody tr:nth-child(even) {
+            background-color: #efefef;
+        }
+ 
+        /*** hover effect to apply to table's tbody section, even rows ***/
+        table.formatHTML5 tbody tr:nth-child(even):hover
+        {
+            cursor:pointer;
+            /* add gradient */
+            background-color: #808080;
+            background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#909090));
+            background: -moz-linear-gradient(top, #606060, #909090);
+            color: #dadada;
+        }
+ 
+       /*** table's tbody section, last row style ***/
+        table.formatHTML5 tbody tr:last-child {
+             border-bottom: solid 1px #404040;
+        }
+ 
+        /*** table's tbody section, separator row pseudo-class ***/
+        table.formatHTML5 tbody tr.separator {
+            /* add gradient */
+            background-color: #808080;
+            background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#909090));
+            background: -moz-linear-gradient(top, #606060, #909090);
+            color: #dadada;
+        }
+ 
+        /*** table's td element, all section ***/
+        table.formatHTML5 td {
+           vertical-align:middle;
+           padding: 0.5em;
+        }
+ 
+        /*** table's tfoot section ***/
+        table.formatHTML5 tfoot{
+            text-align:center;
+            color:#303030;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    margin: 0 auto;
+    background-image: url('news.JPG');
+    background-color: #fff;
+    background-size: cover;
+  }
+
+  .alertilla {
+    height: 300px;
+    width: 40px;
+  }
+
+  #header {
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+    height: 2.0em;
+    font-size: 1.2em;
+    color: #fff;
+  }
+
+  #container {
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+  }
+
+  .item {
+    width: 8em;
+    height: 8em;
+    margin: 1em;
+    margin-top: 0;
+    background-color: #bbbbbb;
+    /*box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);*/
+    box-shadow: 10px 10px 18px;
+    /*border: 0.05em solid #ccc;*/
+    text-align: center;
+    float: left;
+  }
+
+  .item-value {
+    font-weight: bold;
+    font-size: 4em;
+    margin: 0;
+    /*margin-bottom: -15px;*/
+  }
+
+  .item-title {
+    font-size: 1em;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  #blockerCount, #blockerCountTracking, #blockerCountTef, #fixedBlockerCountTef, #fixedBlockerCount, #fixedBlockerCountTracking, #createdBlockerCountTracking, #createdBlockerCountTef, #createdBlockerCount {
+    font-size: 1.2em;
+  }
+
+  #gaiaBlockerCount, #gaiaBlockerCountTracking, #gaiaBlockerCountTef {
+    font-size: 1.2em;
+  }
+
+  #platformBlockerCount, #platformBlockerCountTracking, #platformBlockerCountTef {
+    font-size: 1.2em;
+  }
+  
+  #fixedInWorkweek {
+    font-size: 1.3em;
+  }
+
+  #notes {
+    text-align: left;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 0.5em;
+  }
+
+  #lastHourBB, #lastHourTef, #lastHourTracking {
+    font-size: 0.8em;
+    padding: 0.5em;
+    text-align: left;
+    height: 13em;
+    width: 20em;
+  }
+
+  .alert {
+    box-shadow: 0px 0px 30px 15px red;
+  }
+
+  #jacketNames {
+    font-size: 2em;
+    font-weight: bold;
+    max-width: 493px;
+  }
+</style> 
+<script type='text/javascript' src='jquery-1.8.2.min.js'></script>
+<script type='text/javascript' src="bugzilla.js"></script> 
+<script type="text/javascript" src="eventEmitter.js" ></script>
+<script type="text/javascript" src="asyncStorage.js" ></script>
+<script> 
+
+  var time = "1";
+  var queryTime = "-" + time + "h";
+
+  /*function configureVisibility()
+  {
+  
+
+      var bb = true;
+      var trackingb2g = true;
+      var blockingb2g = true;
+
+      if(!bb)
+      {
+         document.getElementById("blockerCount").style.visibility = "hidden";
+         document.getElementById("gaiaBlockerCount").style.visibility = "hidden";
+         document.getElementById("platformBlockerCount").style.visibility = "hidden";
+         document.getElementById("createdBlockerCount").style.visibility = "hidden";
+         document.getElementById("fixedBlockerCount").style.visibility = "hidden";
+         document.getElementById("lastHourBB").style.visibility = "hidden";
+      }
+      if(!trackingb2g)
+      {
+         document.getElementById("blockerCountTracking").style.visibility = "hidden";
+         document.getElementById("gaiaBlockerCountTracking").style.visibility = "hidden";
+         document.getElementById("platformBlockerCountTracking").style.visibility = "hidden";
+         document.getElementById("createdBlockerCountTracking").style.visibility = "hidden";
+         document.getElementById("fixedBlockerCountTracking").style.visibility = "hidden";
+         document.getElementById("lastHourTracking").style.visibility = "hidden";
+      }
+
+  
+  }*/
+
+
+  // add event emitter to window scope
+  var self = this
+  var minutos = 1;
+  EventEmitter.call(self)
+
+  // querySelector helper
+  function s(input) {
+    if ((typeof input) == 'string')
+      return document.querySelector(input)
+
+    return {
+      one: function(selector) {
+        return input.querySelector(selector)
+      },
+      all: function(selector) {
+        return input.querySelectorAll(selector)
+      },
+      replace: function(replacements) {
+        for (var k in replacements)
+          input.querySelector(k).innerHTML = replacements[k]
+      }
+    }
+  }
+
+  $(window).ready(function() {
+    /*
+    // test 
+    asyncStorage.clear(function(){})
+    asyncStorage.setItem('fixedInLastHour', {
+      bugs: [
+        {
+          assigned_to: {
+            name: 'naoki'
+          }
+        }
+      ]
+    }, function() {})
+    */
+
+    // add an object with: type (bug or count), options (bz search params) and callback (function) 
+    var searches = []
+
+    // array of selectors
+    var notifications = []
+
+// ========== ALL BLOCKER COUNT =======
+
+    // all blocker count
+    searches.push({
+      key: 'totalBlockerCountTracking',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+      },
+      callback: function(result) {
+        document.getElementById('trackpa').innerHTML = result;
+      },
+    })
+
+    // all blocker count
+    searches.push({
+      key: 'totalBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+      },
+      callback: function(result) {
+        document.getElementById('tefpa').innerHTML = result;
+      },
+    })
+
+
+    // all blocker count
+    searches.push({
+      key: 'totalBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+      },
+      callback: function(result) {
+        document.getElementById('p1a').innerHTML = result;
+        //console.log(result + " bugs UX_P1 but not tef+ or b2g18+");
+      },
+    })
+
+    // all blocker count
+    searches.push({
+      key: 'totalBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+      },
+      callback: function(result) {
+        //document.getElementById('tefpa').innerHTML = result;
+        console.log(result + " bugs UX_P2 but not tef+ or b2g18+");
+      },
+    })
+
+    // all blocker count
+    searches.push({
+      key: 'totalBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+      },
+      callback: function(result) {
+        //document.getElementById('tefpa').innerHTML = result;
+        console.log(result + " bugs UX_P3 but not tef+ or b2g18+");
+      },
+    })
+
+    // all blocker count
+    searches.push({
+      key: 'totalBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+      },
+      callback: function(result) {
+        //document.getElementById('tefpa').innerHTML = result;
+        console.log(result + " bugs UX_P4 but not tef+ or b2g18+");
+      },
+    })
+
+
+    // all blocker count
+    searches.push({
+      key: 'totalBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+      },
+      callback: function(result) {
+        //document.getElementById('tefpa').innerHTML = result;
+        console.log(result + " bugs UX_P5 but not tef+ or b2g18+");
+      },
+    })
+
+
+
+
+// ========== GAIA BLOCKER COUNT =======
+
+    // gaia blocker count
+    searches.push({
+      key: 'gaiaBlockerCountTracking',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'contains',
+        'value1-0-0': 'gaia',
+      },
+      callback: function(result) {
+        document.getElementById('trackpg').innerHTML = result;
+      }
+    })
+
+
+    // gaia blocker count
+    searches.push({
+      key: 'gaiaBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'contains',
+        'value1-0-0': 'gaia',
+      },
+      callback: function(result) {
+        document.getElementById('tefpg').innerHTML = result;
+      }
+    })
+
+
+// ========== PLATFORM BLOCKER COUNT =======
+
+
+    // platform blocker count
+    searches.push({
+      key: 'platformBlockerCountTracking',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'not_contains',
+        'value1-0-0': 'gaia',
+      },
+      callback: function(result) {
+        document.getElementById('trackpp').innerHTML = result;
+      }
+    })
+
+    // platform blocker count
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'not_contains',
+        'value1-0-0': 'gaia',
+      },
+      callback: function(result) {
+        document.getElementById('tefpp').innerHTML = result;
+      }
+    })
+
+
+// ====================================
+    // Gaia per component tef+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::First Time Experience',
+      },
+      callback: function(result) {
+        document.getElementById('ftetp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Everything.me',
+      },
+      callback: function(result) {
+        document.getElementById('emetp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::FMRadio',
+      },
+      callback: function(result) {
+        document.getElementById('radiotp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Dialer',
+      },
+      callback: function(result) {
+        document.getElementById('dialertp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Cost Control',
+      },
+      callback: function(result) {
+        document.getElementById('costtp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Clock',
+      },
+      callback: function(result) {
+        document.getElementById('clocktp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Contacts',
+      },
+      callback: function(result) {
+        document.getElementById('contactstp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Browser',
+      },
+      callback: function(result) {
+        document.getElementById('browsertp').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Bluetooth File Transfer',
+      },
+      callback: function(result) {
+        document.getElementById('bttp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Calendar',
+      },
+      callback: function(result) {
+        document.getElementById('calendartp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Homescreen',
+      },
+      callback: function(result) {
+        document.getElementById('homescreentp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Keyboard',
+      },
+      callback: function(result) {
+        document.getElementById('keyboardtp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Gallery',
+      },
+      callback: function(result) {
+        document.getElementById('gallerytp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Music',
+      },
+      callback: function(result) {
+        document.getElementById('musictp').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::PDF Viewer',
+      },
+      callback: function(result) {
+        document.getElementById('pdftp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Settings',
+      },
+      callback: function(result) {
+        document.getElementById('settingstp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::SMS',
+      },
+      callback: function(result) {
+        document.getElementById('smstp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System',
+      },
+      callback: function(result) {
+        document.getElementById('systemtp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System::Lockscreen',
+      },
+      callback: function(result) {
+        document.getElementById('lockscreentp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Video',
+      },
+      callback: function(result) {
+        document.getElementById('videotp').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia',
+      },
+      callback: function(result) {
+        document.getElementById('generaltp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::E-mail',
+      },
+      callback: function(result) {
+        document.getElementById('emailtp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'equals',
+        'value0-0-0': 'tef+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Camera',
+      },
+      callback: function(result) {
+        document.getElementById('cameratp').innerHTML = result;
+      }
+    })
+// ====================================
+
+
+
+// ====================================
+    // Gaia per component tracking+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::First Time Experience',
+      },
+      callback: function(result) {
+        document.getElementById('ftetrp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Everything.me',
+      },
+      callback: function(result) {
+        document.getElementById('emetrp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::FMRadio',
+      },
+      callback: function(result) {
+        document.getElementById('radiotrp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Dialer',
+      },
+      callback: function(result) {
+        document.getElementById('dialertrp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Cost Control',
+      },
+      callback: function(result) {
+        document.getElementById('costtrp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Clock',
+      },
+      callback: function(result) {
+        document.getElementById('clocktrp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Contacts',
+      },
+      callback: function(result) {
+        document.getElementById('contactstrp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Browser',
+      },
+      callback: function(result) {
+        document.getElementById('browsertrp').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Bluetooth File Transfer',
+      },
+      callback: function(result) {
+        document.getElementById('bttrp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Calendar',
+      },
+      callback: function(result) {
+        document.getElementById('calendartrp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Homescreen',
+      },
+      callback: function(result) {
+        document.getElementById('homescreentrp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Keyboard',
+      },
+      callback: function(result) {
+        document.getElementById('keyboardtrp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Gallery',
+      },
+      callback: function(result) {
+        document.getElementById('gallerytrp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Music',
+      },
+      callback: function(result) {
+        document.getElementById('musictrp').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::PDF Viewer',
+      },
+      callback: function(result) {
+        document.getElementById('pdftrp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Settings',
+      },
+      callback: function(result) {
+        document.getElementById('settingstrp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::SMS',
+      },
+      callback: function(result) {
+        document.getElementById('smstrp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System',
+      },
+      callback: function(result) {
+        document.getElementById('systemtrp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System::Lockscreen',
+      },
+      callback: function(result) {
+        document.getElementById('lockscreentrp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Video',
+      },
+      callback: function(result) {
+        document.getElementById('videotrp').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia',
+      },
+      callback: function(result) {
+        document.getElementById('generaltrp').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::E-mail',
+      },
+      callback: function(result) {
+        document.getElementById('emailtrp').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        'field0-0-0': 'cf_tracking_b2g18',
+        'type0-0-0': 'equals',
+        'value0-0-0': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Camera',
+      },
+      callback: function(result) {
+        document.getElementById('cameratrp').innerHTML = result;
+      }
+    })
+
+
+
+
+
+
+
+// ====================================
+    // Gaia per component tracking+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::First Time Experience',
+      },
+      callback: function(result) {
+        document.getElementById('ftep1').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Everything.me',
+      },
+      callback: function(result) {
+        document.getElementById('emep1').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::FMRadio',
+      },
+      callback: function(result) {
+        document.getElementById('radiop1').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Dialer',
+      },
+      callback: function(result) {
+        document.getElementById('dialerp1').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Cost Control',
+      },
+      callback: function(result) {
+        document.getElementById('costp1').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Clock',
+      },
+      callback: function(result) {
+        document.getElementById('clockp1').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Contacts',
+      },
+      callback: function(result) {
+        document.getElementById('contactsp1').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Browser',
+      },
+      callback: function(result) {
+        document.getElementById('browserp1').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Bluetooth File Transfer',
+      },
+      callback: function(result) {
+        document.getElementById('btp1').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Calendar',
+      },
+      callback: function(result) {
+        document.getElementById('calendarp1').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Homescreen',
+      },
+      callback: function(result) {
+        document.getElementById('homescreenp1').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Keyboard',
+      },
+      callback: function(result) {
+        document.getElementById('keyboardp1').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Gallery',
+      },
+      callback: function(result) {
+        document.getElementById('galleryp1').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Music',
+      },
+      callback: function(result) {
+        document.getElementById('musicp1').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::PDF Viewer',
+      },
+      callback: function(result) {
+        document.getElementById('pdfp1').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Settings',
+      },
+      callback: function(result) {
+        document.getElementById('settingsp1').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::SMS',
+      },
+      callback: function(result) {
+        document.getElementById('smsp1').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System',
+      },
+      callback: function(result) {
+        document.getElementById('systemp1').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System::Lockscreen',
+      },
+      callback: function(result) {
+        document.getElementById('lockscreenp1').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Video',
+      },
+      callback: function(result) {
+        document.getElementById('videop1').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia',
+      },
+      callback: function(result) {
+        document.getElementById('generalp1').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::E-mail',
+      },
+      callback: function(result) {
+        document.getElementById('emailp1').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p1",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Camera',
+      },
+      callback: function(result) {
+        document.getElementById('camerap1').innerHTML = result;
+      }
+    })
+
+
+
+
+
+
+// ====================================
+    // Gaia per component tracking+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::First Time Experience',
+      },
+      callback: function(result) {
+        document.getElementById('ftep2').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Everything.me',
+      },
+      callback: function(result) {
+        document.getElementById('emep2').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::FMRadio',
+      },
+      callback: function(result) {
+        document.getElementById('radiop2').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Dialer',
+      },
+      callback: function(result) {
+        document.getElementById('dialerp2').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Cost Control',
+      },
+      callback: function(result) {
+        document.getElementById('costp2').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Clock',
+      },
+      callback: function(result) {
+        document.getElementById('clockp2').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Contacts',
+      },
+      callback: function(result) {
+        document.getElementById('contactsp2').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Browser',
+      },
+      callback: function(result) {
+        document.getElementById('browserp2').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Bluetooth File Transfer',
+      },
+      callback: function(result) {
+        document.getElementById('btp2').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Calendar',
+      },
+      callback: function(result) {
+        document.getElementById('calendarp2').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Homescreen',
+      },
+      callback: function(result) {
+        document.getElementById('homescreenp2').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Keyboard',
+      },
+      callback: function(result) {
+        document.getElementById('keyboardp2').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Gallery',
+      },
+      callback: function(result) {
+        document.getElementById('galleryp2').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Music',
+      },
+      callback: function(result) {
+        document.getElementById('musicp2').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::PDF Viewer',
+      },
+      callback: function(result) {
+        document.getElementById('pdfp2').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Settings',
+      },
+      callback: function(result) {
+        document.getElementById('settingsp2').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::SMS',
+      },
+      callback: function(result) {
+        document.getElementById('smsp2').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System',
+      },
+      callback: function(result) {
+        document.getElementById('systemp2').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System::Lockscreen',
+      },
+      callback: function(result) {
+        document.getElementById('lockscreenp2').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Video',
+      },
+      callback: function(result) {
+        document.getElementById('videop2').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia',
+      },
+      callback: function(result) {
+        document.getElementById('generalp2').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::E-mail',
+      },
+      callback: function(result) {
+        document.getElementById('emailp2').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p2",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Camera',
+      },
+      callback: function(result) {
+        document.getElementById('camerap2').innerHTML = result;
+      }
+    })
+
+
+
+
+// ====================================
+    // Gaia per component tracking+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::First Time Experience',
+      },
+      callback: function(result) {
+        document.getElementById('ftep3').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Everything.me',
+      },
+      callback: function(result) {
+        document.getElementById('emep3').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::FMRadio',
+      },
+      callback: function(result) {
+        document.getElementById('radiop3').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Dialer',
+      },
+      callback: function(result) {
+        document.getElementById('dialerp3').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Cost Control',
+      },
+      callback: function(result) {
+        document.getElementById('costp3').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Clock',
+      },
+      callback: function(result) {
+        document.getElementById('clockp3').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Contacts',
+      },
+      callback: function(result) {
+        document.getElementById('contactsp3').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Browser',
+      },
+      callback: function(result) {
+        document.getElementById('browserp3').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Bluetooth File Transfer',
+      },
+      callback: function(result) {
+        document.getElementById('btp3').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Calendar',
+      },
+      callback: function(result) {
+        document.getElementById('calendarp3').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Homescreen',
+      },
+      callback: function(result) {
+        document.getElementById('homescreenp3').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Keyboard',
+      },
+      callback: function(result) {
+        document.getElementById('keyboardp3').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Gallery',
+      },
+      callback: function(result) {
+        document.getElementById('galleryp3').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Music',
+      },
+      callback: function(result) {
+        document.getElementById('musicp3').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::PDF Viewer',
+      },
+      callback: function(result) {
+        document.getElementById('pdfp3').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Settings',
+      },
+      callback: function(result) {
+        document.getElementById('settingsp3').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::SMS',
+      },
+      callback: function(result) {
+        document.getElementById('smsp3').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System',
+      },
+      callback: function(result) {
+        document.getElementById('systemp3').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System::Lockscreen',
+      },
+      callback: function(result) {
+        document.getElementById('lockscreenp3').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Video',
+      },
+      callback: function(result) {
+        document.getElementById('videop3').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia',
+      },
+      callback: function(result) {
+        document.getElementById('generalp3').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::E-mail',
+      },
+      callback: function(result) {
+        document.getElementById('emailp3').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p3",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Camera',
+      },
+      callback: function(result) {
+        document.getElementById('camerap3').innerHTML = result;
+      }
+    })
+
+///////
+
+
+// ====================================
+    // Gaia per component tracking+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::First Time Experience',
+      },
+      callback: function(result) {
+        document.getElementById('ftep4').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Everything.me',
+      },
+      callback: function(result) {
+        document.getElementById('emep4').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::FMRadio',
+      },
+      callback: function(result) {
+        document.getElementById('radiop4').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Dialer',
+      },
+      callback: function(result) {
+        document.getElementById('dialerp4').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Cost Control',
+      },
+      callback: function(result) {
+        document.getElementById('costp4').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Clock',
+      },
+      callback: function(result) {
+        document.getElementById('clockp4').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Contacts',
+      },
+      callback: function(result) {
+        document.getElementById('contactsp4').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Browser',
+      },
+      callback: function(result) {
+        document.getElementById('browserp4').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Bluetooth File Transfer',
+      },
+      callback: function(result) {
+        document.getElementById('btp4').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Calendar',
+      },
+      callback: function(result) {
+        document.getElementById('calendarp4').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Homescreen',
+      },
+      callback: function(result) {
+        document.getElementById('homescreenp4').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Keyboard',
+      },
+      callback: function(result) {
+        document.getElementById('keyboardp4').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Gallery',
+      },
+      callback: function(result) {
+        document.getElementById('galleryp4').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Music',
+      },
+      callback: function(result) {
+        document.getElementById('musicp4').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::PDF Viewer',
+      },
+      callback: function(result) {
+        document.getElementById('pdfp4').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Settings',
+      },
+      callback: function(result) {
+        document.getElementById('settingsp4').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::SMS',
+      },
+      callback: function(result) {
+        document.getElementById('smsp4').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System',
+      },
+      callback: function(result) {
+        document.getElementById('systemp4').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System::Lockscreen',
+      },
+      callback: function(result) {
+        document.getElementById('lockscreenp4').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Video',
+      },
+      callback: function(result) {
+        document.getElementById('videop4').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia',
+      },
+      callback: function(result) {
+        document.getElementById('generalp4').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::E-mail',
+      },
+      callback: function(result) {
+        document.getElementById('emailp4').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p4",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Camera',
+      },
+      callback: function(result) {
+        document.getElementById('camerap4').innerHTML = result;
+      }
+    })
+
+
+
+//////
+
+
+// ====================================
+    // Gaia per component tracking+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::First Time Experience',
+      },
+      callback: function(result) {
+        document.getElementById('ftep5').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Everything.me',
+      },
+      callback: function(result) {
+        document.getElementById('emep5').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::FMRadio',
+      },
+      callback: function(result) {
+        document.getElementById('radiop5').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Dialer',
+      },
+      callback: function(result) {
+        document.getElementById('dialerp5').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Cost Control',
+      },
+      callback: function(result) {
+        document.getElementById('costp5').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Clock',
+      },
+      callback: function(result) {
+        document.getElementById('clockp5').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Contacts',
+      },
+      callback: function(result) {
+        document.getElementById('contactsp5').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Browser',
+      },
+      callback: function(result) {
+        document.getElementById('browserp5').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Bluetooth File Transfer',
+      },
+      callback: function(result) {
+        document.getElementById('btp5').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Calendar',
+      },
+      callback: function(result) {
+        document.getElementById('calendarp5').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Homescreen',
+      },
+      callback: function(result) {
+        document.getElementById('homescreenp5').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Keyboard',
+      },
+      callback: function(result) {
+        document.getElementById('keyboardp5').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Gallery',
+      },
+      callback: function(result) {
+        document.getElementById('galleryp5').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Music',
+      },
+      callback: function(result) {
+        document.getElementById('musicp5').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::PDF Viewer',
+      },
+      callback: function(result) {
+        document.getElementById('pdfp5').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Settings',
+      },
+      callback: function(result) {
+        document.getElementById('settingsp5').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::SMS',
+      },
+      callback: function(result) {
+        document.getElementById('smsp5').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System',
+      },
+      callback: function(result) {
+        document.getElementById('systemp5').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::System::Lockscreen',
+      },
+      callback: function(result) {
+        document.getElementById('lockscreenp5').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Video',
+      },
+      callback: function(result) {
+        document.getElementById('videop5').innerHTML = result;
+      }
+    })
+
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia',
+      },
+      callback: function(result) {
+        document.getElementById('generalp5').innerHTML = result;
+      }
+    })
+
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::E-mail',
+      },
+      callback: function(result) {
+        document.getElementById('emailp5').innerHTML = result;
+      }
+    })
+
+    searches.push({
+      key: 'platformBlockerCountTef',
+      type: 'count',
+      options: {
+        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+        status_whiteboard_type: "anywordssubstr",
+        status_whiteboard: "ux-p5",
+        'field0-0-0': 'cf_blocking_b2g',
+        'type0-0-0': 'notequals',
+        'value0-0-0': 'tef+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'notequals',
+        'value0-0-1': '+',
+        'field1-0-0': 'component',
+        'type1-0-0': 'equals',
+        'value1-0-0': 'Gaia::Camera',
+      },
+      callback: function(result) {
+        document.getElementById('camerap5').innerHTML = result;
+      }
+    })
+
+
+
+
+/////////
+
+
+    function executeSearches() {
+      addNotification('#wrong');
+      showNotifications();
+      
+      //processNotifications();
+      searches.forEach(function(search) {
+        Bugzilla.ajax({
+          url: '/' + search.type,
+          data: search.options,
+          success: function(data) {
+            search.callback(data.bugs || data.data)
+            persist(search, data)
+          },
+          error: function(err) { console.log('err', err) }
+        })
+      })
+      //processNotifications();
+      //processingNotifications = false;
+
+      // reset countdown clock
+      countdown('#countdown', minutos, 0);
+    }
+
+    function addNotification(selector) {
+      notifications.push(selector)
+      //setTimeout(processNotifications, 50)
+    }
+
+    var processingNotifications = false
+
+    function showNotifications()
+    {
+      console.log("showNotifications " + notifications);
+      var selector = notifications.shift()
+      if (selector) {
+        $(selector).
+          center().
+          fadeIn(1500, function() {
+            setTimeout(function() {
+              console.log("should be waiting");
+              $(selector).fadeOut(1000, function() {
+                showNotifications();  
+              })
+            }, 4000)
+          })
+       }
+    }
+
+    function processNotifications() {
+      console.log("Processing Notifications " + processingNotifications);
+      //if (processingNotifications)
+      //  return
+      processingNotifications = true 
+      var selector = notifications.shift()
+      if (selector) {
+        $(selector).
+          center().
+          fadeIn(1500, function() {
+            setTimeout(function() {
+              $(selector).fadeOut(1000, function() {
+                processingNotifications = false
+                processNotifications()  
+              })
+            }, 4000)
+          })
+        // process next notification
+        processNotifications()
+      }
+      else
+        processingNotifications = false
+    }
+
+    // timer will update every 5 mins
+    window.setInterval(executeSearches, minutos * 60 * 1000)
+    //configureVisibility();
+    executeSearches()
+  })
+
+  function persist(search, newValue) {
+    asyncStorage.getItem(search.key, function(value) {
+      asyncStorage.setItem(search.key, newValue, function() {
+        if (search.onChange)
+          search.onChange(value, newValue)
+      })
+    })
+  }
+
+  function countdown(selector, minutes, seconds) {
+    minutos = minutes;
+    // set time for the particular countdown
+    var time = minutes*60 + seconds;
+    var interval = setInterval(function() {
+      var el = document.querySelector(selector);
+      // if the time is 0 then end the counter
+      if (time == 0) {
+        el.innerHTML = "countdown's over!";    
+        clearInterval(interval);
+        return;
+      }
+      var minutes = Math.floor( time / 60 );
+      if (minutes < 10) minutes = "0" + minutes;
+      var seconds = time % 60;
+      if (seconds < 10) seconds = "0" + seconds; 
+      var text = minutes + ':' + seconds;
+      el.innerHTML = text;
+      time--;
+    }, 1000);
+  }
+
+  jQuery.fn.center = function () {
+    this.css("position","absolute");
+    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
+                                                $(window).scrollTop()) + "px");
+    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
+                                                $(window).scrollLeft()) + "px");
+    return this;
+  }
+
+      function showPerson(name) {
+      console.log("name is " + name);
+      var selector = "";
+      switch(name)
+      {
+        case "alberto.pastor":
+            selector = '#pastoret';
+            break;
+        case "fbsc":
+            selector = '#borja';
+            break;
+        case "francisco.jordano":
+            selector = '#jordano';
+            break;
+        case "josea.olivera":
+            selector = '#jaoo';
+            break;
+        case "ferjmoreno":
+            selector = '#ferjm';
+            break;
+        case "frsela":
+            selector = '#frsela';
+            break;
+        case "acperez":
+            selector = '#acperez';
+            break;
+        case "salva":
+            selector = '#salva';
+            break;
+        case "igonzaleznicolas":
+            selector = '#isma';
+            break;
+        case "crdlc":
+            selector = '#crdlc';
+            break;
+        case "jmcf":
+            selector = '#cantera';
+            break;
+        case "fernando.campo":
+            selector = '#fcampo';
+            break;
+        case "gtorodelvalle":
+            selector = '#toro';
+            break;
+        case "willyaranda":
+            selector = '#willyaranda';
+            break;
+        case "amac":
+            selector = '#amac';
+            break;
+        case "macajc":
+            selector = '#carmenb';
+            break;
+        }
+       
+        console.log("El selector es " + selector);
+        $(selector).center().fadeIn(3000);
+        $(selector).center().fadeOut(1500);
+
+        /*$(selector).center().fadeIn(1500, function() {
+            setTimeout(function() {
+              $(selector).fadeOut(1000, null)  })})*/
+
+    }
+
+
+
+</script> 
+
+<div id='header'>
+  <h2 style='float:left;'>FirefoxOS.Status (TEF Launch)</h2>
+  <h2 style='float:right;'><span id="countdown"></span></h2>
+</div>
+<br clear=all>
+
+
+<!--<div id='container'>
+  <div id='feedback' style='text-align: center;'></div>
+
+  <div id='blockerCount' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='gaiaBlockerCount' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='platformBlockerCount' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='createdBlockerCount' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div> 
+
+  <div id='fixedBlockerCount' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+
+
+  <div id='lastHourBB' class='item'>
+  </div>
+
+  <br clear=all>
+
+<div id='blockerCountTef' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='gaiaBlockerCountTef' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='platformBlockerCountTef' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+ 
+  <div id='createdBlockerCountTef' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div> 
+    
+  <div id='fixedBlockerCountTef' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='lastHourTef' class='item'>
+  </div>
+
+  <br clear=all>
+
+
+  <div id='blockerCountTracking' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='gaiaBlockerCountTracking' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+  <div id='platformBlockerCountTracking' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+  
+  <div id='createdBlockerCountTracking' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div> 
+  
+  <div id='fixedBlockerCountTracking' class='item'>
+    <div class='item-value'></div>
+    <div class='item-title'></div>
+  </div>
+
+
+  <div id='lastHourTracking' class='item'>
+  </div>
+
+  <br clear=all>
+  
+</div>-->
+
+
+        <!-- HTML5 TABLE FORMATTED VIA CSS3-->
+        <table class="formatHTML5" >
+ 
+            <!-- TABLE HEADER-->
+            <thead>
+               <tr><td colspan=8>DISCLAIMER: ALL DATA PROVIDED IS AUTOMATICALLY RETRIEVED FROM BUGZILLA</td></tr>
+                <tr>
+                    <th>Overall</th><th>TEF+</th><th>B2G18++</th><th>UX-P1</th><th>UX-P2</th><th>UX-P3</th><th>UX-P4</th><th>UX-P5</th>
+                </tr>
+            </thead>
+ 
+            <!-- TABLE BODY: MAIN CONTENT-->
+            <tbody>
+                <tr>
+                    <td>All Bugs</td><td><a href="http://bit.ly/13vK5eE" target="_blank" id="tefpa"></a></td><td><a href="http://bit.ly/UKTVTi" id="trackpa"></a></td><td id="p1a"></td><td id="p2a"></td><td id="p3a"></td><td id="p4a"></td><td id="p5a"></td>
+                </tr>
+                <tr>
+                    <td>Platform Bugs</td><td id="tefpp"><a href="http://bit.ly/13vK5eE" target="_blank" id="tefpp"></td><td><a id="trackpp" href="http://bit.ly/X8qlY9" target="_blank"></a></td><td id="p1p"></td><td id="p2p"></td><td id="p3p"></td><td id="p4p"></td><td id="p5p"></td>
+                 </tr>
+                <tr>
+                    <td>Gaia Bugs</td><td><a id="tefpg" href="http://bit.ly/RT2tKL" target="_blank"></a></td><td id="trackpg"><a href="http://bit.ly/SySFap" target="_blank" title="Tracking Bugs" id="trackpg"></a></td><td id="p1g"></td><td id="p2g"></td><td id="p3g"></td><td id="p4g"></td><td id="p5g"></td>
+                </tr>
+                <!--SEPARATOR ROW USED DIFFERENT STYLE-->
+                <tr class="separator">
+                    <td colspan="8">Gaia Bugs Split by App</td>
+                </tr>
+                <tr>
+                    <td>General</td><td><a href="http://cort.as/3CXG" target="_blank" id="generaltp">general</a></td><td><a href="" target="_blank" id="generaltrp">general</a></td><td id="generalp1"></td><td id="generalp2"></td><td id="generalp3"></td><td id="generalp4"></td><td id="generalp5"></td>
+                </tr>
+                <tr>
+                    <td>Bluetooth</td><td><a href="http://cort.as/3CXC" target="_blank" id="bttp"></a></td><td><a href="" target="_blank" id="bttrp"></a></td><td id="btp1"></td>
+                    <td id="btp2"></td>
+                    <td id="btp3"></td>
+                    <td id="btp4"></td>
+                    <td id="btp5"></td>
+                </tr>
+                <tr>
+                    <td>Browser</td><td><a href="http://cort.as/3C-8" target="_blank" id="browsertp"></a></td><td><a href="" target="_blank" id="browsertrp"></a></td><td id="browserp1"></td>
+                    <td id="browserp2"></td>
+                    <td id="browserp3"></td>
+                    <td id="browserp4"></td>
+                    <td id="browserp5"></td>
+                </tr>
+                <tr>
+                    <td>Calendar</td><td><a href="http://cort.as/3BVK" target="_blank" id="calendartp"></a></td><td><a href="" target="_blank" id="calendartrp"></a></td><td id="calendarp1"></td>
+                    <td id="calendarp2"></td>
+                    <td id="calendarp3"></td>
+                    <td id="calendarp4"></td>
+                    <td id="calendarp5"></td>
+                </tr>
+                <tr>
+                    <td>Clock</td><td id=clocktp><a href="http://cort.as/3C-V" target="_blank" id="clocktp"></a></td><td><a href="" target="_blank" id="clocktrp"></a></td><td id="clockp1"></td>
+                    <td id="clockp2"></td>
+                    <td id="clockp3"></td>
+                    <td id="clockp4"></td>
+                    <td id="clockp5"></td>
+                </tr>
+                <tr>
+                    <td>Contacts</td><td id=contactstp><a href="http://cort.as/3BV4" target="_blank" id="contactstp"></a></td><td><a href="" target="_blank" id="contactstrp"></a></td><td id="contactsp1"></td>
+                    <td id="contactsp2"></td>
+                    <td id="contactsp3"></td>
+                    <td id="contactsp4"></td>
+                    <td id="contactsp5"></td>
+                </tr>
+                <tr>
+                    <td>Cost Control</td><td><a href="http://cort.as/3BOE" target="_blank" id="costtp"></a></td><td><a href="" target="_blank" id="costtrp"></a></td><td id="costp1"></td>
+                    <td id="costp2"></td>
+                    <td id="costp3"></td>
+                    <td id="costp4"></td>
+                    <td id="costp5"></td>
+                </tr>
+                <tr>
+                    <td>Dialer</td><td><a href="http://cort.as/3BUp" target="_blank" id="dialertp"></a></td><td><a href="" target="_blank" id="dialertrp"></a></td><td id="dialerp1"></td>
+                    <td id="dialerp2"></td>
+                    <td id="dialerp3"></td>
+                    <td id="dialerp4"></td>
+                    <td id="dialerp5"></td>
+                </tr>
+                <tr>
+                    <td>Everything.me</td><td><a href="http://cort.as/3BUf" target="_blank" id="emetp">Everything.me</a></td><td><a href="" target="_blank" id="emetrp">Everything.me</a></td><td id="emep1"></td>
+                    <td id="emep2"></td>
+                    <td id="emep3"></td>
+                    <td id="emep4"></td>
+                    <td id="emep5"></td>
+                </tr>
+                <tr>
+                    <td>FTE</td><td><a href="http://cort.as/3BTP" target="_blank" id="ftetp">FTE</a></td><td><a href="" target="_blank" id="ftetrp">FTE</a></td><td id="ftep1"></td>
+                    <td id="ftep2"></td>
+                    <td id="ftep3"></td>
+                    <td id="ftep4"></td>
+                    <td id="ftep5"></td>
+                </tr>
+                <tr>
+                    <td>FMRadio</td><td><a href="http://cort.as/3C-n" target="_blank" id="radiotp">FMRadio</a></td><td><a href="http://cort.as/" target="_blank" id="radiotrp">FMRadio</a></td><td id="radiop1"></td>
+                    <td id="radiop2"></td>
+                    <td id="radiop3"></td>
+                    <td id="radiop4"></td>
+                    <td id="radiop5"></td>
+                </tr>
+                <tr>
+                    <td>Gallery</td><td><a href="http://cort.as/3Bzo" target="_blank" id="gallerytp">Gallery</a></td><td><a href="" target="_blank" id="gallerytrp">Gallery</a></td><td id="galleryp1"></td>
+                    <td id="galleryp2"></td>
+                    <td id="galleryp3"></td>
+                    <td id="galleryp4"></td>
+                    <td id="galleryp5"></td>
+                </tr>
+                <tr>
+                    <td>Homescreen</td><td><a href="http://cort.as/3BUj" target="_blank" id="homescreentp">Homescreen</a></td><td><a href="" target="_blank" id="homescreentrp">Homescreen</a></td><td id="homescreenp1"></td>
+                    <td id="homescreenp2"></td>
+                    <td id="homescreenp3"></td>
+                    <td id="homescreenp4"></td>
+                    <td id="homescreenp5"></td>
+                </tr>
+                <tr>
+                    <td>Keyboard</td><td><a href="http://cort.as/3CXB" target="_blank" id="keyboardtp">Keyboard</a></td><td><a href="" target="_blank" id="keyboardtrp">Keyboard</a></td><td id="keyboardp1"></td>
+                    <td id="keyboardp2"></td>
+                    <td id="keyboardp3"></td>
+                    <td id="keyboardp4"></td>
+                    <td id="keyboardp5"></td>
+                </tr>
+                <tr>
+                    <td>Music</td><td><a href="http://cort.as/3ByC" target="_blank" id="musictp">Music</a></td><td><a href="" target="_blank" id="musictrp">Music</a></td><td id="musicp1"></td>
+                    <td id="musicp2"></td>
+                    <td id="musicp3"></td>
+                    <td id="musicp4"></td>
+                    <td id="musicp5"></td>
+                </tr>
+                <tr>
+                    <td>PDFViewer</td><td><a href="" target="_blank" id="pdftp">PDFViewer</a></td><td><a href="" target="_blank" id="pdftrp">PDFViewer</a></td><td id="pdfp1"></td>
+                    <td id="pdfp2"></td>
+                    <td id="pdfp3"></td>
+                    <td id="pdfp4"></td>
+                    <td id="pdfp5"></td>
+                </tr>
+                <tr>
+                    <td>Settings</td><td><a href="http://cort.as/3BVU" target="_blank" id="settingstp">Settings</a></td><td><a href="" target="_blank" id="settingstrp">Settings</a></td><td id="settingsp1"></td>
+                    <td id="settingsp2"></td>
+                    <td id="settingsp3"></td>
+                    <td id="settingsp4"></td>
+                    <td id="settingsp5"></td>
+                </tr>
+                <tr>
+                    <td>SMS</td><td><a href="http://cort.as/3BV9" target="_blank" id="smstp">SMS</a></td><td><a href="" target="_blank" id="smstrp">SMS</a></td><td id="smsp1"></td>
+                    <td id="smsp2"></td>
+                    <td id="smsp3"></td>
+                    <td id="smsp4"></td>
+                    <td id="smsp5"></td>
+                </tr>
+                <tr>
+                    <td>System</td><td><a href="http://cort.as/3CX9" target="_blank" id="systemtp">System</a></td><td><a href="" target="_blank" id="systemtrp">System</a></td><td id="systemp1"></td>
+                    <td id="systemp2"></td>
+                    <td id="systemp3"></td>
+                    <td id="systemp4"></td>
+                    <td id="systemp5"></td>
+                </tr>
+                <tr>
+                    <td>Lockscreen</td><td><a href="http://cort.as/3C-E" target="_blank" id="lockscreentp">Lockscreen</a></td><td><a href="" target="_blank" id="lockscreentrp">Lockscreen</a></td><td id="lockscreenp1"></td>
+                    <td id="lockscreenp2"></td>
+                    <td id="lockscreenp3"></td>
+                    <td id="lockscreenp4"></td>
+                    <td id="lockscreenp5"></td>
+                </tr>
+                <tr>
+                    <td>Video</td><td><a href="http://cort.as/3ByY" target="_blank" id="videotp">Video</a></td><td><a href="" target="_blank" id="videotrp">Video</a></td><td id="videop1"></td>
+                    <td id="videop2"></td>
+                    <td id="videop3"></td>
+                    <td id="videop4"></td>
+                    <td id="videop5"></td>
+                </tr>
+                <tr>
+                    <td>Email</td><td><a href="http://cort.as/3BVF" target="_blank" id="emailtp">Video</a></td><td><a href="" target="_blank" id="emailtrp">Video</a></td><td id="emailp1"></td>
+                    <td id="emailp2"></td>
+                    <td id="emailp3"></td>
+                    <td id="emailp4"></td>
+                    <td id="emailp5"></td>
+                </tr>
+                <tr>
+                    <td>Camera</td><td><a href="http://cort.as/3Bzg" target="_blank" id="cameratp">Video</a></td><td><a href="" target="_blank" id="cameratrp">Video</a></td><td id="camerap1"></td>
+                    <td id="camerap2"></td>
+                    <td id="camerap3"></td>
+                    <td id="camerap4"></td>
+                    <td id="camerap5"></td>
+                </tr>
+            </tbody>
+            </tbody>
+ 
+            <!-- TABLE FOOTER-->
+            <tfoot>
+                <tr><td colspan="8"></td></tr>
+            </tfoot>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id='wrong' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h1> Checking Bug Status </h1>
+  <div><img src='wrong-small.png' height=300px width=240px></div>
+</div>
+
+
+<div id='pastoret' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> PASTORET (:alberto.pastor) fixed a bug </h3>
+  <div><img src='pastor.jpg'></div>  
+</div>
+
+<div id='borja' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> BOOOOJA (:borjasalguero) fixed a bug </h3>
+  <div><img src='borja.jpg'></div>  
+</div>
+
+<div id='toro' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> Yerman (:gtorodelvalle) fixed a bug </h3>
+  <div><img src='german.jpg'></div>  
+</div>
+
+<div id='fcampo' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> fcampo (:fernando.campo) fixed a bug </h3>
+  <div><img src='fcampo.jpg'></div>  
+</div>
+
+<div id='jordano' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> arcturus (:francisco.jordano) fixed a bug </h3>
+  <div><img src='jordano.jpg'></div>  
+</div>
+
+<div id='cantera' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> cantera fixed a bug </h3>
+  <div><img src='cantera.jpg'></div>  
+</div>
+
+<div id='crdlc' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> cristian fixed a bug </h3>
+  <div><img src='crdlc.jpg'></div>  
+</div>
+
+<div id='basiclines' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> Isma fixed a bug </h3>
+  <div><img src='basiclines.jpg'></div>  
+</div>
+
+<div id='ferjm' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> FerJM fixed a bug </h3>
+  <div><img src='ferjm.jpg'></div>  
+</div>
+
+<div id='jaoo' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> jaoo fixed a bug </h3>
+  <div><img src='jaoo.jpg'></div>  
+</div>
+
+<div id='willyaranda' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> willyaranda fixed a bug </h3>
+  <div><img src='willy.jpg'></div>  
+</div>
+
+<div id='amac' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> amac fixed a bug </h3>
+  <div><img src='amac.jpg'></div>  
+</div>
+
+<div id='carmen' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> carmen fixed a bug </h3>
+  <div><img src='carmen.jpg'></div>  
+</div>
+
+<div id='frsela' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> frsela fixed a bug </h3>
+  <div><img src='frsela.jpg'></div>  
+</div>
+
+<div id='acperez' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> Albert fixed a bug </h3>
+  <div><img src='acperez.jpg'></div>  
+</div>
+
+<div id='salva' class="alert" style="display:none; background-color: #fff; text-align: center;">
+  <h3> salva fixed a bug </h3>
+  <div><img src='salva.jpg'></div>  
+</div>
+
+
+<br clear=all>
