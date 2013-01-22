@@ -4,6 +4,12 @@
 <style> 
 
 
+a:link {color: #000055; text-decoration: underline; }
+a:active {color: #000055; text-decoration: underline; }
+a:visited {color: #000055; text-decoration: underline; }
+a:hover {color: #FFFFFF; text-decoration: none; }
+
+
         /*** central column on page ***/
         div#divContainer
         {
@@ -36,9 +42,9 @@
         table.formatHTML5 {
             width: 90%;
             border-collapse:collapse;
-            text-align:left;
+            text-align:right;
             align:center;
-            color: #606060;
+            color: #000000;
         }
  
         /*** table's thead section, head row style ***/
@@ -48,7 +54,7 @@
             background-size: auto 100%;
             vertical-align:middle;
             padding: 0.6em;
-            font-size:0.7em;
+            font-size:0.5em;
             color: #FFFFFF;
         }
  
@@ -63,7 +69,8 @@
             //background: -moz-linear-gradient(top, #606060, #909090);
             background: url(header.png) repeat-x 0 0;
             background-size: auto 100%;
-            color: #000000;
+            color: #FFFFFF;
+            font-size:1.2em;
         }
  
         /*** table's tbody section, odd rows style ***/
@@ -82,6 +89,7 @@
             //color: #dadada;
             background: url(header.png) repeat left bottom;
             border-bottom: solid 0.1rem #e6e6e6;
+            color: #FFFFFF;
         }
  
         /*** table's tbody section, even rows style ***/
@@ -100,6 +108,7 @@
             //color: #dadada;
             background: url(header.png) repeat left bottom;
             border-bottom: solid 0.1rem #e6e6e6;
+            color: #FFFFFF;
         }
  
        /*** table's tbody section, last row style ***/
@@ -113,6 +122,7 @@
 background: url(subheader.png) repeat left bottom;
   border-bottom: solid 0.1rem #e6e6e6;
 color:#FFFFFF;
+            text-align:left;
         }
  
         /*** table's td element, all section ***/
@@ -127,6 +137,7 @@ color:#FFFFFF;
             color:#303030;
             text-shadow: 0 1px 1px rgba(255,255,255,0.3);
         }
+
 
 
 
@@ -4427,7 +4438,7 @@ color:#FFFFFF;
 </script> 
 
 <div id='header'>
-  <h2 style='float:left;'>B2G Bug Status </h2>
+  <h2 style='float:left;'>B2G Bug Count </h2>
   <h2 style='float:right;'><span id="countdown"></span></h2>
 </div>
 <br clear=all>
@@ -4547,189 +4558,271 @@ color:#FFFFFF;
             <!-- TABLE BODY: MAIN CONTENT-->
             <tbody>
                 <tr class="separator">
-                    <td colspan="8">All the Bugs</td>
+                    <td colspan="8">Summary</td>
                 </tr>
                 <tr>
-                    <td>All Bugs</td><td><a href="http://bit.ly/VN0JmM" target="_blank" id="tefpa"></a></td><td><a href="http://bit.ly/WvsgFA" target="_blank" id="trackpa"></a></td><td id="p1a"></td><td id="p2a"></td><td id="p3a"></td><td id="p4a"></td><td id="p5a"></td>
+                    <td>All</td>
+                    <td><a href="http://bit.ly/VN0JmM" target="_blank" id="tefpa"></a></td>
+                    <td><a href="http://bit.ly/WvsgFA" target="_blank" id="trackpa"></a></td>
+                    <td><a href="" id="p1a"></a></td>
+                    <td><a href="" id="p2a"></a></td>
+                    <td><a href="" id="p3a"></a></td>
+                    <td><a href="" id="p4a"></a></td>
+                    <td><a href="" id="p5a"></a></td>
                 </tr>
                 <tr>
-                    <td>Platform Bugs</td><td><a href="http://bit.ly/Ue8d1I" target="_blank" id="tefpp"></td><td><a id="trackpp" href="http://bit.ly/VjeBnc" target="_blank"></a></td><td id="p1p"></td><td id="p2p"></td><td id="p3p"></td><td id="p4p"></td><td id="p5p"></td>
+                    <td>Platform</td>
+                    <td><a href="http://bit.ly/Ue8d1I" target="_blank" id="tefpp"></td>
+                    <td><a id="trackpp" href="http://bit.ly/VjeBnc" target="_blank"></a></td>
+                    <td><a href="" id="p1p"></a></td>
+                    <td><a href="" id="p2p"></a></td>
+                    <td><a href="" id="p3p"></a></td>
+                    <td><a href="" id="p4p"></a></td>
+                    <td><a href="" id="p5p"></a></td>
                  </tr>
                 <tr>
-                    <td>Gaia Bugs</td><td><a id="tefpg" href="http://bit.ly/11LfnPd" target="_blank"></a></td><td><a href="http://bit.ly/WQNduI" target="_blank" title="Tracking Bugs" id="trackpg"></a></td><td id="p1g"></td><td id="p2g"></td><td id="p3g"></td><td id="p4g"></td><td id="p5g"></td>
+                    <td>Gaia</td>
+                    <td><a id="tefpg" href="http://bit.ly/11LfnPd" target="_blank"></a></td>
+                    <td><a href="http://bit.ly/WQNduI" target="_blank" title="Tracking Bugs" id="trackpg"></a></td>
+                    <td><a href="" id="p1g"></a></td>
+                    <td><a href="" id="p2g"></a></td>
+                    <td><a href="" id="p3g"></a></td>
+                    <td><a href="" id="p4g"></a></td>
+                    <td><a href="" id="p5g"></a></td>
                 </tr>
                 <!--SEPARATOR ROW USED DIFFERENT STYLE-->
                 <tr class="separator">
-                    <td colspan="8">Gaia Bugs Split by App</td>
+                    <td colspan="8">Gaia Split by App</td>
                 </tr>
                 <tr>
-                    <td>General</td><td><a href="http://bit.ly/UKIRY0" target="_blank" id="generaltp"></a></td><td><a href="http://bit.ly/UKycwH" target="_blank" id="generaltrp"></a></td><td id="generalp1"></td><td id="generalp2"></td><td id="generalp3"></td><td id="generalp4"></td><td id="generalp5"></td>
+                    <td>General</td>
+                    <td><a href="http://bit.ly/UKIRY0" target="_blank" id="generaltp"></a></td>
+                    <td><a href="http://bit.ly/UKycwH" target="_blank" id="generaltrp"></a></td>
+                    <td><a href="" id="generalp1"></a></td>
+                    <td><a href="" id="generalp2"></a></td>
+                    <td><a href="" id="generalp3"></a></td>
+                    <td><a href="" id="generalp4"></a></td>
+                    <td><a href="" id="generalp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Bluetooth</td><td><a href="http://bit.ly/10g65We" target="_blank" id="bttp"></a></td><td><a href="http://bit.ly/WlqPLD" target="_blank" id="bttrp"></a></td><td id="btp1"></td>
-                    <td id="btp2"></td>
-                    <td id="btp3"></td>
-                    <td id="btp4"></td>
-                    <td id="btp5"></td>
+                    <td>Bluetooth</td>
+                    <td><a href="http://bit.ly/10g65We" target="_blank" id="bttp"></a></td>
+                    <td><a href="http://bit.ly/WlqPLD" target="_blank" id="bttrp"></a></td>
+                    <td><a href="" id="btp1"></a></td>
+                    <td><a href="" id="btp2"></a></td>
+                    <td><a href="" id="btp3"></a></td>
+                    <td><a href="" id="btp4"></a></td>
+                    <td><a href="" id="btp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Browser</td><td><a href="http://bit.ly/11Lgqi5" target="_blank" id="browsertp"></a></td><td><a href="http://bit.ly/UKupQ1" target="_blank" id="browsertrp"></a></td><td id="browserp1"></td>
-                    <td id="browserp2"></td>
-                    <td id="browserp3"></td>
-                    <td id="browserp4"></td>
-                    <td id="browserp5"></td>
+                    <td>Browser</td>
+                    <td><a href="http://bit.ly/11Lgqi5" target="_blank" id="browsertp"></a></td>
+                    <td><a href="http://bit.ly/UKupQ1" target="_blank" id="browsertrp"></a></td>
+                    <td><a href="" id="browserp1"></a></td>
+                    <td><a href="" id="browserp2"></a></td>
+                    <td><a href="" id="browserp3"></a></td>
+                    <td><a href="" id="browserp4"></a></td>
+                    <td><a href="" id="browserp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Calendar</td><td><a href="http://bit.ly/YiqoGS" target="_blank" id="calendartp"></a></td><td><a href="http://bit.ly/T8ZTC8" target="_blank" id="calendartrp"></a></td><td id="calendarp1"></td>
-                    <td id="calendarp2"></td>
-                    <td id="calendarp3"></td>
-                    <td id="calendarp4"></td>
-                    <td id="calendarp5"></td>
+                    <td>Calendar</td>
+                    <td><a href="http://bit.ly/YiqoGS" target="_blank" id="calendartp"></a></td>
+                    <td><a href="http://bit.ly/T8ZTC8" target="_blank" id="calendartrp"></a></td>
+                    <td><a href="" id="calendarp1"></a></td>
+                    <td><a href="" id="calendarp2"></a></td>
+                    <td><a href="" id="calendarp3"></a></td>
+                    <td><a href="" id="calendarp4"></a></td>
+                    <td><a href="" id="calendarp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Clock</td><td><a href="http://bit.ly/WlzBJG" target="_blank" id="clocktp"></a></td><td><a href="http://bit.ly/UKuXFq" target="_blank" id="clocktrp"></a></td><td id="clockp1"></td>
-                    <td id="clockp2"></td>
-                    <td id="clockp3"></td>
-                    <td id="clockp4"></td>
-                    <td id="clockp5"></td>
+                    <td>Clock</td>
+                    <td><a href="http://bit.ly/WlzBJG" target="_blank" id="clocktp"></a></td>
+                    <td><a href="http://bit.ly/UKuXFq" target="_blank" id="clocktrp"></a></td>
+                    <td><a href="" id="clockp1"></a></td>
+                    <td><a href="" id="clockp2"></a></td>
+                    <td><a href="" id="clockp3"></a></td>
+                    <td><a href="" id="clockp4"></a></td>
+                    <td><a href="" id="clockp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Contacts</td><td><a href="http://bit.ly/11LgP4c" target="_blank" id="contactstp"></a></td><td><a href="http://bit.ly/WlneND" target="_blank" id="contactstrp"></a></td><td id="contactsp1"></td>
-                    <td id="contactsp2"></td>
-                    <td id="contactsp3"></td>
-                    <td id="contactsp4"></td>
-                    <td id="contactsp5"></td>
+                    <td>Contacts</td>
+                    <td><a href="http://bit.ly/11LgP4c" target="_blank" id="contactstp"></a></td>
+                    <td><a href="http://bit.ly/WlneND" target="_blank" id="contactstrp"></a></td>
+                    <td><a href="" id="contactsp1"></a></td>
+                    <td><a href="" id="contactsp2"></a></td>
+                    <td><a href="" id="contactsp3"></a></td>
+                    <td><a href="" id="contactsp4"></a></td>
+                    <td><a href="" id="contactsp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Cost Control</td><td><a href="http://bit.ly/WQVCyl" target="_blank" id="costtp"></a></td><td><a href="http://bit.ly/YijSjv" target="_blank" id="costtrp"></a></td><td id="costp1"></td>
-                    <td id="costp2"></td>
-                    <td id="costp3"></td>
-                    <td id="costp4"></td>
-                    <td id="costp5"></td>
+                    <td>Cost Control</td>
+                    <td><a href="http://bit.ly/WQVCyl" target="_blank" id="costtp"></a></td>
+                    <td><a href="http://bit.ly/YijSjv" target="_blank" id="costtrp"></a></td>
+                    <td><a href="" id="costp1"></a></td>
+                    <td><a href="" id="costp2"></a></td>
+                    <td><a href="" id="costp3"></a></td>
+                    <td><a href="" id="costp4"></a></td>
+                    <td><a href="" id="costp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Dialer</td><td><a href="http://bit.ly/13VUGj1" target="_blank" id="dialertp"></a></td><td><a href="http://bit.ly/T90xje" target="_blank" id="dialertrp"></a></td><td id="dialerp1"></td>
-                    <td id="dialerp2"></td>
-                    <td id="dialerp3"></td>
-                    <td id="dialerp4"></td>
-                    <td id="dialerp5"></td>
+                    <td>Dialer</td>
+                    <td><a href="http://bit.ly/13VUGj1" target="_blank" id="dialertp"></a></td>
+                    <td><a href="http://bit.ly/T90xje" target="_blank" id="dialertrp"></a></td>
+                    <td><a href="" id="dialerp1"></a></td>
+                    <td><a href="" id="dialerp2"></a></td>
+                    <td><a href="" id="dialerp3"></a></td>
+                    <td><a href="" id="dialerp4"></a></td>
+                    <td><a href="" id="dialerp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Everything.me</td><td><a href="http://bit.ly/VUSOUX" target="_blank" id="emetp"></a></td><td><a href="http://bit.ly/VJt7G6" target="_blank" id="emetrp"></a></td><td id="emep1"></td>
-                    <td id="emep2"></td>
-                    <td id="emep3"></td>
-                    <td id="emep4"></td>
-                    <td id="emep5"></td>
+                    <td>Everything.me</td>
+                    <td><a href="http://bit.ly/VUSOUX" target="_blank" id="emetp"></a></td>
+                    <td><a href="http://bit.ly/VJt7G6" target="_blank" id="emetrp"></a></td>
+                    <td><a href="" id="emep1"></a></td>
+                    <td><a href="" id="emep2"></a></td>
+                    <td><a href="" id="emep3"></a></td>
+                    <td><a href="" id="emep4"></a></td>
+                    <td><a href="" id="emep5"></a></td>
                 </tr>
                 <tr>
-                    <td>FTE</td><td><a href="http://bit.ly/VUTfPl" target="_blank" id="ftetp"></a></td><td><a href="http://bit.ly/13VHFWE" target="_blank" id="ftetrp"></a></td><td id="ftep1"></td>
-                    <td id="ftep2"></td>
-                    <td id="ftep3"></td>
-                    <td id="ftep4"></td>
-                    <td id="ftep5"></td>
+                    <td>FTE</td>
+                    <td><a href="http://bit.ly/VUTfPl" target="_blank" id="ftetp"></a></td>
+                    <td><a href="http://bit.ly/13VHFWE" target="_blank" id="ftetrp"></a></td>
+                    <td><a href="" id="ftep1"></a></td>
+                    <td><a href="" id="ftep2"></a></td>
+                    <td><a href="" id="ftep3"></a></td>
+                    <td><a href="" id="ftep4"></a></td>
+                    <td><a href="" id="ftep5"></a></td>
                 </tr>
                 <tr>
-                    <td>FMRadio</td><td><a href="http://bit.ly/Yiranr" target="_blank" id="radiotp"></a></td><td><a href="http://bit.ly/WlrLzx" target="_blank" id="radiotrp"></a></td><td id="radiop1"></td>
-                    <td id="radiop2"></td>
-                    <td id="radiop3"></td>
-                    <td id="radiop4"></td>
-                    <td id="radiop5"></td>
+                    <td>FMRadio</td>
+                    <td><a href="http://bit.ly/Yiranr" target="_blank" id="radiotp"></a></td>
+                    <td><a href="http://bit.ly/WlrLzx" target="_blank" id="radiotrp"></a></td>
+                    <td><a href="" id="radiop1"></a></td>
+                    <td><a href="" id="radiop2"></a></td>
+                    <td><a href="" id="radiop3"></a></td>
+                    <td><a href="" id="radiop4"></a></td>
+                    <td><a href="" id="radiop5"></a></td>
                 </tr>
                 <tr>
-                    <td>Gallery</td><td><a href="http://bit.ly/XsjKrI" target="_blank" id="gallerytp"></a></td><td><a href="http://bit.ly/T91A2w" target="_blank" id="gallerytrp"></a></td><td id="galleryp1"></td>
-                    <td id="galleryp2"></td>
-                    <td id="galleryp3"></td>
-                    <td id="galleryp4"></td>
-                    <td id="galleryp5"></td>
+                    <td>Gallery</td>
+                    <td><a href="http://bit.ly/XsjKrI" target="_blank" id="gallerytp"></a></td>
+                    <td><a href="http://bit.ly/T91A2w" target="_blank" id="gallerytrp"></a></td>
+                    <td><a href="" id="galleryp1"></a></td>
+                    <td><a href="" id="galleryp2"></a></td>
+                    <td><a href="" id="galleryp3"></a></td>
+                    <td><a href="" id="galleryp4"></a></td>
+                    <td><a href="" id="galleryp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Homescreen</td><td><a href="http://bit.ly/YisPcv" target="_blank" id="homescreentp"></a></td><td><a href="http://bit.ly/XvJUt1" target="_blank" id="homescreentrp"></a></td><td id="homescreenp1"></td>
-                    <td id="homescreenp2"></td>
-                    <td id="homescreenp3"></td>
-                    <td id="homescreenp4"></td>
-                    <td id="homescreenp5"></td>
+                    <td>Homescreen</td>
+                    <td><a href="http://bit.ly/YisPcv" target="_blank" id="homescreentp"></a></td>
+                    <td><a href="http://bit.ly/XvJUt1" target="_blank" id="homescreentrp"></a></td>
+                    <td><a href="" id="homescreenp1"></a></td>
+                    <td><a href="" id="homescreenp2"></a></td>
+                    <td><a href="" id="homescreenp3"></a></td>
+                    <td><a href="" id="homescreenp4"></a></td>
+                    <td><a href="" id="homescreenp5"></a></td>
                 </tr>
                 <tr>
                     <td>Keyboard</td>
                     <td><a href="http://bit.ly/VJVDr8" target="_blank" id="keyboardtp"></a></td>
                     <td><a href="http://bit.ly/VUVsdz" target="_blank" id="keyboardtrp"></a></td>
-                    <td id="keyboardp1"></td>
-                    <td id="keyboardp2"></td>
-                    <td id="keyboardp3"></td>
-                    <td id="keyboardp4"></td>
-                    <td id="keyboardp5"></td>
+                    <td><a href="" id="keyboardp1"></a></td>
+                    <td><a href="" id="keyboardp2"></a></td>
+                    <td><a href="" id="keyboardp3"></a></td>
+                    <td><a href="" id="keyboardp4"></a></td>
+                    <td><a href="" id="keyboardp5"></a></td>
                 </tr>
                 <tr>
                     <td>Music</td>
                     <td><a href="http://bit.ly/Wzp11r" target="_blank" id="musictp"></a></td>
                     <td><a href="http://bit.ly/UKwpY" target="_blank" id="musictrp"></a></td>
-                    <td id="musicp1"></td>
-                    <td id="musicp2"></td>
-                    <td id="musicp3"></td>
-                    <td id="musicp4"></td>
-                    <td id="musicp5"></td>
+                    <td><a href="" id="musicp1"></a></td>
+                    <td><a href="" id="musicp2"></a></td>
+                    <td><a href="" id="musicp3"></a></td>
+                    <td><a href="" id="musicp4"></a></td>
+                    <td><a href="" id="musicp5"></a></td>
                 </tr>
                 <tr>
                     <td>PDFViewer</td>
                     <td><a href="http://bit.ly/WlDFJP" target="_blank" id="pdftp"></a></td>
                     <td><a href="http://bit.ly/VULl8D" target="_blank" id="pdftrp"></a></td>
-                    <td id="pdfp1"></td>
-                    <td id="pdfp2"></td>
-                    <td id="pdfp3"></td>
-                    <td id="pdfp4"></td>
-                    <td id="pdfp5"></td>
+                    <td><a href="" id="pdfp1"></a></td>
+                    <td><a href="" id="pdfp2"></a></td>
+                    <td><a href="" id="pdfp3"></a></td>
+                    <td><a href="" id="pdfp4"></a></td>
+                    <td><a href="" id="pdfp5"></a></td>
                 </tr>
                 <tr>
                     <td>Settings</td>
                     <td><a href="http://bit.ly/Sqh9RR" target="_blank" id="settingstp"></a></td>
                     <td><a href="http://bit.ly/SpSblx" target="_blank" id="settingstrp"></a></td>
-                    <td id="settingsp1"></td>
-                    <td id="settingsp2"></td>
-                    <td id="settingsp3"></td>
-                    <td id="settingsp4"></td>
-                    <td id="settingsp5"></td>
+                    <td><a href="" id="settingsp1"></a></td>
+                    <td><a href="" id="settingsp2"></a></td>
+                    <td><a href="" id="settingsp3"></a></td>
+                    <td><a href="" id="settingsp4"></a></td>
+                    <td><a href="" id="settingsp5"></a></td>
                 </tr>
                 <tr>
-                    <td>SMS</td><td><a href="http://bit.ly/Xsnx8t" target="_blank" id="smstp"></a></td><td><a href="http://bit.ly/V1duH1" target="_blank" id="smstrp"></a></td><td id="smsp1"></td>
-                    <td id="smsp2"></td>
-                    <td id="smsp3"></td>
-                    <td id="smsp4"></td>
-                    <td id="smsp5"></td>
+                    <td>SMS</td>
+                    <td><a href="http://bit.ly/Xsnx8t" target="_blank" id="smstp"></a></td>
+                    <td><a href="http://bit.ly/V1duH1" target="_blank" id="smstrp"></a></td>
+                    <td><a href="" id="smsp1"></a></td>
+                    <td><a href="" id="smsp2"></a></td>
+                    <td><a href="" id="smsp3"></a></td>
+                    <td><a href="" id="smsp4"></a></td>
+                    <td><a href="" id="smsp5"></a></td>
                 </tr>
                 <tr>
-                    <td>System</td><td><a href="http://bit.ly/T9uuQ6" target="_blank" id="systemtp"></a></td><td><a href="http://bit.ly/YikMwu" target="_blank" id="systemtrp"></a></td><td id="systemp1"></td>
-                    <td id="systemp2"></td>
-                    <td id="systemp3"></td>
-                    <td id="systemp4"></td>
-                    <td id="systemp5"></td>
+                    <td>System</td>
+                    <td><a href="http://bit.ly/T9uuQ6" target="_blank" id="systemtp"></a></td>
+                    <td><a href="http://bit.ly/YikMwu" target="_blank" id="systemtrp"></a></td>
+                    <td><a href="" id="systemp1"></a></td>
+                    <td><a href="" id="systemp2"></a></td>
+                    <td><a href="" id="systemp3"></a></td>
+                    <td><a href="" id="systemp4"></a></td>
+                    <td><a href="" id="systemp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Lockscreen</td><td><a href="http://bit.ly/VUWrKF" target="_blank" id="lockscreentp"></a></td><td><a href="http://bit.ly/Xs9gZe" target="_blank" id="lockscreentrp"></a></td><td id="lockscreenp1"></td>
-                    <td id="lockscreenp2"></td>
-                    <td id="lockscreenp3"></td>
-                    <td id="lockscreenp4"></td>
-                    <td id="lockscreenp5"></td>
+                    <td>Lockscreen</td>
+                    <td><a href="http://bit.ly/VUWrKF" target="_blank" id="lockscreentp"></a></td>
+                    <td><a href="http://bit.ly/Xs9gZe" target="_blank" id="lockscreentrp"></a></td>
+                    <td><a href="" id="lockscreenp1"></a></td>
+                    <td><a href="" id="lockscreenp2"></a></td>
+                    <td><a href="" id="lockscreenp3"></a></td>
+                    <td><a href="" id="lockscreenp4"></a></td>
+                    <td><a href="" id="lockscreenp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Video</td><td><a href="http://bit.ly/UKRoud" target="_blank" id="videotp"></a></td><td><a href="http://bit.ly/XvLXgC" target="_blank" id="videotrp"></a></td><td id="videop1"></td>
-                    <td id="videop2"></td>
-                    <td id="videop3"></td>
-                    <td id="videop4"></td>
-                    <td id="videop5"></td>
+                    <td>Video</td>
+                    <td><a href="http://bit.ly/UKRoud" target="_blank" id="videotp"></a></td>
+                    <td><a href="http://bit.ly/XvLXgC" target="_blank" id="videotrp"></a></td>
+                    <td><a href="" id="videop1"></a></td>
+                    <td><a href="" id="videop2"></a></td>
+                    <td><a href="" id="videop3"></a></td>
+                    <td><a href="" id="videop4"></a></td>
+                    <td><a href="" id="videop5"></a></td>
                 </tr>
                 <tr>
-                    <td>Email</td><td><a href="http://bit.ly/WlEQZI" target="_blank" id="emailtp"></a></td><td><a href="http://bit.ly/10LEAd9" target="_blank" id="emailtrp"></a></td><td id="emailp1"></td>
-                    <td id="emailp2"></td>
-                    <td id="emailp3"></td>
-                    <td id="emailp4"></td>
-                    <td id="emailp5"></td>
+                    <td>Email</td>
+                    <td><a href="http://bit.ly/WlEQZI" target="_blank" id="emailtp"></a></td>
+                    <td><a href="http://bit.ly/10LEAd9" target="_blank" id="emailtrp"></a></td>
+                    <td><a href="" id="emailp1"></a></td>
+                    <td><a href="" id="emailp2"></a></td>
+                    <td><a href="" id="emailp3"></a></td>
+                    <td><a href="" id="emailp4"></a></td>
+                    <td><a href="" id="emailp5"></a></td>
                 </tr>
                 <tr>
-                    <td>Camera</td><td><a href="http://bit.ly/V1pFn7" target="_blank" id="cameratp"></a></td><td><a href="http://bit.ly/10xMUw7" target="_blank" id="cameratrp"></a></td><td id="camerap1"></td>
-                    <td id="camerap2"></td>
-                    <td id="camerap3"></td>
-                    <td id="camerap4"></td>
-                    <td id="camerap5"></td>
+                    <td>Camera</td>
+                    <td><a href="http://bit.ly/V1pFn7" target="_blank" id="cameratp"></a></td>
+                    <td><a href="http://bit.ly/10xMUw7" target="_blank" id="cameratrp"></a></td>
+                    <td><a href="" id="camerap1"></a></td>
+                    <td><a href="" id="camerap2"></a></td>
+                    <td><a href="" id="camerap3"></a></td>
+                    <td><a href="" id="camerap4"></a></td>
+                    <td><a href="" id="camerap5"></a></td>
                 </tr>
             </tbody>
             </tbody>
