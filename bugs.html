@@ -41,11 +41,30 @@ a:hover {color: #FFFFFF; text-decoration: none; }
         /*** sample table to demonstrate CSS3 formatting ***/
         table.formatHTML5 {
             width: 90%;
-            border-collapse:collapse;
             text-align:right;
             align:center;
             color: #000000;
+            *border-collapse: collapse; /* IE7 and lower */
+            border-spacing: 0; 
         }
+
+th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+
+th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
  
         /*** table's thead section, head row style ***/
         table.formatHTML5 thead tr td  {
@@ -248,75 +267,12 @@ color:#FFFFFF;
   var time = "1";
   var queryTime = "-" + time + "h";
 
-  /*function configureVisibility()
-  {
-  
-
-      var bb = true;
-      var trackingb2g = true;
-      var blockingb2g = true;
-
-      if(!bb)
-      {
-         document.getElementById("blockerCount").style.visibility = "hidden";
-         document.getElementById("gaiaBlockerCount").style.visibility = "hidden";
-         document.getElementById("platformBlockerCount").style.visibility = "hidden";
-         document.getElementById("createdBlockerCount").style.visibility = "hidden";
-         document.getElementById("fixedBlockerCount").style.visibility = "hidden";
-         document.getElementById("lastHourBB").style.visibility = "hidden";
-      }
-      if(!trackingb2g)
-      {
-         document.getElementById("blockerCountTracking").style.visibility = "hidden";
-         document.getElementById("gaiaBlockerCountTracking").style.visibility = "hidden";
-         document.getElementById("platformBlockerCountTracking").style.visibility = "hidden";
-         document.getElementById("createdBlockerCountTracking").style.visibility = "hidden";
-         document.getElementById("fixedBlockerCountTracking").style.visibility = "hidden";
-         document.getElementById("lastHourTracking").style.visibility = "hidden";
-      }
-
-  
-  }*/
-
-
   // add event emitter to window scope
   var self = this
   var minutos = 60;
   EventEmitter.call(self)
 
-  // querySelector helper
-  function s(input) {
-    if ((typeof input) == 'string')
-      return document.querySelector(input)
-
-    return {
-      one: function(selector) {
-        return input.querySelector(selector)
-      },
-      all: function(selector) {
-        return input.querySelectorAll(selector)
-      },
-      replace: function(replacements) {
-        for (var k in replacements)
-          input.querySelector(k).innerHTML = replacements[k]
-      }
-    }
-  }
-
   $(window).ready(function() {
-    /*
-    // test 
-    asyncStorage.clear(function(){})
-    asyncStorage.setItem('fixedInLastHour', {
-      bugs: [
-        {
-          assigned_to: {
-            name: 'naoki'
-          }
-        }
-      ]
-    }, function() {})
-    */
 
     // add an object with: type (bug or count), options (bz search params) and callback (function) 
     var searches = []
@@ -4251,10 +4207,7 @@ color:#FFFFFF;
 
 
     function executeSearches() {
-      addNotification('#wrong');
-      showNotifications();
       
-      //processNotifications();
       searches.forEach(function(search) {
         Bugzilla.ajax({
           url: '/' + search.type,
@@ -4266,60 +4219,9 @@ color:#FFFFFF;
           error: function(err) { console.log('err', err) }
         })
       })
-      //processNotifications();
-      //processingNotifications = false;
 
       // reset countdown clock
       countdown('#countdown', minutos, 0);
-    }
-
-    function addNotification(selector) {
-      notifications.push(selector)
-      //setTimeout(processNotifications, 50)
-    }
-
-    var processingNotifications = false
-
-    function showNotifications()
-    {
-      console.log("showNotifications " + notifications);
-      var selector = notifications.shift()
-      if (selector) {
-        $(selector).
-          center().
-          fadeIn(1500, function() {
-            setTimeout(function() {
-              console.log("should be waiting");
-              $(selector).fadeOut(1000, function() {
-                showNotifications();  
-              })
-            }, 4000)
-          })
-       }
-    }
-
-    function processNotifications() {
-      console.log("Processing Notifications " + processingNotifications);
-      //if (processingNotifications)
-      //  return
-      processingNotifications = true 
-      var selector = notifications.shift()
-      if (selector) {
-        $(selector).
-          center().
-          fadeIn(1500, function() {
-            setTimeout(function() {
-              $(selector).fadeOut(1000, function() {
-                processingNotifications = false
-                processNotifications()  
-              })
-            }, 4000)
-          })
-        // process next notification
-        processNotifications()
-      }
-      else
-        processingNotifications = false
     }
 
     // timer will update every 5 mins
@@ -4359,82 +4261,6 @@ color:#FFFFFF;
     }, 1000);
   }
 
-  jQuery.fn.center = function () {
-    this.css("position","absolute");
-    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
-                                                $(window).scrollTop()) + "px");
-    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
-                                                $(window).scrollLeft()) + "px");
-    return this;
-  }
-
-      function showPerson(name) {
-      console.log("name is " + name);
-      var selector = "";
-      switch(name)
-      {
-        case "alberto.pastor":
-            selector = '#pastoret';
-            break;
-        case "fbsc":
-            selector = '#borja';
-            break;
-        case "francisco.jordano":
-            selector = '#jordano';
-            break;
-        case "josea.olivera":
-            selector = '#jaoo';
-            break;
-        case "ferjmoreno":
-            selector = '#ferjm';
-            break;
-        case "frsela":
-            selector = '#frsela';
-            break;
-        case "acperez":
-            selector = '#acperez';
-            break;
-        case "salva":
-            selector = '#salva';
-            break;
-        case "igonzaleznicolas":
-            selector = '#isma';
-            break;
-        case "crdlc":
-            selector = '#crdlc';
-            break;
-        case "jmcf":
-            selector = '#cantera';
-            break;
-        case "fernando.campo":
-            selector = '#fcampo';
-            break;
-        case "gtorodelvalle":
-            selector = '#toro';
-            break;
-        case "willyaranda":
-            selector = '#willyaranda';
-            break;
-        case "amac":
-            selector = '#amac';
-            break;
-        case "macajc":
-            selector = '#carmenb';
-            break;
-        }
-       
-        console.log("El selector es " + selector);
-        $(selector).center().fadeIn(3000);
-        $(selector).center().fadeOut(1500);
-
-        /*$(selector).center().fadeIn(1500, function() {
-            setTimeout(function() {
-              $(selector).fadeOut(1000, null)  })})*/
-
-    }
-
-
-
 </script> 
 
 <div id='header'>
@@ -4442,106 +4268,6 @@ color:#FFFFFF;
   <h2 style='float:right;'><span id="countdown"></span></h2>
 </div>
 <br clear=all>
-
-
-<!--<div id='container'>
-  <div id='feedback' style='text-align: center;'></div>
-
-  <div id='blockerCount' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-
-  <div id='gaiaBlockerCount' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-
-  <div id='platformBlockerCount' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-
-  <div id='createdBlockerCount' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div> 
-
-  <div id='fixedBlockerCount' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-
-
-
-  <div id='lastHourBB' class='item'>
-  </div>
-
-  <br clear=all>
-
-<div id='blockerCountTef' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-
-  <div id='gaiaBlockerCountTef' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-
-  <div id='platformBlockerCountTef' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
- 
-  <div id='createdBlockerCountTef' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div> 
-    
-  <div id='fixedBlockerCountTef' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-
-  <div id='lastHourTef' class='item'>
-  </div>
-
-  <br clear=all>
-
-
-  <div id='blockerCountTracking' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-
-  <div id='gaiaBlockerCountTracking' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-
-  <div id='platformBlockerCountTracking' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-  
-  <div id='createdBlockerCountTracking' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div> 
-  
-  <div id='fixedBlockerCountTracking' class='item'>
-    <div class='item-value'></div>
-    <div class='item-title'></div>
-  </div>
-
-
-  <div id='lastHourTracking' class='item'>
-  </div>
-
-  <br clear=all>
-  
-</div>-->
 
 
         <!-- HTML5 TABLE FORMATTED VIA CSS3-->
@@ -4833,115 +4559,3 @@ color:#FFFFFF;
             </tfoot>
         </table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div id='wrong' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h1> Checking Bug Status </h1>
-  <div><img src='wrong-small.png' height=300px width=240px></div>
-</div>
-
-
-<div id='pastoret' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> PASTORET (:alberto.pastor) fixed a bug </h3>
-  <div><img src='pastor.jpg'></div>  
-</div>
-
-<div id='borja' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> BOOOOJA (:borjasalguero) fixed a bug </h3>
-  <div><img src='borja.jpg'></div>  
-</div>
-
-<div id='toro' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> Yerman (:gtorodelvalle) fixed a bug </h3>
-  <div><img src='german.jpg'></div>  
-</div>
-
-<div id='fcampo' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> fcampo (:fernando.campo) fixed a bug </h3>
-  <div><img src='fcampo.jpg'></div>  
-</div>
-
-<div id='jordano' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> arcturus (:francisco.jordano) fixed a bug </h3>
-  <div><img src='jordano.jpg'></div>  
-</div>
-
-<div id='cantera' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> cantera fixed a bug </h3>
-  <div><img src='cantera.jpg'></div>  
-</div>
-
-<div id='crdlc' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> cristian fixed a bug </h3>
-  <div><img src='crdlc.jpg'></div>  
-</div>
-
-<div id='basiclines' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> Isma fixed a bug </h3>
-  <div><img src='basiclines.jpg'></div>  
-</div>
-
-<div id='ferjm' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> FerJM fixed a bug </h3>
-  <div><img src='ferjm.jpg'></div>  
-</div>
-
-<div id='jaoo' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> jaoo fixed a bug </h3>
-  <div><img src='jaoo.jpg'></div>  
-</div>
-
-<div id='willyaranda' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> willyaranda fixed a bug </h3>
-  <div><img src='willy.jpg'></div>  
-</div>
-
-<div id='amac' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> amac fixed a bug </h3>
-  <div><img src='amac.jpg'></div>  
-</div>
-
-<div id='carmen' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> carmen fixed a bug </h3>
-  <div><img src='carmen.jpg'></div>  
-</div>
-
-<div id='frsela' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> frsela fixed a bug </h3>
-  <div><img src='frsela.jpg'></div>  
-</div>
-
-<div id='acperez' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> Albert fixed a bug </h3>
-  <div><img src='acperez.jpg'></div>  
-</div>
-
-<div id='salva' class="alert" style="display:none; background-color: #fff; text-align: center;">
-  <h3> salva fixed a bug </h3>
-  <div><img src='salva.jpg'></div>  
-</div>
-
-
-<br clear=all>
