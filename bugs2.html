@@ -1,0 +1,653 @@
+<!DOCTYPE html> 
+<meta charset="utf-8"> 
+<title>FirefoxOS.Status</title> 
+<style> 
+
+
+a:link {color: #000055; text-decoration: underline; }
+a:active {color: #000055; text-decoration: underline; }
+a:visited {color: #000055; text-decoration: underline; }
+a:hover {color: #FFFFFF; text-decoration: none; }
+
+
+        /*** central column on page ***/
+        div#divContainer
+        {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0.5em 1em 1em 1em;
+            font-family: "Open Sans", sans-serif;
+ 
+            /* rounded corners */
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+ 
+            /* add gradient */
+            //background-color: #808080;
+            background: #1a2633;
+            background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#808080));
+            background: -moz-linear-gradient(top, #606060, #808080);
+ 
+            /* add box shadows */
+            -moz-box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+            -webkit-box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+        }
+ 
+        h1 {color:#FFE47A; font-size:1.5em;}
+ 
+        /*** sample table to demonstrate CSS3 formatting ***/
+        table.formatHTML5 {
+            width: 90%;
+            text-align:right;
+            align:center;
+            color: #000000;
+            *border-collapse: collapse; /* IE7 and lower */
+            border-spacing: 0; 
+        }
+
+th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+
+th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+ 
+        /*** table's thead section, head row style ***/
+        table.formatHTML5 thead tr td  {
+            //background-color: White;
+            background: url(header.png) repeat-x 0 0;
+            background-size: auto 100%;
+            vertical-align:middle;
+            padding: 0.6em;
+            font-size:0.5em;
+            color: #FFFFFF;
+        }
+ 
+        /*** table's thead section, coulmns header style ***/
+        table.formatHTML5 thead tr th
+        {
+            font-family: "Open Sans", sans-serif;
+            padding: 0.5em;
+            /* add gradient */
+            background-color: #808080;
+            //background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#909090));
+            //background: -moz-linear-gradient(top, #606060, #909090);
+            background: url(header.png) repeat-x 0 0;
+            background-size: auto 100%;
+            color: #FFFFFF;
+            font-size:1.2em;
+        }
+ 
+        /*** table's tbody section, odd rows style ***/
+        table.formatHTML5 tbody tr:nth-child(odd) {
+           background-color: #fafafa;
+        }
+ 
+        /*** hover effect to table's tbody odd rows ***/
+        table.formatHTML5 tbody tr:nth-child(odd):hover
+        {
+            cursor:pointer;
+            /* add gradient */
+            //background-color: #808080;
+            //background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#909090));
+            //background: -moz-linear-gradient(top, #606060, #909090);
+            //color: #dadada;
+            background: url(header.png) repeat left bottom;
+            border-bottom: solid 0.1rem #e6e6e6;
+            color: #FFFFFF;
+        }
+ 
+        /*** table's tbody section, even rows style ***/
+        table.formatHTML5 tbody tr:nth-child(even) {
+            background-color: #efefef;
+        }
+ 
+        /*** hover effect to apply to table's tbody section, even rows ***/
+        table.formatHTML5 tbody tr:nth-child(even):hover
+        {
+            cursor:pointer;
+            /* add gradient */
+            //background-color: #808080;
+            //background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#909090));
+            //background: -moz-linear-gradient(top, #606060, #909090);
+            //color: #dadada;
+            background: url(header.png) repeat left bottom;
+            border-bottom: solid 0.1rem #e6e6e6;
+            color: #FFFFFF;
+        }
+ 
+       /*** table's tbody section, last row style ***/
+        table.formatHTML5 tbody tr:last-child {
+             border-bottom: solid 1px #404040;
+        }
+ 
+        /*** table's tbody section, separator row pseudo-class ***/
+        table.formatHTML5 tbody tr.separator {
+            /* add gradient */
+background: url(subheader.png) repeat left bottom;
+  border-bottom: solid 0.1rem #e6e6e6;
+color:#FFFFFF;
+            text-align:left;
+        }
+ 
+        /*** table's td element, all section ***/
+        table.formatHTML5 td {
+           vertical-align:middle;
+           padding: 0.5em;
+        }
+ 
+        /*** table's tfoot section ***/
+        table.formatHTML5 tfoot{
+            text-align:center;
+            color:#303030;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+        }
+
+
+
+
+
+  body {
+    //font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Open Sans", sans-serif;
+    font-size: 9pt;
+    margin: 0 auto;
+    //background-image: url('news.JPG');
+    //background-color: #fff;
+    background-size: cover;
+            background: url(header.png) repeat-x 0 0;
+            background-size: auto 100%;
+  }
+
+  #header {
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+    height: 2.0em;
+    font-size: 1.2em;
+    color: #fff;
+  }
+
+  #container {
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+  }
+
+  .item {
+    width: 8em;
+    height: 8em;
+    margin: 1em;
+    margin-top: 0;
+    background-color: #bbbbbb;
+    /*box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);*/
+    box-shadow: 10px 10px 18px;
+    /*border: 0.05em solid #ccc;*/
+    text-align: center;
+    float: left;
+  }
+
+  .item-value {
+    font-weight: bold;
+    font-size: 4em;
+    margin: 0;
+    /*margin-bottom: -15px;*/
+  }
+
+  .item-title {
+    font-size: 1em;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  #blockerCount, #blockerCountTracking, #blockerCountTef, #fixedBlockerCountTef, #fixedBlockerCount, #fixedBlockerCountTracking, #createdBlockerCountTracking, #createdBlockerCountTef, #createdBlockerCount {
+    font-size: 1.2em;
+  }
+
+  #gaiaBlockerCount, #gaiaBlockerCountTracking, #gaiaBlockerCountTef {
+    font-size: 1.2em;
+  }
+
+  #platformBlockerCount, #platformBlockerCountTracking, #platformBlockerCountTef {
+    font-size: 1.2em;
+  }
+  
+  #fixedInWorkweek {
+    font-size: 1.3em;
+  }
+
+  #notes {
+    text-align: left;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 0.5em;
+  }
+
+  #lastHourBB, #lastHourTef, #lastHourTracking {
+    font-size: 0.8em;
+    padding: 0.5em;
+    text-align: left;
+    height: 13em;
+    width: 20em;
+  }
+
+  .alert {
+    box-shadow: 0px 0px 30px 15px red;
+  }
+
+  #jacketNames {
+    font-size: 2em;
+    font-weight: bold;
+    max-width: 493px;
+  }
+</style> 
+<script type='text/javascript' src='jquery-1.8.2.min.js'></script>
+<script type="text/javascript" src="eventEmitter.js" ></script>
+<!--<script type="text/javascript" src="asyncStorage.js" ></script>-->
+<script> 
+
+  var time = "1";
+  var queryTime = "-" + time + "h";
+
+  // add event emitter to window scope
+  var self = this
+  var minutos = 60;
+  EventEmitter.call(self)
+
+  $(window).ready(function() {
+
+  // Setup the ajax indicator
+  $('body').append('<div id="ajaxBusy"><p><img src="images/loading.gif"></p></div>');
+
+  $('#ajaxBusy').css({
+    display:"none",
+    margin:"0px",
+    paddingLeft:"0px",
+    paddingRight:"0px",
+    paddingTop:"0px",
+    paddingBottom:"0px",
+    position:"absolute",
+    right:"3px",
+    top:"3px",
+     width:"auto"
+  });
+
+// Ajax activity indicator bound to ajax start/stop document events
+$(document).ajaxStart(function(){ 
+  $('#ajaxBusy').show(); 
+}).ajaxStop(function(){ 
+  $('#ajaxBusy').hide();
+});
+
+    function executeSearches() {
+
+      var request = new XMLHttpRequest();
+      request.open('GET', 'http://ffostracker.appspot.com', true);
+
+      request.onreadystatechange=function()
+      {
+        console.log("onreadystatechanged " + request.readyState + " status " + request.status);
+        if (request.readyState==4 && request.status==200)
+        {
+          console.log("onload");
+          console.log(request.responseText);
+          lista = JSON.parse(request.responseText);
+          console.log("bug count is " + lista.bugs.length);
+          for (i=0; i < lista.bugs.length; i++)
+          {
+            for(var key in lista.bugs[i]){
+              console.log("key: " + key + ", value: " + lista.bugs[i][key]);
+              document.getElementById(key).innerHTML = lista.bugs[i][key];
+            }
+          }
+        }
+      }
+
+      request.send();
+      $('#ajaxBusy').show(); 
+    
+      // reset countdown clock
+      countdown('#countdown', minutos, 0);
+    }
+
+    // timer will update every minutos mins
+    window.setInterval(executeSearches, minutos * 60 * 1000)
+    executeSearches()
+  })
+
+  function countdown(selector, minutes, seconds) {
+    minutos = minutes;
+    // set time for the particular countdown
+    var time = minutes*60 + seconds;
+    var interval = setInterval(function() {
+      var el = document.querySelector(selector);
+      // if the time is 0 then end the counter
+      if (time == 0) {
+        el.innerHTML = "countdown's over!";    
+        clearInterval(interval);
+        return;
+      }
+      var minutes = Math.floor( time / 60 );
+      if (minutes < 10) minutes = "0" + minutes;
+      var seconds = time % 60;
+      if (seconds < 10) seconds = "0" + seconds; 
+      var text = minutes + ':' + seconds;
+      el.innerHTML = text;
+      time--;
+    }, 1000);
+  }
+
+</script> 
+
+<div id='header'>
+  <h2 style='float:left;'>B2G Bug Count </h2>
+  <h2 style='float:right;'><span id="countdown"></span></h2>
+</div>
+<br clear=all>
+
+
+        <!-- HTML5 TABLE FORMATTED VIA CSS3-->
+        <table class="formatHTML5" align=center>
+ 
+            <!-- TABLE HEADER-->
+            <thead>
+               <tr><td colspan=8>DISCLAIMER: ALL DATA PROVIDED IS AUTOMATICALLY RETRIEVED FROM BUGZILLA</td></tr>
+                <tr>
+                    <th>Overall</th><th>TEF+</th><th>B2G18++</th><th>UX-P1</th><th>UX-P2</th><th>UX-P3</th><th>UX-P4</th><th>UX-P5</th>
+                </tr>
+            </thead>
+ 
+            <!-- TABLE BODY: MAIN CONTENT-->
+            <tbody>
+                <tr class="separator">
+                    <td colspan="8">Summary</td>
+                </tr>
+                <tr>
+                    <td>All</td>
+                    <td><a href="http://bit.ly/VN0JmM" target="_blank" id="total0"></a></td>
+                    <td><a href="http://bit.ly/WvsgFA" target="_blank" id="total1"></a></td>
+                    <td><a href="" id="total2"></a></td>
+                    <td><a href="" id="total3"></a></td>
+                    <td><a href="" id="total4"></a></td>
+                    <td><a href="" id="total5"></a></td>
+                    <td><a href="" id="total6"></a></td>
+                </tr>
+                <tr>
+                    <td>Platform</td>
+                    <td><a href="http://bit.ly/Ue8d1I" target="_blank" id="general0"></td>
+                    <td><a id="general1" href="http://bit.ly/VjeBnc" target="_blank"></a></td>
+                    <td><a href="" id="general2"></a></td>
+                    <td><a href="" id="general3"></a></td>
+                    <td><a href="" id="general4"></a></td>
+                    <td><a href="" id="general5"></a></td>
+                    <td><a href="" id="general6"></a></td>
+                 </tr>
+                <tr>
+                    <td>Gaia</td>
+                    <td><a id="gaia0" href="http://bit.ly/11LfnPd" target="_blank"></a></td>
+                    <td><a href="http://bit.ly/WQNduI" target="_blank" title="Tracking Bugs" id="gaia1"></a></td>
+                    <td><a href="" id="gaia2"></a></td>
+                    <td><a href="" id="gaia3"></a></td>
+                    <td><a href="" id="gaia4"></a></td>
+                    <td><a href="" id="gaia5"></a></td>
+                    <td><a href="" id="gaia6"></a></td>
+                </tr>
+                <!--SEPARATOR ROW USED DIFFERENT STYLE-->
+                <tr class="separator">
+                    <td colspan="8">Gaia Split by App</td>
+                </tr>
+                <tr>
+                    <td>General</td>
+                    <td><a href="http://bit.ly/UKIRY0" target="_blank" id="gaiaGeneral0"></a></td>
+                    <td><a href="http://bit.ly/UKycwH" target="_blank" id="gaiaGeneral1"></a></td>
+                    <td><a href="" id="gaiaGeneral2"></a></td>
+                    <td><a href="" id="gaiaGeneral3"></a></td>
+                    <td><a href="" id="gaiaGeneral4"></a></td>
+                    <td><a href="" id="gaiaGeneral5"></a></td>
+                    <td><a href="" id="gaiaGeneral6"></a></td>
+                </tr>
+                <tr>
+                    <td>Bluetooth</td>
+                    <td><a href="http://bit.ly/10g65We" target="_blank" id="gaiaBluetooth0"></a></td>
+                    <td><a href="http://bit.ly/WlqPLD" target="_blank" id="gaiaBluetooth1"></a></td>
+                    <td><a href="" id="gaiaBluetooth2"></a></td>
+                    <td><a href="" id="gaiaBluetooth3"></a></td>
+                    <td><a href="" id="gaiaBluetooth4"></a></td>
+                    <td><a href="" id="gaiaBluetooth5"></a></td>
+                    <td><a href="" id="gaiaBluetooth6"></a></td>
+                </tr>
+                <tr>
+                    <td>Browser</td>
+                    <td><a href="http://bit.ly/11Lgqi5" target="_blank" id="gaiaBrowser0"></a></td>
+                    <td><a href="http://bit.ly/UKupQ1" target="_blank" id="gaiaBrowser1"></a></td>
+                    <td><a href="" id="gaiaBrowser2"></a></td>
+                    <td><a href="" id="gaiaBrowser3"></a></td>
+                    <td><a href="" id="gaiaBrowser4"></a></td>
+                    <td><a href="" id="gaiaBrowser5"></a></td>
+                    <td><a href="" id="gaiaBrowser6"></a></td>
+                </tr>
+                <tr>
+                    <td>Calendar</td>
+                    <td><a href="http://bit.ly/YiqoGS" target="_blank" id="gaiaCalendar0"></a></td>
+                    <td><a href="http://bit.ly/T8ZTC8" target="_blank" id="gaiaCalendar1"></a></td>
+                    <td><a href="" id="gaiaCalendar2"></a></td>
+                    <td><a href="" id="gaiaCalendar3"></a></td>
+                    <td><a href="" id="gaiaCalendar4"></a></td>
+                    <td><a href="" id="gaiaCalendar5"></a></td>
+                    <td><a href="" id="gaiaCalendar6"></a></td>
+                </tr>
+                <tr>
+                    <td>Clock</td>
+                    <td><a href="http://bit.ly/WlzBJG" target="_blank" id="gaiaClock0"></a></td>
+                    <td><a href="http://bit.ly/UKuXFq" target="_blank" id="gaiaClock1"></a></td>
+                    <td><a href="" id="gaiaClock2"></a></td>
+                    <td><a href="" id="gaiaClock3"></a></td>
+                    <td><a href="" id="gaiaClock4"></a></td>
+                    <td><a href="" id="gaiaClock5"></a></td>
+                    <td><a href="" id="gaiaClock6"></a></td>
+                </tr>
+                <tr>
+                    <td>Contacts</td>
+                    <td><a href="http://bit.ly/11LgP4c" target="_blank" id="gaiaContacts0"></a></td>
+                    <td><a href="http://bit.ly/WlneND" target="_blank" id="gaiaContacts1"></a></td>
+                    <td><a href="" id="gaiaContacts2"></a></td>
+                    <td><a href="" id="gaiaContacts3"></a></td>
+                    <td><a href="" id="gaiaContacts4"></a></td>
+                    <td><a href="" id="gaiaContacts5"></a></td>
+                    <td><a href="" id="gaiaContacts6"></a></td>
+                </tr>
+                <tr>
+                    <td>Cost Control</td>
+                    <td><a href="http://bit.ly/WQVCyl" target="_blank" id="gaiaCost0"></a></td>
+                    <td><a href="http://bit.ly/YijSjv" target="_blank" id="gaiaCost1"></a></td>
+                    <td><a href="" id="gaiaCost2"></a></td>
+                    <td><a href="" id="gaiaCost3"></a></td>
+                    <td><a href="" id="gaiaCost4"></a></td>
+                    <td><a href="" id="gaiaCost5"></a></td>
+                    <td><a href="" id="gaiaCost6"></a></td>
+                </tr>
+                <tr>
+                    <td>Dialer</td>
+                    <td><a href="http://bit.ly/13VUGj1" target="_blank" id="gaiaDialer0"></a></td>
+                    <td><a href="http://bit.ly/T90xje" target="_blank" id="gaiaDialer1"></a></td>
+                    <td><a href="" id="gaiaDialer2"></a></td>
+                    <td><a href="" id="gaiaDialer3"></a></td>
+                    <td><a href="" id="gaiaDialer4"></a></td>
+                    <td><a href="" id="gaiaDialer5"></a></td>
+                    <td><a href="" id="gaiaDialer6"></a></td>
+                </tr>
+                <tr>
+                    <td>Everything.me</td>
+                    <td><a href="http://bit.ly/VUSOUX" target="_blank" id="gaiaEME0"></a></td>
+                    <td><a href="http://bit.ly/VJt7G6" target="_blank" id="gaiaEME1"></a></td>
+                    <td><a href="" id="gaiaEME2"></a></td>
+                    <td><a href="" id="gaiaEME3"></a></td>
+                    <td><a href="" id="gaiaEME4"></a></td>
+                    <td><a href="" id="gaiaEME5"></a></td>
+                    <td><a href="" id="gaiaEME6"></a></td>
+                </tr>
+                <tr>
+                    <td>FTE</td>
+                    <td><a href="http://bit.ly/VUTfPl" target="_blank" id="gaiaFTE0"></a></td>
+                    <td><a href="http://bit.ly/13VHFWE" target="_blank" id="gaiaFTE1"></a></td>
+                    <td><a href="" id="gaiaFTE2"></a></td>
+                    <td><a href="" id="gaiaFTE3"></a></td>
+                    <td><a href="" id="gaiaFTE4"></a></td>
+                    <td><a href="" id="gaiaFTE5"></a></td>
+                    <td><a href="" id="gaiaFTE6"></a></td>
+                </tr>
+                <tr>
+                    <td>FMRadio</td>
+                    <td><a href="http://bit.ly/Yiranr" target="_blank" id="gaiaFM0"></a></td>
+                    <td><a href="http://bit.ly/WlrLzx" target="_blank" id="gaiaFM1"></a></td>
+                    <td><a href="" id="gaiaFM2"></a></td>
+                    <td><a href="" id="gaiaFM3"></a></td>
+                    <td><a href="" id="gaiaFM4"></a></td>
+                    <td><a href="" id="gaiaFM5"></a></td>
+                    <td><a href="" id="gaiaFM6"></a></td>
+                </tr>
+                <tr>
+                    <td>Gallery</td>
+                    <td><a href="http://bit.ly/XsjKrI" target="_blank" id="gaiaGallery0"></a></td>
+                    <td><a href="http://bit.ly/T91A2w" target="_blank" id="gaiaGallery1"></a></td>
+                    <td><a href="" id="gaiaGallery2"></a></td>
+                    <td><a href="" id="gaiaGallery3"></a></td>
+                    <td><a href="" id="gaiaGallery4"></a></td>
+                    <td><a href="" id="gaiaGallery5"></a></td>
+                    <td><a href="" id="gaiaGallery6"></a></td>
+                </tr>
+                <tr>
+                    <td>Homescreen</td>
+                    <td><a href="http://bit.ly/YisPcv" target="_blank" id="gaiaHomescreen0"></a></td>
+                    <td><a href="http://bit.ly/XvJUt1" target="_blank" id="gaiaHomescreen1"></a></td>
+                    <td><a href="" id="gaiaHomescreen2"></a></td>
+                    <td><a href="" id="gaiaHomescreen3"></a></td>
+                    <td><a href="" id="gaiaHomescreen4"></a></td>
+                    <td><a href="" id="gaiaHomescreen5"></a></td>
+                    <td><a href="" id="gaiaHomescreen6"></a></td>
+                </tr>
+                <tr>
+                    <td>Keyboard</td>
+                    <td><a href="http://bit.ly/VJVDr8" target="_blank" id="gaiaKeyboard0"></a></td>
+                    <td><a href="http://bit.ly/VUVsdz" target="_blank" id="gaiaKeyboard1"></a></td>
+                    <td><a href="" id="gaiaKeyboard2"></a></td>
+                    <td><a href="" id="gaiaKeyboard3"></a></td>
+                    <td><a href="" id="gaiaKeyboard4"></a></td>
+                    <td><a href="" id="gaiaKeyboard5"></a></td>
+                    <td><a href="" id="gaiaKeyboard6"></a></td>
+                </tr>
+                <tr>
+                    <td>Music</td>
+                    <td><a href="http://bit.ly/Wzp11r" target="_blank" id="gaiaMusic0"></a></td>
+                    <td><a href="http://bit.ly/UKwpY" target="_blank" id="gaiaMusic1"></a></td>
+                    <td><a href="" id="gaiaMusic2"></a></td>
+                    <td><a href="" id="gaiaMusic3"></a></td>
+                    <td><a href="" id="gaiaMusic4"></a></td>
+                    <td><a href="" id="gaiaMusic5"></a></td>
+                    <td><a href="" id="gaiaMusic6"></a></td>
+                </tr>
+                <tr>
+                    <td>PDFViewer</td>
+                    <td><a href="http://bit.ly/WlDFJP" target="_blank" id="gaiaPDF0"></a></td>
+                    <td><a href="http://bit.ly/VULl8D" target="_blank" id="gaiaPDF1"></a></td>
+                    <td><a href="" id="gaiaPDF2"></a></td>
+                    <td><a href="" id="gaiaPDF3"></a></td>
+                    <td><a href="" id="gaiaPDF4"></a></td>
+                    <td><a href="" id="gaiaPDF5"></a></td>
+                    <td><a href="" id="gaiaPDF6"></a></td>
+                </tr>
+                <tr>
+                    <td>Settings</td>
+                    <td><a href="http://bit.ly/Sqh9RR" target="_blank" id="gaiaSettings0"></a></td>
+                    <td><a href="http://bit.ly/SpSblx" target="_blank" id="gaiaSettings1"></a></td>
+                    <td><a href="" id="gaiaSettings2"></a></td>
+                    <td><a href="" id="gaiaSettings3"></a></td>
+                    <td><a href="" id="gaiaSettings4"></a></td>
+                    <td><a href="" id="gaiaSettings5"></a></td>
+                    <td><a href="" id="gaiaSettings6"></a></td>
+                </tr>
+                <tr>
+                    <td>SMS</td>
+                    <td><a href="http://bit.ly/Xsnx8t" target="_blank" id="gaiaSMS0"></a></td>
+                    <td><a href="http://bit.ly/V1duH1" target="_blank" id="gaiaSMS1"></a></td>
+                    <td><a href="" id="gaiaSMS2"></a></td>
+                    <td><a href="" id="gaiaSMS3"></a></td>
+                    <td><a href="" id="gaiaSMS4"></a></td>
+                    <td><a href="" id="gaiaSMS5"></a></td>
+                    <td><a href="" id="gaiaSMS6"></a></td>
+                </tr>
+                <tr>
+                    <td>System</td>
+                    <td><a href="http://bit.ly/T9uuQ6" target="_blank" id="gaiaSystem0"></a></td>
+                    <td><a href="http://bit.ly/YikMwu" target="_blank" id="gaiaSystem1"></a></td>
+                    <td><a href="" id="gaiaSystem2"></a></td>
+                    <td><a href="" id="gaiaSystem3"></a></td>
+                    <td><a href="" id="gaiaSystem4"></a></td>
+                    <td><a href="" id="gaiaSystem5"></a></td>
+                    <td><a href="" id="gaiaSystem6"></a></td>
+                </tr>
+                <tr>
+                    <td>Lockscreen</td>
+                    <td><a href="http://bit.ly/VUWrKF" target="_blank" id="gaiaLockscreen0"></a></td>
+                    <td><a href="http://bit.ly/Xs9gZe" target="_blank" id="gaiaLockscreen1"></a></td>
+                    <td><a href="" id="gaiaLockscreen2"></a></td>
+                    <td><a href="" id="gaiaLockscreen3"></a></td>
+                    <td><a href="" id="gaiaLockscreen4"></a></td>
+                    <td><a href="" id="gaiaLockscreen5"></a></td>
+                    <td><a href="" id="gaiaLockscreen6"></a></td>
+                </tr>
+                <tr>
+                    <td>Video</td>
+                    <td><a href="http://bit.ly/UKRoud" target="_blank" id="gaiaVideo0"></a></td>
+                    <td><a href="http://bit.ly/XvLXgC" target="_blank" id="gaiaVideo1"></a></td>
+                    <td><a href="" id="gaiaVideo2"></a></td>
+                    <td><a href="" id="gaiaVideo3"></a></td>
+                    <td><a href="" id="gaiaVideo4"></a></td>
+                    <td><a href="" id="gaiaVideo5"></a></td>
+                    <td><a href="" id="gaiaVideo6"></a></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><a href="http://bit.ly/WlEQZI" target="_blank" id="gaiaEmail0"></a></td>
+                    <td><a href="http://bit.ly/10LEAd9" target="_blank" id="gaiaEmail1"></a></td>
+                    <td><a href="" id="gaiaEmail2"></a></td>
+                    <td><a href="" id="gaiaEmail3"></a></td>
+                    <td><a href="" id="gaiaEmail4"></a></td>
+                    <td><a href="" id="gaiaEmail5"></a></td>
+                    <td><a href="" id="gaiaEmail6"></a></td>
+                </tr>
+                <tr>
+                    <td>Camera</td>
+                    <td><a href="http://bit.ly/V1pFn7" target="_blank" id="gaiaCamera0"></a></td>
+                    <td><a href="http://bit.ly/10xMUw7" target="_blank" id="gaiaCamera1"></a></td>
+                    <td><a href="" id="gaiaCamera2"></a></td>
+                    <td><a href="" id="gaiaCamera3"></a></td>
+                    <td><a href="" id="gaiaCamera4"></a></td>
+                    <td><a href="" id="gaiaCamera5"></a></td>
+                    <td><a href="" id="gaiaCamera6"></a></td>
+                </tr>
+            </tbody>
+            </tbody>
+ 
+            <!-- TABLE FOOTER-->
+            <tfoot>
+                <tr><td colspan="8"></td></tr>
+            </tfoot>
+        </table>
+
