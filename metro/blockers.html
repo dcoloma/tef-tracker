@@ -1,0 +1,214 @@
+<!DOCTYPE html> 
+<meta charset="utf-8"> 
+<title>FirefoxOS.Status</title> 
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <link href="css/modern.css" rel="stylesheet">
+    <link href="css/modern-responsive.css" rel="stylesheet">
+    <link href="css/site.css" rel="stylesheet" type="text/css">
+    <link href="js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="js/assets/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="js/assets/jquery.mousewheel.min.js"></script>
+
+    <script type="text/javascript" src="js/modern/dropdown.js"></script>
+    <script type="text/javascript" src="js/modern/accordion.js"></script>
+    <script type="text/javascript" src="js/modern/buttonset.js"></script>
+    <script type="text/javascript" src="js/modern/carousel.js"></script>
+    <script type="text/javascript" src="js/modern/input-control.js"></script>
+    <script type="text/javascript" src="js/modern/pagecontrol.js"></script>
+    <script type="text/javascript" src="js/modern/rating.js"></script>
+    <script type="text/javascript" src="js/modern/slider.js"></script>
+    <script type="text/javascript" src="js/modern/tile-slider.js"></script>
+    <script type="text/javascript" src="js/modern/tile-drag.js"></script>
+    <script type="text/javascript" src="js/eventEmitter.js" ></script>
+
+    <title>Metro UI CSS</title>
+</head>
+
+<script> 
+
+  var time = "1";
+  var queryTime = "-" + time + "h";
+
+  // add event emitter to window scope
+  var self = this
+  var minutos = 60;
+  EventEmitter.call(self)
+
+  $(window).ready(function() {
+
+    function executeSearches() {
+
+      var request = new XMLHttpRequest();
+
+
+
+      request.open('GET', 'http://ffostracker.appspot.com?type=blockers', true);
+
+      document.getElementById("loader").innerHTML = ' <img src="images/preloader-w8-cycle-black.gif"> <img src="images/preloader-w8-line-black.gif">Retrieving your bugs, please be patient (this may take 1 minute)';
+
+      request.onreadystatechange=function()
+      {
+        console.log("onreadystatechanged " + request.readyState + " status " + request.status);
+        if (request.readyState==4 && request.status==200)
+        {
+          document.getElementById("loader").innerHTML = '';
+          //console.log(request.responseText);
+          lista = JSON.parse(request.responseText);
+          //console.log(lista.bugs.length);
+          document.getElementById("tablecontent").innerHTML = "";
+          var t = document.getElementById("tablecontent");
+          var columns = 0;
+          for (i=0; i < lista.bugs.length; i++)
+          {
+            if (lista.bugs[i]["title0"] == "Category")
+            {
+              document.getElementById("titlerow").innerHTML = "";
+              for(var key in lista.bugs[i]){
+                console.log("key: " + key + ", value: " + lista.bugs[i][key]);
+                var th = document.createElement("th");
+                th.innerHTML = lista.bugs[i][key]; 
+                document.getElementById("titlerow").appendChild(th);
+                columns++;
+              }
+              console.log("columnas ..." + columns);
+              //document.getElementById("disclaimer").setAttribute("colspan", columns);
+            }
+            else if (lista.bugs[i]["separator"] != null)
+            {
+              var row = t.insertRow(-1);
+              row.setAttribute("class","warning");
+              var cell = row.insertCell(-1);
+              cell.setAttribute("colspan",columns);
+              cell.innerHTML = lista.bugs[i]["separator"];
+            }
+            else
+            {
+              var row = t.insertRow(-1);
+              for(var key in lista.bugs[i]){
+                console.log("key: " + key + ", value: " + lista.bugs[i][key]);
+                var cell = row.insertCell(-1);
+                cell.innerHTML = lista.bugs[i][key];
+              }
+            }
+          }
+        }
+      }
+
+      request.send();
+    
+      // reset countdown clock
+      countdown('#countdown', minutos, 0);
+    }
+
+    // timer will update every minutos mins
+    window.setInterval(executeSearches, minutos * 60 * 1000)
+    executeSearches()
+  })
+
+  function countdown(selector, minutes, seconds) {
+    minutos = minutes;
+    // set time for the particular countdown
+    var time = minutes*60 + seconds;
+    var interval = setInterval(function() {
+      var el = document.querySelector(selector);
+      // if the time is 0 then end the counter
+      if (time == 0) {
+        el.innerHTML = "countdown's over!";    
+        clearInterval(interval);
+        return;
+      }
+      var minutes = Math.floor( time / 60 );
+      if (minutes < 10) minutes = "0" + minutes;
+      var seconds = time % 60;
+      if (seconds < 10) seconds = "0" + seconds; 
+      var text = minutes + ':' + seconds;
+      el.innerHTML = text;
+      time--;
+    }, 1000);
+  }
+
+</script> 
+
+<body class="modern-ui" onload="prettyPrint()">
+<div class="page">
+
+<div class="nav-bar">
+    <div class="nav-bar-inner padding10">
+        <span class="pull-menu"></span>
+
+        <a href="http://www.firefoxos.es"><span class="element brand">
+            <i class="icon-firefox">FirefoxOS Tracker</i>
+            <small>0.0.1</small>
+        </span></a>
+
+        <div class="divider"></div>
+
+        <ul class="menu">
+            <li><a href="home.html">Home</a></li>
+            <li data-role="dropdown">
+                <a href="#">Bug Queries</a>
+                <ul class="dropdown-menu">
+                    <li><a href="blockers.html">All Blockers</a></li>
+                    <li><a href="ux.html">UX Bug</a></li>
+                    <li><a href="notblockers.html">Non-Blockers</a></li>
+                    <li><a href="all.html">All Bugs</a></li>
+                    </li>
+                </ul>
+            </li>
+            <li data-role="dropdown"><a href="#">People</a>
+                <ul class="dropdown-menu">
+                    <li><a href="fixed.html">Fixed Bugs</a></li>
+                    <li><a href="live.html">Live Chart</a></li>
+                </ul>
+            </li>
+            <li data-role="dropdown"><a href="#">UX Bugs in Detail</a>
+                <ul class="dropdown-menu">
+                    <li><a href="ux-p1.html">UX-P1 Split</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+    <div class="page secondary">
+      <!--<div class="page-header">
+        <div class="page-header-content">-->
+          <div class="grid">
+            <div class="row">
+              <div class="span8">
+                <a href="home.html" class="back-button big page-back"></a>
+                <h1>Firefox OS</h1>
+              </div>
+              <div class="span4">
+                <h2> Blocker Bugs</h2>
+                <h3>Countdown: <span id="countdown"></span></h3>
+              </div>
+            </div>
+          <!--</div>
+        </div>-->
+      </div>
+      <div class="page-region">
+        <div class="page-region-content">
+          <div class="span10">
+           <div class=padding10 id=loader></div>
+           <table class="hovered" align=center id='bugTable'>
+             <thead>
+                <tr id="titlerow" class=info>
+                </tr>
+             </thead>
+             <tbody id=tablecontent>
+             </tbody>
+           </table>
+        </div>
+      </div>
+    </div>
+   </div>
+</div>
+</body>
