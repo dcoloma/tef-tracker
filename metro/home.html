@@ -44,9 +44,9 @@
         'type0-0-0': 'contains',
         'value0-0-0': 'tef+'
      },
-     callback: function(result) {
+     /*callback: function(result) {
        document.getElementById("tef").innerHTML = result;
-     }
+     }*/
    })
 
    searches.push({
@@ -119,9 +119,9 @@
         'field0-0-0': 'cf_blocking_b2g',
         'type0-0-0': 'equals',
         'value0-0-0': 'tef+',
-        'field0-1-0': 'cf_tracking_b2g18',
-        'type0-1-0': 'contains',
-        'value0-1-0': '+',
+        'field0-0-1': 'cf_tracking_b2g18',
+        'type0-0-1': 'contains',
+        'value0-0-1': '+',
         'changed_field': 'Resolution',
         'changed_field_to': 'FIXED',
         'changed_after': '-24h'
@@ -150,12 +150,10 @@
 <div class="nav-bar">
     <div class="nav-bar-inner padding10">
         <span class="pull-menu"></span>
-
-        <a href="/"><span class="element brand">
-            <img class="place-left" src="images/logo32.png" style="height: 20px"/>
-            FirefoxOS Tracker <small>0.0.1</small>
-        </span></a>
-
+         <a href="http://www.firefoxos.es"><span class="element brand">
+             <i class="icon-firefox">FirefoxOS Tracker</i>
+             <small>0.0.1</small>
+         </span></a>
         <div class="divider"></div>
 
         <ul class="menu">

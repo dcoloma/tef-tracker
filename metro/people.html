@@ -10,7 +10,7 @@
     <link href="css/modern.css" rel="stylesheet">
     <link href="css/modern-responsive.css" rel="stylesheet">
     <link href="css/site.css" rel="stylesheet" type="text/css">
-    <link href="js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+    <link href="js/google-code-prettify/prettify.css" rel="stylesheet" typekk="text/css">
 
     <script type="text/javascript" src="js/assets/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="js/assets/jquery.mousewheel.min.js"></script>
@@ -26,120 +26,172 @@
     <script type="text/javascript" src="js/modern/tile-slider.js"></script>
     <script type="text/javascript" src="js/modern/tile-drag.js"></script>
     <script type="text/javascript" src="js/eventEmitter.js" ></script>
+    <script type="text/javascript" src="js/Bugzilla.js" ></script>
 
     <title>Metro UI CSS</title>
 </head>
 
 <script> 
+devs='amac@tid.es,acperez@tid.es,alberto.pastor@o2.com,igonzaleznicolas@gmail.com,jmcf@tid.es,fbsc@tid.es,francisco.jordano@o2.com,crdlc@tid.es,salva@unoyunodiez.com,fernando.campo@o2.com,ferjmoreno@gmail.com,josea.olivera@gmail.com,frsela@tid.es,willyaranda@mozilla-hispano.org,gtorodelvalle@gmail.com,macajc@gmail.com'
+qa='mbarone976@gmail.com,carlos.martinez@aurigae.com,isabelrios@aurigae.com,rafael.marquez@mtp.es'
+mgr='oteo@tid.es,dcoloma@tid.es,marce@tid.es,brg@tid.es,dpv@tid.es'
+ux='marcoc@tid.es,marquez@tid.es,authoritaire@gmail.com,hello@rafaelrebolleda.com,vpg@tid.es,arnau@tid.es,sergiov@tid.es'
+emails = ['amac@tid.es' , 'acperez@tid.es','alberto.pastor@o2.com','igonzaleznicolas@gmail.com','jmcf@tid.es','fbsc@tid.es','francisco.jordano@o2.com','crdlc@tid.es','salva@unoyunodiez.com','fernando.campo@o2.com','ferjmoreno@gmail.com','josea.olivera@gmail.com','frsela@tid.es','willyaranda@mozilla-hispano.org','gtorodelvalle@gmail.com','macajc@gmail.com','mbarone976@gmail.com','carlos.martinez@aurigae.com','isabelrios@aurigae.com','rafael.marquez@mtp.es','oteo@tid.es','dcoloma@tid.es','marce@tid.es','brg@tid.es','dpv@tid.es','marcoc@tid.es','marquez@tid.es','authoritaire@gmail.com','hello@rafaelrebolleda.com','vpg@tid.es','arnau@tid.es','sergiov@tid.es'];
+teamlist = ['amac' , 'acperez','alberto.pastor','igonzaleznicolas','jmcf','fbsc','francisco.jordano','crdlc','salva','fernando.campo','ferjmoreno','josea.olivera','frsela','willyaranda','gtorodelvalle','macajc','mbarone976','carlos.martinez','isabelrios','rafael.marquez','oteo','dcoloma','marce','brg','dpv','marcoc','marquez','authoritaire','hello','vpg','arnau','sergiov'];
+names = ['Antonio' , 'Albert','Pastoret','Isma','Cantera','Borja','Jordano','Cristian','Salva','FCampo','FerJM','JoseAntonio','Frsela','Willy','German','Carmen','Max','Carlos','Isabel','Rafa','Mariangeles','Dani','Marce','Beatriz','David','Marco','Ricardo','Steve','RafaR','Vicky','Arnau','Sergi'];
+nameType = ['dev' , 'dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','qa','qa','qa','qa','mgr','mgr','mgr','mgr','mgr','ux','ux','ux','ux','ux','ux','ux'];
 
-  var time = "1";
-  var queryTime = "-" + time + "h";
+var numPeople = 32;
+var assigned = initArray(numPeople, 0);
+var qaContact = initArray(numPeople, 0);
+var blockers = initArray(numPeople, 0);
+var trackers = initArray(numPeople, 0);
+var other = initArray(numPeople, 0);
+var created = initArray(numPeople, 0);
+var bugs;
 
-  // add event emitter to window scope
-  var self = this
-  var minutos = 60;
-  EventEmitter.call(self)
+people=devs+","+qa+","+mgr+","+ux;
+
 
   $(window).ready(function() {
-
-    function executeSearches() {
-
-      var request = new XMLHttpRequest();
-
-
-
-      request.open('GET', 'http://ffostracker.appspot.com?type=all', true);
-
-      document.getElementById("loader").innerHTML = ' <img src="images/preloader-w8-cycle-black.gif"> <img src="images/preloader-w8-line-black.gif">Retrieving your bugs, please be patient (this may take 1 minute)';
-
-      request.onreadystatechange=function()
-      {
-        console.log("onreadystatechanged " + request.readyState + " status " + request.status);
-        if (request.readyState==4 && request.status==200)
-        {
-          document.getElementById("loader").innerHTML = '';
-          //console.log(request.responseText);
-          lista = JSON.parse(request.responseText);
-          //console.log(lista.bugs.length);
-          document.getElementById("tablecontent").innerHTML = "";
-          var t = document.getElementById("tablecontent");
-          var columns = 0;
-          for (i=0; i < lista.bugs.length; i++)
-          {
-            if (lista.bugs[i]["title0"] == "Category")
-            {
-              document.getElementById("titlerow").innerHTML = "";
-              for(var key in lista.bugs[i]){
-                console.log("key: " + key + ", value: " + lista.bugs[i][key]);
-                var th = document.createElement("th");
-                th.innerHTML = lista.bugs[i][key]; 
-                document.getElementById("titlerow").appendChild(th);
-                columns++;
-              }
-              console.log("columnas ..." + columns);
-              //document.getElementById("disclaimer").setAttribute("colspan", columns);
-            }
-            else if (lista.bugs[i]["separator"] != null)
-            {
-              var row = t.insertRow(-1);
-              row.setAttribute("class","warning");
-              var cell = row.insertCell(-1);
-              cell.setAttribute("colspan",columns);
-              cell.innerHTML = lista.bugs[i]["separator"];
-            }
-            else
-            {
-              var row = t.insertRow(-1);
-              for(var key in lista.bugs[i]){
-                console.log("key: " + key + ", value: " + lista.bugs[i][key]);
-                var cell = row.insertCell(-1);
-                cell.innerHTML = lista.bugs[i][key];
-              }
-            }
-          }
-        }
+    console.log("window ready");
+    var searches = [];
+    searches.push({
+       key: "people",
+       type: 'bug',
+       options: {
+         'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+         'email1_type':'equals_any',
+         'email1_assigned_to': '1',
+         'email1_qa_contact': '1',
+         'email1_creator': '1',
+         'email1': people 
+      },
+      callback: function(result) {
+        console.log("numero " + result.length);
+        document.getElementById("title").innerHTML = "<h1 class='bg-color-white'>The team</h1>"; 
+        bugs = result;
+        processBugs(result);
+        createList();
+        $(document).trigger("ready")
+        $(document).trigger("init")
       }
+    });
 
-      request.send();
-    
-      // reset countdown clock
-      countdown('#countdown', minutos, 0);
-    }
-
-    // timer will update every minutos mins
-    window.setInterval(executeSearches, minutos * 60 * 1000)
-    executeSearches()
+    searches.forEach(function(search) {
+      document.getElementById("title").innerHTML += ' <div class="bg-color-white fg-color-black"><img src="images/preloader-w8-line-black.gif"> <span class="fg-color-black">Retrieving team details, please be patient (this may take 1 minute)</span></div>';
+      Bugzilla.ajax({
+        url: '/' + search.type,
+        data: search.options,
+        success: function(data) {
+        search.callback(data.bugs || data.data)
+      },
+      error: function(err) { console.log('err', err)}
+    })
   })
+})
 
-  function countdown(selector, minutes, seconds) {
-    minutos = minutes;
-    // set time for the particular countdown
-    var time = minutes*60 + seconds;
-    var interval = setInterval(function() {
-      var el = document.querySelector(selector);
-      // if the time is 0 then end the counter
-      if (time == 0) {
-        el.innerHTML = "countdown's over!";    
-        clearInterval(interval);
-        return;
-      }
-      var minutes = Math.floor( time / 60 );
-      if (minutes < 10) minutes = "0" + minutes;
-      var seconds = time % 60;
-      if (seconds < 10) seconds = "0" + seconds; 
-      var text = minutes + ':' + seconds;
-      el.innerHTML = text;
-      time--;
-    }, 1000);
+function processBugs(response)
+{
+  console.log("En process bugs " + response.length);
+  for (i=0; i < response.length; i++)
+  {
+     console.log("Processing a " + response[i].assigned_to["name"]);
+     position = teamlist.indexOf(response[i].assigned_to["name"]);
+     if (position != -1)
+     {
+       console.log("Found assigned to " + position);
+       assigned[position]++; 
+       if (response[i].cf_blocking_b2g.indexOf("+") != -1)
+         blockers[position]++; 
+       else if (response[i].cf_tracking_b2g18.indexOf("+") != -1)
+         trackers[position]++; 
+       else
+         other[position]++; 
+     }
+     position = teamlist.indexOf(response[i].qa_contact["name"]);
+     if (position != -1)
+     {
+       console.log("Found qa " + position);
+       qaContact[position]++; 
+     }
+     position = teamlist.indexOf(response[i].creator["name"]);
+     if (position != -1)
+     {
+       console.log("Found creator " + position);
+       created[position]++; 
+     }
   }
+}
 
-</script> 
+function createList()
+{
+   console.log("Entering in createlist");
+   devlistcontent = "" 
+   qalistcontent = "" 
+   uxlistcontent = "" 
+   mgrlistcontent = "" 
+
+   for (i=0; i < names.length; i++)
+   {
+     switch (nameType[i])
+     {
+       case "dev":
+         devlistcontent += "<div class='tile double bg-color-blueDark'>";
+         break;
+       case "qa":
+         devlistcontent +=  "<div class='tile double bg-color-red'>";
+        break;
+       case "ux":
+         devlistcontent += "<div class='tile double bg-color-green'>";
+        break;
+       case "mgr":
+        devlistcontent += "<div class='tile double bg-color-pink'>";
+        break;
+      }
+        devlistcontent +=  "<div class='tile-content'>" +
+                   "<img height=120 width=90 src='images/avatars/" + names[i] + ".jpg' class='place-left'>"+
+                    "<a href='https://bugzilla.mozilla.org/buglist.cgi?bug_status=UNCONFIRMED;bug_status=NEW;bug_status=READY;bug_status=ASSIGNED;bug_status=REOPENED;columnlist=assigned_to%2Creporter%2Cbug_status%2Cresolution%2Cshort_desc%2Ccf_blocking_b2g%2Ccf_tracking_b2g18%2Cstatus_whiteboard;emailassigned_to2=1;emailqa_contact2=1;emailreporter2=1;emailtype2=exact;known_name=tef-nomination-bb%2B;list_id=5649961;query_format=advanced;resolution=---;query_based_on=tef-nomination-bb%2B;email2=" + emails[i] + "' target='_blank'>" +
+                      "<h3 style='margin-bottom: 5px;'>" + names[i] +"</h3>" +
+                    "</a>"+ 
+                    "<p>"+ 
+                    "<h4>" + assigned[i] + " Bugs Assigned</h4>" + 
+                    "<h5>" + blockers[i] + " Blockers, " + trackers[i] + " Trackers, " + other[i] + " Other</h5>" +
+                    "<h4>" + qaContact[i] + " Bugs QA Contact</h4>" +
+                    "<h4>" + created[i] + " Open Bugs Reported</h4>" +
+                    "</p>" +
+                  "</div>" +
+            "</div>";
+   }
+
+   document.getElementById("devlist").innerHTML = devlistcontent;
+}
+
+function initArray(length, value) {
+    var arr = [], i = 0;
+    arr.length = length;
+    while (i < length) { arr[i++] = value; }
+    return arr;
+}
+
+</script>
+
+<style>
+        body {
+            background: #1d1d1d;
+        }
+
+        .page {
+            background: #1d1d1d;
+        }
+
+    </style>
 
 <body class="modern-ui" onload="prettyPrint()">
 <div class="page">
 
 <div class="nav-bar">
-    <div class="nav-bar-inner padding10">
+    <div class="nav-bar-inner padding10 ">
         <span class="pull-menu"></span>
 
         <a href="http://www.firefoxos.es"><span class="element brand">
@@ -163,7 +215,7 @@
             </li>
             <li data-role="dropdown"><a href="#">People</a>
                 <ul class="dropdown-menu">
-                    <li><a href="fixed.html">Fixed Bugs</a></li>
+                    <li><a href="people.html">Team Dashboard</a></li>
                     <li><a href="live.html">Live Chart</a></li>
                 </ul>
             </li>
@@ -176,10 +228,30 @@
     </div>
 </div>
 
-
-    <div class="page secondary">
-      <h1> NOT IMPLEMENTED YET!</h1>
-    </div>
+  <div class="page" style="width: 1100px">
+   <div class="page-header">  
+     <div class="page-header-content" id="title">
+       <h1 class="fg-color-white">The team</h1>
+     </div>
    </div>
+   <div class="page-region">
+     <div class="page-region-content tiles">
+       <div class="tile-group tile-drag" style="width: auto;" id="devlist">
+         <!--<div class="tile double">
+           <img src="images/preloader-w8-line-black.gif"></img>
+           <div class="brand"><span class="name">Please be Patient</span></div>
+         </div>
+         <div class="tile double">
+           <img src="images/preloader-w8-line-black.gif"></img>
+           <div class="brand"><span class="name">Please be Patient</span></div>
+         </div>
+         <div class="tile double">
+           <img src="images/preloader-w8-line-black.gif"></img>
+           <div class="brand"><span class="name">Please be Patient</span></div>
+         </div>-->
+        </div>
+     </div>
+
+
 </div>
 </body>

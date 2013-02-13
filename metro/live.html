@@ -1,8 +1,5 @@
-<!DOCTYPE html> 
-<meta charset="utf-8"> 
-<title>FirefoxOS.Status</title> 
-
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -13,7 +10,8 @@
     <link href="js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
 
     <script type="text/javascript" src="js/assets/jquery-1.9.0.min.js"></script>
-    <script type="text/javascript" src="js/assets/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="js/assets/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="js/bugzilla.js"></script>
 
     <script type="text/javascript" src="js/modern/dropdown.js"></script>
     <script type="text/javascript" src="js/modern/accordion.js"></script>
@@ -25,128 +23,382 @@
     <script type="text/javascript" src="js/modern/slider.js"></script>
     <script type="text/javascript" src="js/modern/tile-slider.js"></script>
     <script type="text/javascript" src="js/modern/tile-drag.js"></script>
-    <script type="text/javascript" src="js/eventEmitter.js" ></script>
 
     <title>Metro UI CSS</title>
 </head>
+<body class="modern-ui" background="#FFFFFF" >
 
-<script> 
 
-  var time = "1";
-  var queryTime = "-" + time + "h";
+<script>
+ 
+devs='amac@tid.es,acperez@tid.es,alberto.pastor@o2.com,igonzaleznicolas@gmail.com,jmcf@tid.es,fbsc@tid.es,francisco.jordano@o2.com,crdlc@tid.es,salva@unoyunodiez.com,fernando.campo@o2.com,ferjmoreno@gmail.com,josea.olivera@gmail.com,frsela@tid.es,willyaranda@mozilla-hispano.org,gtorodelvalle@gmail.com,macajc@gmail.com'
+qa='mbarone976@gmail.com,carlos.martinez@aurigae.com,isabelrios@aurigae.com,rafael.marquez@mtp.es'
+mgr='oteo@tid.es,dcoloma@tid.es,marce@tid.es,brg@tid.es,dpv@tid.es'
+ux='marcoc@tid.es,marquez@tid.es,authoritaire@gmail.com,hello@rafaelrebolleda.com,vpg@tid.es,arnau@tid.es,sergiov@tid.es'
+emails = ['amac@tid.es' , 'acperez@tid.es','alberto.pastor@o2.com','igonzaleznicolas@gmail.com','jmcf@tid.es','fbsc@tid.es','francisco.jordano@o2.com','crdlc@tid.es','salva@unoyunodiez.com','fernando.campo@o2.com','ferjmoreno@gmail.com','josea.olivera@gmail.com','frsela@tid.es','willyaranda@mozilla-hispano.org','gtorodelvalle@gmail.com','macajc@gmail.com','mbarone976@gmail.com','carlos.martinez@aurigae.com','isabelrios@aurigae.com','rafael.marquez@mtp.es','oteo@tid.es','dcoloma@tid.es','marce@tid.es','brg@tid.es','dpv@tid.es','marcoc@tid.es','marquez@tid.es','authoritaire@gmail.com','hello@rafaelrebolleda.com','vpg@tid.es','arnau@tid.es','sergiov@tid.es'];
+teamlist = ['amac' , 'acperez','alberto.pastor','igonzaleznicolas','jmcf','fbsc','francisco.jordano','crdlc','salva','fernando.campo','ferjmoreno','josea.olivera','frsela','willyaranda','gtorodelvalle','macajc','mbarone976','carlos.martinez','isabelrios','rafael.marquez','oteo','dcoloma','marce','brg','dpv','marcoc','marquez','authoritaire','hello','vpg','arnau','sergiov'];
+names = ['Antonio' , 'Albert','Pastoret','Isma','Cantera','Borja','Jordano','Cristian','Salva','FCampo','FerJM','JoseAntonio','Frsela','Willy','German','Carmen','Max','Carlos','Isabel','Rafa','Mariangeles','Dani','Marce','Beatriz','David','Marco','Ricardo','Steve','RafaR','Vicky','Arnau','Sergi'];
+nameType = ['dev' , 'dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','dev','qa','qa','qa','qa','mgr','mgr','mgr','mgr','mgr','ux','ux','ux','ux','ux','ux','ux'];
 
-  // add event emitter to window scope
-  var self = this
-  var minutos = 60;
-  EventEmitter.call(self)
+var numPeople = 32;
+var assignedDay = initArray(numPeople, 0);
+var blockersDay = initArray(numPeople, 0);
+var otherDay = initArray(numPeople, 0);
+var assignedWeek = initArray(numPeople, 0);
+var blockersWeek = initArray(numPeople, 0);
+var otherWeek = initArray(numPeople, 0);
+var assignedMonth = initArray(numPeople, 0);
+var blockersMonth = initArray(numPeople, 0);
+var otherMonth = initArray(numPeople, 0);
+var bugs;
+
+people=devs+","+qa+","+mgr+","+ux;
+
+  
 
   $(window).ready(function() {
+    console.log("window ready");
+    var searches = [];
 
-    function executeSearches() {
+      searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'not_contains',
+            'value0-0-0': '+',
+            'changed_field': 'Resolution',
+            'changed_field_to': 'FIXED',
+            'changed_after': '-24h',
+            'email1_type':'equals_any',
+            'email1_assigned_to': '1',
+            'email1': people 
+         },
+         callback: function(result) {
+           //document.getElementById("fixed").innerHTML = result;
+           console.log(result + " bugs fixed by Telefónica Team during last 24h")
+                      document.getElementById("allDay").innerHTML = "<h1>" + result + "</h1>";
 
-      var request = new XMLHttpRequest();
+         }
+      })
+
+      searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains',
+            'value0-0-0': '+',
+            'changed_field': 'Resolution',
+            'changed_field_to': 'FIXED',
+            'changed_after': '-24h',
+            'email1_type':'equals_any',
+            'email1_assigned_to': '1',
+            'email1': people 
+         },
+         callback: function(result) {
+           //document.getElementById("fixed").innerHTML = result;
+           console.log(result + " All bugs fixed by Telefónica Team during last day")
+           document.getElementById("blockerDay").innerHTML = "<h1>" + result + "</h1>";
+         }
+      })
+
+      searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'not_contains',
+            'value0-0-0': '+',
+            'changed_field': 'Resolution',
+            'changed_field_to': 'FIXED',
+            'changed_after': '-168h',
+            'email1_type':'equals_any',
+            'email1_assigned_to': '1',
+            'email1': people 
+         },
+         callback: function(result) {
+           //document.getElementById("fixed").innerHTML = result;
+           console.log(result + " bugs fixed by Telefónica Team during last week")
+                      document.getElementById("allWeek").innerHTML = "<h1>" + result + "</h1>";
+
+         }
+      })
+
+       searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains',
+            'value0-0-0': '+',
+            'changed_field': 'Resolution',
+            'changed_field_to': 'FIXED',
+            'changed_after': '-168h',
+            'email1_type':'equals_any',
+            'email1_assigned_to': '1',
+            'email1': people 
+         },
+         callback: function(result) {
+           //document.getElementById("fixed").innerHTML = result;
+           console.log(result + " Blocker bugs fixed by Telefónica Team during last week")
+           document.getElementById("blockerWeek").innerHTML = "<h1>" + result + "</h1>";
+         }
+      })
+
+      searches.push({
+         key: "allfixed",
+         type: 'bug',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'changed_field': 'Resolution',
+            'changed_field_to': 'FIXED',
+            'changed_after': '-24h',
+            'email1_type':'equals_any',
+            'email1_assigned_to': '1',
+            'email1': people 
+         },
+         callback: function(result) {
+           //document.getElementById("fixed").innerHTML = result;
+           console.log(" number of bugs day " + result.length);
+           processBugsDay(result);
+
+         }
+      })
+
+      searches.push({
+         key: "allfixed",
+         type: 'bug',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'changed_field': 'Resolution',
+            'changed_field_to': 'FIXED',
+            'changed_after': '-168h',
+            'email1_type':'equals_any',
+            'email1_assigned_to': '1',
+            'email1': people 
+         },
+         callback: function(result) {
+            console.log(" number of bugs week " + result.length);
+            processBugsWeek(result);
+         }
+      })
+
+      searches.push({
+         key: "allfixed",
+         type: 'bug',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'changed_field': 'Resolution',
+            'changed_field_to': 'FIXED',
+            'changed_after': '-30d',
+            'email1_type':'equals_any',
+            'email1_assigned_to': '1',
+            'email1': people 
+         },
+         callback: function(result) {
+            console.log(" number of bugs month " + result.length);
+            processBugsMonth(result);
+         }
+      })
 
 
 
-      request.open('GET', 'http://ffostracker.appspot.com?type=all', true);
-
-      document.getElementById("loader").innerHTML = ' <img src="images/preloader-w8-cycle-black.gif"> <img src="images/preloader-w8-line-black.gif">Retrieving your bugs, please be patient (this may take 1 minute)';
-
-      request.onreadystatechange=function()
-      {
-        console.log("onreadystatechanged " + request.readyState + " status " + request.status);
-        if (request.readyState==4 && request.status==200)
-        {
-          document.getElementById("loader").innerHTML = '';
-          //console.log(request.responseText);
-          lista = JSON.parse(request.responseText);
-          //console.log(lista.bugs.length);
-          document.getElementById("tablecontent").innerHTML = "";
-          var t = document.getElementById("tablecontent");
-          var columns = 0;
-          for (i=0; i < lista.bugs.length; i++)
-          {
-            if (lista.bugs[i]["title0"] == "Category")
-            {
-              document.getElementById("titlerow").innerHTML = "";
-              for(var key in lista.bugs[i]){
-                console.log("key: " + key + ", value: " + lista.bugs[i][key]);
-                var th = document.createElement("th");
-                th.innerHTML = lista.bugs[i][key]; 
-                document.getElementById("titlerow").appendChild(th);
-                columns++;
-              }
-              console.log("columnas ..." + columns);
-              //document.getElementById("disclaimer").setAttribute("colspan", columns);
-            }
-            else if (lista.bugs[i]["separator"] != null)
-            {
-              var row = t.insertRow(-1);
-              row.setAttribute("class","warning");
-              var cell = row.insertCell(-1);
-              cell.setAttribute("colspan",columns);
-              cell.innerHTML = lista.bugs[i]["separator"];
-            }
-            else
-            {
-              var row = t.insertRow(-1);
-              for(var key in lista.bugs[i]){
-                console.log("key: " + key + ", value: " + lista.bugs[i][key]);
-                var cell = row.insertCell(-1);
-                cell.innerHTML = lista.bugs[i][key];
-              }
-            }
-          }
-        }
-      }
-
-      request.send();
-    
-      // reset countdown clock
-      countdown('#countdown', minutos, 0);
-    }
-
-    // timer will update every minutos mins
-    window.setInterval(executeSearches, minutos * 60 * 1000)
-    executeSearches()
+    searches.forEach(function(search) {
+      //document.getElementById("title").innerHTML += ' <img src="images/preloader-w8-line-black.gif"> Retrieving team details, please be patient (this may take 1 minute)';
+      Bugzilla.ajax({
+        url: '/' + search.type,
+        data: search.options,
+        success: function(data) {
+        search.callback(data.bugs || data.data)
+      },
+      error: function(err) { console.log('err', err)}
+    })
   })
+})
 
-  function countdown(selector, minutes, seconds) {
-    minutos = minutes;
-    // set time for the particular countdown
-    var time = minutes*60 + seconds;
-    var interval = setInterval(function() {
-      var el = document.querySelector(selector);
-      // if the time is 0 then end the counter
-      if (time == 0) {
-        el.innerHTML = "countdown's over!";    
-        clearInterval(interval);
-        return;
-      }
-      var minutes = Math.floor( time / 60 );
-      if (minutes < 10) minutes = "0" + minutes;
-      var seconds = time % 60;
-      if (seconds < 10) seconds = "0" + seconds; 
-      var text = minutes + ':' + seconds;
-      el.innerHTML = text;
-      time--;
-    }, 1000);
+function initArray(length, value) {
+    var arr = [], i = 0;
+    arr.length = length;
+    while (i < length) { arr[i++] = value; }
+    return arr;
+}
+
+function processBugsDay(response)
+{
+  for (i=0; i < response.length; i++)
+  {
+     console.log("Processing a " + response[i].assigned_to["name"]);
+     position = teamlist.indexOf(response[i].assigned_to["name"]);
+     if (position != -1)
+     {
+       console.log("Found bug fixed by TEF " + response[i].assigned_to["name"] );
+       assignedDay[position]++; 
+       if (response[i].cf_blocking_b2g.indexOf("+") != -1)
+         blockersDay[position]++; 
+       else
+         otherDay[position]++; 
+     }
   }
 
-</script> 
+  peopleFixedBlockersDay="<h2> Fixed Today </h2>";  
+  peopleFixedBugsDay="<h2> Fixed Today </h2><ul>";  
+  for (i=0; i < blockersDay.length; i++)
+  {
+    if(blockersDay[i]>0)
+    {
+      peopleFixedBlockersDay += "<li>" + names[i] + " fixed " + blockersDay[i] +" blocker bug(s) /li>"
+    }
+    else if(otherDay[i]>0)
+    {
+      peopleFixedBugsDay += "<li>" + names[i] + " fixed " + otherDay[i] +" bug(s) </li>"
+    }
+  }
 
-<body class="modern-ui" onload="prettyPrint()">
+  peopleFixedBlockersDay += "</ul>";
+  peopleFixedBugsDay += "</ul>";
+
+  document.getElementById("listBlockersDay").innerHTML = peopleFixedBlockersDay;
+  document.getElementById("listBugsDay").innerHTML = peopleFixedBugsDay;
+}
+
+function processBugsWeek(response)
+{
+  for (i=0; i < response.length; i++)
+  {
+     console.log("Processing a " + response[i].assigned_to["name"]);
+     position = teamlist.indexOf(response[i].assigned_to["name"]);
+     if (position != -1)
+     {
+       console.log("Found bug fixed by TEF " + response[i].assigned_to["name"] );
+       assignedWeek[position]++; 
+       if (response[i].cf_blocking_b2g.indexOf("+") != -1)
+         blockersWeek[position]++; 
+       else
+         otherWeek[position]++; 
+     }
+  }
+
+  peopleFixedBlockersWeek="<h3> Fixed this week </h3><ul>";  
+  peopleFixedBugsWeek="<h3> Fixed this week </h3><ul>";  
+  for (i=0; i < blockersWeek.length; i++)
+  {
+    if(blockersWeek[i]>0)
+    {
+      peopleFixedBlockersWeek += "<li>" + names[i] + " fixed " + blockersWeek[i] +" blocker bug(s) </li>"
+    }
+    else if(otherWeek[i]>0)
+    {
+      peopleFixedBugsWeek += "<li>" + names[i] + " fixed " + otherWeek[i] +" bug(s) </li>"
+    }
+  }
+
+peopleFixedBlockersWeek += "</ul>";
+  peopleFixedBugsWeek += "</ul>";
+
+
+  document.getElementById("listBlockersWeek").innerHTML = peopleFixedBlockersWeek;
+  document.getElementById("listBugsWeek").innerHTML = peopleFixedBugsWeek;
+}
+
+
+function processBugsMonth(response)
+{
+  for (i=0; i < response.length; i++)
+  {
+     console.log("Processing a " + response[i].assigned_to["name"]);
+     position = teamlist.indexOf(response[i].assigned_to["name"]);
+     if (position != -1)
+     {
+       console.log("Found bug fixed by TEF " + response[i].assigned_to["name"] );
+       assignedMonth[position]++; 
+       if (response[i].cf_blocking_b2g.indexOf("+") != -1)
+         blockersMonth[position]++; 
+       else
+         otherMonth[position]++; 
+     }
+  }
+
+  peopleFixedBlockersMonth="<h3> Fixed this week </h3><ul>";  
+  peopleFixedBugsMonth="<h3> Fixed this week </h3><ul>";  
+  for (i=0; i < blockersMonth.length; i++)
+  {
+    if(blockersMonth[i]>0)
+    {
+      peopleFixedBlockersMonth += "<li>" + names[i] + " fixed " + blockersMonth[i] +" blocker bug(s) </li>"
+    }
+    else if(otherMonth[i]>0)
+    {
+      peopleFixedBugsMonth += "<li>" + names[i] + " fixed " + otherMonth[i] +" bug(s) </li>"
+    }
+  }
+
+  peopleFixedBlockersMonth += "</ul>";
+  peopleFixedBugsMonth += "</ul>";
+
+  moreBlockers = findIndexOfGreatest(blockersMonth);
+  moreBugs = findIndexOfGreatest(otherMonth);
+
+  console.log("Hall of Fame blockers " + names[moreBlockers]);
+
+  console.log("Hall of Fame bugs " + names[moreBugs]);
+
+  document.getElementById("topBlockers").innerHTML =  "<img src='images/avatars/" + names[moreBlockers] + ".jpg' class='place-left'><h3 style='margin-bottom: 5px;'>" + names[moreBlockers] + "</h3><p>Fixed " + blockersMonth[moreBlockers] + " blocker bugs during last month.</p>";
+  document.getElementById("topBugs").innerHTML =  "<img src='images/avatars/" + names[moreBugs] + ".jpg' class='place-left'><h3 style='margin-bottom: 5px;'>" + names[moreBugs] + "</h3><p>Fixed " + otherMonth[moreBugs] + " bugs during last month.</p>";
+  document.getElementById("badgeBlockers").innerHTML = blockersMonth[moreBlockers];
+  document.getElementById("badgeBugs").innerHTML = otherMonth[moreBugs];
+   
+}
+
+
+function findIndexOfGreatest(array) {
+  var greatest;
+  var indexOfGreatest;
+  for (var i = 0; i < array.length; i++) {
+    if (!greatest || array[i] > greatest) {
+      greatest = array[i];
+      indexOfGreatest = i;
+    }
+  }
+  return indexOfGreatest;
+}
+
+
+</script>
+
+
+
+
+ 
+<style>
+        body {
+            background: #1d1d1d;
+        }
+
+        .page {
+            background: #1d1d1d;
+        }
+
+    </style>
 <div class="page">
-
 <div class="nav-bar">
     <div class="nav-bar-inner padding10">
         <span class="pull-menu"></span>
-
-        <a href="http://www.firefoxos.es"><span class="element brand">
-            <i class="icon-firefox">FirefoxOS Tracker</i>
-            <small>0.0.1</small>
-        </span></a>
-
+         <a href="http://www.firefoxos.es"><span class="element brand">
+             <i class="icon-firefox">FirefoxOS Tracker</i>
+             <small>0.0.1</small>
+         </span></a>
         <div class="divider"></div>
 
         <ul class="menu">
@@ -157,13 +409,12 @@
                     <li><a href="blockers.html">All Blockers</a></li>
                     <li><a href="ux.html">UX Bug</a></li>
                     <li><a href="notblockers.html">Non-Blockers</a></li>
-                    <li><a href="all.html">All Bugs</a></li>
                     </li>
                 </ul>
             </li>
             <li data-role="dropdown"><a href="#">People</a>
                 <ul class="dropdown-menu">
-                    <li><a href="fixed.html">Fixed Bugs</a></li>
+                    <li><a href="people.html">Team Dashboard</a></li>
                     <li><a href="live.html">Live Chart</a></li>
                 </ul>
             </li>
@@ -175,11 +426,117 @@
         </ul>
     </div>
 </div>
-
-
-    <div class="page secondary">
-      <h1> NOT IMPLEMENTED YET!</h1>
-    </div>
-   </div>
 </div>
-</body>
+
+<div class="page" id="page-index">
+  <div class="page-header">
+     <div class="page-header-content fg-color-white" id="title">
+       <h1 class="fg-color-white">Live Tracker</h1>
+     </div>
+   </div>
+    <div class="page-region">
+        <div class="page-region-content">
+              <div class="tiles clearfix" >
+
+                <!--<div class="tile double bg-color-orange ">
+                        <div class="tilecontent" align="center">
+                          <h3> v1.0.1 Release Blockers </h3>
+                          <p> Without fixing those bugs we cannot release the product</p>
+                        </div>
+                </div>-->
+                <div class="tile bg-color-orange">
+                    <div class="tilecontent" align="center">
+                      <h2>v1.0.1 Blockers</h2>
+                    </div>
+                </div>
+                <div class="tile bg-color-orange">
+                        <div class="tilecontent" align="center" id="blockerDay">Loading...</div>
+                        <div class="brand">
+                            <span class="name">Fixed Last Day</span>
+                        </div>
+                </div>
+                <div class="tile bg-color-orange">
+                        <div class="tilecontent" align="center" id="blockerWeek">Loading...</div>
+                        <div class="brand">
+                            <span class="name">Fixed Last Week</span>
+                        </div>
+                </div>
+               <div class="tile double bg-color-orange" data-role="tile-slider" data-param-period="6000">
+                                    <div class="tile-content" style="position: absolute; left: 0px; top: -150px;" id="listBlockersDay">Loading...
+                                    </div>
+                                    <div class="tile-content" style="position: absolute; left: 0px; top: 0px;" id="listBlockersWeek">
+                                    </div>
+                                </div>
+                                </div>
+              <div class="tiles clearfix" >
+
+  <div class="tile bg-color-blueDark">
+                    <div class="tilecontent" align="center">
+                      <h2>v1.0.1 Trackers</h2>
+                    </div>
+                </div>
+    <div class="tile bg-color-blueDark ">
+                        <div class="tilecontent" align="center" id="allDay">Loading...</div>
+                        <div class="brand">
+                            <span class="name">Fixed Last Day</span>
+                        </div>
+                </div>
+                <div class="tile bg-color-blueDark">
+                        <div class="tilecontent" align="center" id="allWeek">Loading...</div>
+                        <div class="brand">
+                            <span class="name">Fixed Last Week</span>
+                        </div>
+                </div>
+               <div class="tile double bg-color-blueDark" data-role="tile-slider" data-param-period="6000">
+                                  <div class="tile-content" style="position: absolute; left: 0px; top: -150px;" id="listBugsDay">
+                                    Loading... 
+                                    </div>
+                                    <div class="tile-content" style="position: absolute; left: 0px; top: 0px;" id="listBugsWeek">
+                                    </div>
+                                </div>
+
+
+
+            </div> 
+        </div>
+    </div>
+    <div class="page">
+      <div class="page-header">
+     <div class="page-header-content" id="title">
+       <h1 class="fg-color-white">Hall of Fame <small>\o/</small></h1>
+     </div>
+   </div>
+      <div class="page-region">
+        <div class="page-region-content">
+              <div class="tiles clearfix" >
+                <div class="tile double bg-color-pinkDark">
+                   <div class="tile-content" id="topBlockers">
+                        Loading...
+                    </div>
+                    <div class="brand"><span class="badge" id="badgeBlockers"></span></div>
+                </div>
+
+                <div class="tile double bg-color-pinkDark">
+                   <div class="tile-content" id="topBugs">
+                        Loading...
+                    </div>
+                    <div class="brand"><span class="badge" id="badgeBugs"></span></div>
+                  </div>
+              </div>
+        </div>
+      </div>
+    </div>
+    <div class="page">
+        <div class="nav-bar">
+            <div class="nav-bar-inner padding10">
+                <span class="element">
+                    Built with <a class="fg-color-white" href="http://metroui.org.ua/">Metro UI CSS</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="js/google-code-prettify/prettify.js"></script>
+    <script src="js/sharrre/jquery.sharrre-1.3.4.min.js"></script>
+    </body>
+</html>

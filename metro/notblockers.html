@@ -30,6 +30,16 @@
     <title>Metro UI CSS</title>
 </head>
 
+<style>
+        body {
+            background: #1d1d1d;
+        }
+
+        .page {
+            background: #1d1d1d;
+        }
+
+    </style>
 <script> 
 
   var time = "1";
@@ -163,7 +173,7 @@
             </li>
             <li data-role="dropdown"><a href="#">People</a>
                 <ul class="dropdown-menu">
-                    <li><a href="fixed.html">Fixed Bugs</a></li>
+                    <li><a href="people.html">Team Dashboard</a></li>
                     <li><a href="live.html">Live Chart</a></li>
                 </ul>
             </li>
@@ -178,23 +188,19 @@
 
 
     <div class="page secondary">
-      <!--<div class="page-header">
-        <div class="page-header-content">-->
           <div class="grid">
             <div class="row">
               <div class="span8">
-                <a href="home.html" class="back-button big page-back"></a>
-                <h1>Firefox OS</h1>
+                <h1 class="fg-color-white">Firefox OS</h1>
               </div>
               <div class="span4">
-                <h2> Not Blocker Bugs </h2>
-                <h3>Countdown: <span id="countdown"></span></h3>
+                <h2 class="fg-color-white"> Not Blocker Bugs </h2>
+                <h3 class="fg-color-white">Countdown: <span id="countdown"></span></h3>
               </div>
             </div>
-          <!--</div>
-        </div>-->
+          </div>
       </div>
-      <div class="page-region">
+      <div class="page-region bg-color-white">
         <div class="page-region-content">
           <div class="span10">
            <div class=padding10 id=loader></div>
@@ -203,7 +209,7 @@
                 <tr id="titlerow" class=info>
                 </tr>
              </thead>
-             <tbody id=tablecontent>
+             <tbody id="tablecontent">
              </tbody>
            </table>
         </div>
