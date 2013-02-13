@@ -41,12 +41,12 @@
      options: {
         'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
         'field0-0-0': 'cf_blocking_b2g',
-        'type0-0-0': 'contains',
-        'value0-0-0': 'tef+'
+        'type0-0-0': 'contains_any',
+        'value0-0-0': 'tef+ shira+'
      },
-     /*callback: function(result) {
+     callback: function(result) {
        document.getElementById("tef").innerHTML = result;
-     }*/
+     }
    })
 
    searches.push({
@@ -55,8 +55,8 @@
      options: {
         'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
         'field0-0-0': 'cf_blocking_b2g',
-        'type0-0-0': 'contains',
-        'value0-0-0': 'shira+'
+        'type0-0-0': 'contains_any',
+        'value0-0-0': 'shira+ tef+'
      },
      callback: function(result) {
        document.getElementById("shira").innerHTML = result + " Blocking Bugs";
@@ -146,6 +146,19 @@
 
 
 </script>
+
+<style>
+        body {
+            background: #1d1d1d;
+        }
+
+        .page {
+            background: #1d1d1d;
+        }
+
+    </style>
+
+
 <div class="page">
 <div class="nav-bar">
     <div class="nav-bar-inner padding10">
@@ -169,7 +182,7 @@
             </li>
             <li data-role="dropdown"><a href="#">People</a>
                 <ul class="dropdown-menu">
-                    <li><a href="fixed.html">Fixed Bugs</a></li>
+                    <li><a href="people.html">Team Dashboard</a></li>
                     <li><a href="live.html">Live Chart</a></li>
                 </ul>
             </li>
@@ -224,8 +237,8 @@
                                     </div>
                                 </div>
 
-                                <span class="control left"><i class="icon-arrow-left-3"></i></span>
-                                <span class="control right"><i class="icon-arrow-right-3"></i></span>
+                                <span class="control left"><i class="icon-arrow-left-3 fg-color-orangeDark"></i></span>
+                                <span class="control right"><i class="icon-arrow-right-3 fg-color-orangeDark"></i></span>
 
                             </div>
                         </div>
@@ -237,16 +250,16 @@
                             <h2 class="fg-color-red">Check also who is doing what</h2>
                             <p class=""> <a class="" href="people.html">Telefónica FirefoxOS Team</a> </p>
                             <br />
-                            <a href="people.html"><h1><i class="icon-arrow-right-3 fg-color-red"></i></h1></a>
+                            <a href="people.html"><h1><i class="icon-arrow-right-3 fg-color-orangeDark"></i></h1></a>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="grid">
-                    <div class="row">
-                        <div id="social" class="span4">
-                           <h1 id=fixed>...</h1> Bugs Fixed during last 24 hours 
+                    <div class="row bg-color-black">
+                        <div class="span4 fg-color-white">
+                           <h1 id="fixed" class="fg-color-white">...</h1> Bugs Fixed during last 24 hours 
                         </div>
 
                         <div class="span4">
