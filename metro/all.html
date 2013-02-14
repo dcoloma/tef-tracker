@@ -50,8 +50,6 @@
 
       request.open('GET', 'http://ffostracker.appspot.com?type=all', true);
 
-      document.getElementById("loader").innerHTML = ' <img src="images/preloader-w8-cycle-black.gif"> <img src="images/preloader-w8-line-black.gif">Retrieving your bugs, please be patient (this may take 1 minute)';
-
       request.onreadystatechange=function()
       {
         console.log("onreadystatechanged " + request.readyState + " status " + request.status);
@@ -204,21 +202,17 @@
           <!--</div>
         </div>-->
       </div>
-      <div class="page-region bg-color-white">
-        <div class="page-region-content">
-          <div class="span10">
-           <div class=padding10 id=loader></div>
-           <table class="hovered" align=center id='bugTable'>
+   </div>
+         <div class="page-region bg-color-black">
+        <div class="page-region-content" id="title">
+           <table class="hovered bg-color-white" align='center' id='bugTable' style="table-layout: fixed;">
              <thead>
                 <tr id="titlerow" class=info>
                 </tr>
              </thead>
-             <tbody id=tablecontent>
+             <tbody id='tablecontent'>
              </tbody>
            </table>
-        </div>
       </div>
-    </div>
-   </div>
 </div>
 </body>

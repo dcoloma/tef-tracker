@@ -26,127 +26,755 @@
 
     <title>Metro UI CSS</title>
 </head>
-<body class="modern-ui" onload="search()">
+<body class="modern-ui" background="#FFFFFF" >
 
 
 <script>
  
-  function search (){
- 
-   var searches = [];
-   
-   searches.push({
-     key: "tef",
-     type: 'count',
-     options: {
-        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-        'field0-0-0': 'cf_blocking_b2g',
-        'type0-0-0': 'contains_any',
-        'value0-0-0': 'tef+ shira+'
-     },
-     callback: function(result) {
-       document.getElementById("tef").innerHTML = result;
-     }
-   })
+ numDays = 16;
+var created = initArray(numDays, 0);
+var fixed = initArray(numDays, 0)
 
-   searches.push({
-     key: "shira",
-     type: 'count',
-     options: {
-        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-        'field0-0-0': 'cf_blocking_b2g',
-        'type0-0-0': 'contains_any',
-        'value0-0-0': 'shira+ tef+'
-     },
-     callback: function(result) {
-       document.getElementById("shira").innerHTML = result + " Blocking Bugs";
-     }
-   })
-
-   searches.push({
-     key: "leo",
-     type: 'count',
-     options: {
-        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-        'field0-0-0': 'cf_blocking_b2g',
-        'type0-0-0': 'contains',
-        'value0-0-0': 'leo+'
-     },
-     callback: function(result) {
-       document.getElementById("leo").innerHTML = result + " Blocking Bugs";
-     }
-   })
-
-   searches.push({
-     key: "trackers",
-     type: 'count',
-     options: {
-        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-        'field0-0-0': 'cf_tracking_b2g18',
-        'type0-0-0': 'contains',
-        'value0-0-0': '+'
-     },
-     callback: function(result) {
-       document.getElementById("track").innerHTML = result;
-     }
-   })
-
-   searches.push({
-     key: "p1",
-     type: 'count',
-     options: {
-        'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-        'status_whiteboard_type': 'anywordssubstr',
-        'status_whiteboard': 'UX-P1',
-        'field0-0-0': 'cf_blocking_b2g',
-        'type0-0-0': 'notequals',
-        'value0-0-0': 'tef+',
-        'field0-1-0': 'cf_tracking_b2g18',
-        'type0-1-0': 'notequals',
-        'value0-1-0': '+'
-     },
-     callback: function(result) {
-       document.getElementById("ux-p1").innerHTML = result;
-     }
-   })
-
-   searches.push({
-     key: "fixed",
-     type: 'count',
-     options: {
-        'bug_status': ['RESOLVED', 'VERIFIED'],
-        'resolution': 'FIXED',
-        'field0-0-0': 'cf_blocking_b2g',
-        'type0-0-0': 'equals',
-        'value0-0-0': 'tef+',
-        'field0-0-1': 'cf_tracking_b2g18',
-        'type0-0-1': 'contains',
-        'value0-0-1': '+',
-        'changed_field': 'Resolution',
-        'changed_field_to': 'FIXED',
-        'changed_after': '-24h'
-     },
-     callback: function(result) {
-       document.getElementById("fixed").innerHTML = result;
-     }
-  })
-
-   searches.forEach(function(search) {
-     Bugzilla.ajax({
-       url: '/' + search.type,
-       data: search.options,
-       success: function(data) {
-         search.callback(data.bugs || data.data)
-       },
-       error: function(err) { console.log('err', err)}
-     })
-   })
+function initArray(length, value) {
+    var arr = [], i = 0;
+    arr.length = length;
+    while (i < length) { arr[i++] = value; }
+    return arr;
 }
 
 
+  $(window).ready(function() {
+    console.log("window ready");
+    var searches = [];
+
+      searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'Resolution',
+            'changed_field_to': 'FIXED',
+            'changed_after': '-24h',
+         },
+         callback: function(result) {
+            document.getElementById("fixedDay").innerHTML = "<h1>" + result + "</h1>";
+         }
+      })
+
+      searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_after': '-24h',
+         },
+         callback: function(result) {
+            document.getElementById("openDay").innerHTML = "<h1>" + result + "</h1>";
+         }
+      })
+
+      searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'Resolution',
+            'changed_field_to': 'FIXED',
+            'changed_after': '-168h',
+         },
+         callback: function(result) {
+            document.getElementById("fixedWeek").innerHTML = "<h1>" + result + "</h1>";
+
+         }
+      })
+
+       searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_after': '-168h',
+         },
+         callback: function(result) {
+           //document.getElementById("fixed").innerHTML = result;
+           document.getElementById("openWeek").innerHTML = "<h1>" + result + "</h1>";
+         }
+      })
+
+      searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+'
+         },
+         callback: function(result) {
+           document.getElementById("remaining").innerHTML = "<h1>" +result+"</h1>";
+         }
+      })
+
+   searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-15d',
+            'chagned_after': '-16d'
+         },
+         callback: function(result) {
+            console.log("15 days ago " + result);
+            //created[15] = result;
+         }
+      })
+
+   searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-14d',
+            'changed_before': '-15d',
+         },
+         callback: function(result) {
+            console.log("14 days ago " + result);
+            created[14] = result;
+         }
+      })
+
+   searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-13d',
+                        'changed_after': '-14d',
+         },
+         callback: function(result) {
+            console.log("13 days ago " + result);
+            created[13] = result;
+         }
+      })
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-12d',
+                        'changed_after': '-13d',
+         },
+         callback: function(result) {
+            console.log("12 days ago " + result);
+            created[12] = result;
+         }
+      })
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-11d',
+                        'changed_after': '-12d',
+         },
+         callback: function(result) {
+            console.log("11 days ago " + result);
+            created[11] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-10d',
+                        'changed_after': '-11d',
+         },
+         callback: function(result) {
+            console.log("10 days ago " + result);
+            created[10] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-9d',
+                        'changed_after': '-10d',
+         },
+         callback: function(result) {
+            console.log("9 days ago " + result);
+            created[9] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-8d',
+                        'changed_after': '-9d',
+         },
+         callback: function(result) {
+            console.log("8 days ago " + result);
+            created[8] = result;
+         }
+      })
+
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-7d',
+                        'changed_after': '-8d',
+         },
+         callback: function(result) {
+            console.log("7 days ago " + result);
+            created[7] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-6d',
+                        'changed_after': '-7d',
+         },
+         callback: function(result) {
+            console.log("6 days ago " + result);
+            created[6] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-5d',
+                        'changed_after': '-6d',
+         },
+         callback: function(result) {
+            console.log("5 days ago " + result);
+            created[5] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-4d',
+                        'changed_after': '-5d',
+         },
+         callback: function(result) {
+            console.log("4 days ago " + result);
+            created[4] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-3d',
+                        'changed_after': '-4d',
+         },
+         callback: function(result) {
+            console.log("3 days ago " + result);
+            created[3] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-2d',
+                        'changed_after': '-3d',
+         },
+         callback: function(result) {
+            console.log("2 days ago " + result);
+            created[2] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-1d',
+                        'changed_after': '-2d',
+         },
+         callback: function(result) {
+            console.log("1 days ago " + result);
+            created[1] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+                        'changed_after': '-1d',
+         },
+         callback: function(result) {
+            created[0] = result;
+            console.log("0 days ago " + result);
+         }
+      })
+
+ searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-15d',
+            'chagned_after': '-16d'
+         },
+         callback: function(result) {
+            console.log("15 days ago " + result);
+            //fixed[15] = result;
+         }
+      })
+
+   searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-14d',
+            'changed_after': '-15d',
+         },
+         callback: function(result) {
+            console.log("14 days ago " + result);
+            fixed[14] = result;
+         }
+      })
+
+   searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-13d',
+                        'changed_after': '-14d',
+         },
+         callback: function(result) {
+            console.log("13 days ago " + result);
+            fixed[13] = result;
+         }
+      })
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-12d',
+                        'changed_after': '-13d',
+         },
+         callback: function(result) {
+            console.log("12 days ago " + result);
+            fixed[12] = result;
+         }
+      })
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-11d',
+                        'changed_after': '-12d',
+         },
+         callback: function(result) {
+            console.log("11 days ago " + result);
+            fixed[11] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-10d',
+                        'changed_after': '-11d',
+         },
+         callback: function(result) {
+            console.log("10 days ago " + result);
+            fixed[10] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-9d',
+                        'changed_after': '-10d',
+         },
+         callback: function(result) {
+            console.log("9 days ago " + result);
+            fixed[9] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-8d',
+                        'changed_after': '-9d',
+         },
+         callback: function(result) {
+            console.log("8 days ago " + result);
+            fixed[8] = result;
+         }
+      })
+
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-7d',
+                        'changed_after': '-8d',
+         },
+         callback: function(result) {
+            console.log("7 days ago " + result);
+            fixed[7] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-6d',
+                        'changed_after': '-7d',
+         },
+         callback: function(result) {
+            console.log("6 days ago " + result);
+            fixed[6] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-5d',
+                        'changed_after': '-6d',
+         },
+         callback: function(result) {
+            console.log("5 days ago " + result);
+            fixed[5] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-4d',
+                        'changed_after': '-5d',
+         },
+         callback: function(result) {
+            console.log("4 days ago " + result);
+            fixed[4] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-3d',
+                        'changed_after': '-4d',
+         },
+         callback: function(result) {
+            console.log("3 days ago " + result);
+            fixed[3] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-2d',
+                        'changed_after': '-3d',
+         },
+         callback: function(result) {
+            console.log("2 days ago " + result);
+            fixed[2] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+            'changed_before': '-1d',
+                        'changed_after': '-2d',
+         },
+         callback: function(result) {
+            console.log("1 days ago " + result);
+            fixed[1] = result;
+         }
+      })
+
+searches.push({
+         key: "allfixed",
+         type: 'count',
+         options: {
+            'bug_status': ['RESOLVED', 'VERIFIED'],
+            'resolution': 'FIXED',
+            'field0-0-0': 'cf_blocking_b2g',
+            'type0-0-0': 'contains_any',
+            'value0-0-0': 'tef+',
+            'changed_field': 'cf_blocking_b2g',
+            'changed_field_to': 'tef+',
+                        'changed_after': '-1d',
+         },
+         callback: function(result) {
+            fixed[0] = result;
+            console.log("0 days ago " + result);
+         }
+      })
+
+
+
+
+
+
+
+    searches.forEach(function(search) {
+      Bugzilla.ajax({
+        url: '/' + search.type,
+        data: search.options,
+        success: function(data) {
+        search.callback(data.bugs || data.data)
+      },
+      error: function(err) { console.log('err', err)}
+    })
+  })
+})
 
 </script>
 
+
+
+
+ 
 <style>
         body {
             background: #1d1d1d;
@@ -157,11 +785,9 @@
         }
 
     </style>
-
-
 <div class="page">
 <div class="nav-bar">
-    <div class="nav-bar-inner padding10">
+    <div class="nav-bar-inner padding10 bg-color-darken">
         <span class="pull-menu"></span>
          <a href="http://www.firefoxos.es"><span class="element brand">
              <i class="icon-firefox">FirefoxOS Tracker</i>
@@ -175,7 +801,7 @@
                 <a href="#">Bug Queries</a>
                 <ul class="dropdown-menu">
                     <li><a href="blockers.html">All Blockers</a></li>
-                    <li><a href="ux.html">UX Bug</a></li>
+                    <li><a href="ux.html">UX Bugs</a></li>
                     <li><a href="notblockers.html">Non-Blockers</a></li>
                     </li>
                 </ul>
@@ -197,96 +823,76 @@
 </div>
 
 <div class="page" id="page-index">
+  <div class="page-header">
+     <div class="page-header-content fg-color-white" id="title">
+       <h1 class="fg-color-white">Firefox OS Dashboard</h1>
+     </div>
+   </div>
     <div class="page-region">
         <div class="page-region-content">
-            <div class="grid">
+
+             <div class="grid">
                 <div class="row">
-                    <div class="span12 padding10 fg-color-darken text-center">
-                        All the information shown in this website is retrieved from bugzilla!!!
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="span8">
-                        <div class="hero-unit">
-                            <div id="carousel1" class="carousel" data-role="carousel" data-param-duration="300">
-                                <div class="slides">
-
-                                    <div class="slide" id="slide1">
-                                        <h2>Blockers remaining for version 1.0.0</h2>
-
-                                        <p class="bg-color-blueDark padding20 fg-color-white">
-                                            There are currently <big id=tef>...</big> blockers that must be fixed for version 1.0.0.</p>
-                                        <h3>Click below to retrieve the whole list and breakdown</h3>
-                                        <p class="tertiary-info-text">
-                                           <a href=blockers.html>Blocker List </a>
-                                        </p>
-                                    </div>
-
-                                    <div class="slide" id="slide2">
-                                        <h2 class="fg-color-darken">UX bugs with P1</h2>
-                                        <p class="bg-color-pink padding20 fg-color-white">
-                                            There are currently <big id=ux-p1>...</big> bugs that are critical from a UX point of view  
-                                        </p>
-                                    </div>
-
-                                    <div class="slide" id="slide3">
-                                        <h2>Tracking Bugs</h2>
-                                        <p class="bg-color-red fg-color-white padding20">
-                                            <big id=track>... </big>Bugs that are not blockers but should be ideally fixed
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <span class="control left"><i class="icon-arrow-left-3 fg-color-orangeDark"></i></span>
-                                <span class="control right"><i class="icon-arrow-right-3 fg-color-orangeDark"></i></span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span4">
-                        <div class="span4 padding30 text-center place-left bg-color-blueLight" id="sponsorBlock">
-                            <br />
-                            <br />
-                            <h2 class="fg-color-red">Check also who is doing what</h2>
-                            <p class=""> <a class="" href="people.html">Telefónica FirefoxOS Team</a> </p>
-                            <br />
-                            <a href="people.html"><h1><i class="icon-arrow-right-3 fg-color-orangeDark"></i></h1></a>
-                        </div>
-                    </div>
+                    <div class="span6 bg-color-orangeDark">
+                        <h2 class="fg-color-white">Firefox OS v1.0.1</h2><small class="fg-color-white"> Release Date 15th Feb </small>
+                      </div>
                 </div>
             </div>
 
-            <div class="grid">
-                    <div class="row bg-color-black">
-                        <div class="span4 fg-color-white">
-                           <h1 id="fixed" class="fg-color-white">...</h1> Bugs Fixed during last 24 hours 
-                        </div>
 
-                        <div class="span4">
-                                <button type="submit" class="command-button bg-color-orange fg-color-white" style="width: 100%;">
-                                    <i class="icon-arrow-right-3 place-right" style="font-size: 24pt; margin-top: 5px;"></i>
-                                    1.0.1 (Shira)<small class="fg-color-grey" id=shira>...</small>
-                                </button>
+              <div class="tiles clearfix" >
+
+                <div class="tile bg-color-orange">
+                        <div class="tilecontent" align="center" id="remaining"></div>
+                        <div class="brand">
+                            <span class="name">Remaining Bugs</span>
                         </div>
-                        <div class="span4">
-                                <button type="submit" class="command-button default" style="width: 100%;">
-                                    <i class="icon-arrow-right-3 place-right" style="font-size: 24pt; margin-top: 5px;"></i>
-                                    1.1 (Leo) <small id=leo>...</small>
-                                </button>
+                </div>
+                <div class="tile bg-color-orange">
+                        <div class="tilecontent" align="center" id="fixedDay"></div>
+                        <div class="brand">
+                            <span class="name">Fixed Last 24 hours</span>
                         </div>
-                    </div>
+                </div>
+                <div class="tile bg-color-orange">
+                        <div class="tilecontent" align="center" id="fixedWeek"></div>
+                        <div class="brand">
+                            <span class="name">Fixed Last Week</span>
+                        </div>
+                </div>
+                <div class="tile bg-color-orange">
+                        <div class="tilecontent" align="center" id="openDay"></div>
+                        <div class="brand">
+                            <span class="name">Opened Last 24 hours</span>
+                        </div>
+                </div>
+                <div class="tile bg-color-orange">
+                        <div class="tilecontent" align="center" id="openWeek"></div>
+                        <div class="brand">
+                            <span class="name">Opened Last Week</span>
+                        </div>
+                </div>
+               
+             
             </div>
-        </div>
+
+                <div class="grid">
+                <div class="row">
+                    <div class="span8 bg-color-white">
+                        <a href="https://datazilla.allizom.org/b2g/"> Firefox OS Performance (App Start-up) </small>
+                      </div>
+                </div>
+            </div>
+    </div>
     <div class="page">
         <div class="nav-bar">
-            <div class="nav-bar-inner padding10">
+            <div class="nav-bar-inner padding10 bg-color-orangeDark">
                 <span class="element">
                     Built with <a class="fg-color-white" href="http://metroui.org.ua/">Metro UI CSS</a>
                 </span>
             </div>
         </div>
     </div>
-</div>
     <script type="text/javascript" src="js/google-code-prettify/prettify.js"></script>
     <script src="js/sharrre/jquery.sharrre-1.3.4.min.js"></script>
     </body>

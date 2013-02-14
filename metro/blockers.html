@@ -50,20 +50,21 @@
 
       request.open('GET', 'http://ffostracker.appspot.com?type=blockers', true);
 
-      document.getElementById("loader").innerHTML = ' <img src="images/preloader-w8-cycle-black.gif"> <img src="images/preloader-w8-line-black.gif">Retrieving your bugs, please be patient (this may take 1 minute)';
+      //document.getElementById("title").innerHTML += ' <div class="bg-color-white fg-color-black"><img src="images/preloader-w8-line-black.gif"> <span class="fg-color-black">Retrieving team details, please be patient (this may take 1 minute)</span></div>';
+      document.getElementById("title").innerHTML = "<p class='long-text fg-color-white'>Retrieving team details, please be patient (this may take 1 minute)</p>";
 
       request.onreadystatechange=function()
       {
         console.log("onreadystatechanged " + request.readyState + " status " + request.status);
         if (request.readyState==4 && request.status==200)
         {
-          document.getElementById("loader").innerHTML = '';
+          document.getElementById("title").innerHTML = 'Blocker Bugs';
           //console.log(request.responseText);
           lista = JSON.parse(request.responseText);
           //console.log(lista.bugs.length);
           document.getElementById("tablecontent").innerHTML = "";
           var t = document.getElementById("tablecontent");
-          var columns = 0;
+          var columns = 0;  
           for (i=0; i < lista.bugs.length; i++)
           {
             if (lista.bugs[i]["title0"] == "Category")
@@ -72,6 +73,8 @@
               for(var key in lista.bugs[i]){
                 console.log("key: " + key + ", value: " + lista.bugs[i][key]);
                 var th = document.createElement("th");
+                th.setAttribute("class", "bg-color-orangeDark fg-color-white");
+
                 th.innerHTML = lista.bugs[i][key]; 
                 document.getElementById("titlerow").appendChild(th);
                 columns++;
@@ -145,10 +148,10 @@
         }
 
     </style>
-<body class="modern-ui" onload="prettyPrint()">
+<body class="modern-ui">
 <div class="page">
 
-<div class="nav-bar">
+<div class="nav-bar bg-color-darken">
     <div class="nav-bar-inner padding10">
         <span class="pull-menu"></span>
 
@@ -196,7 +199,7 @@
                 <h1 class="fg-color-white">Firefox OS</h1>
               </div>
               <div class="span4">
-                <h2 class="fg-color-white"> UX-P1 Bugs </h2>
+                <h2 class="fg-color-white" id='title'> Blocker Bugs </h2>
                 <h3 class="fg-color-white">Countdown: <span id="countdown"></span></h3>
               </div>
             </div>
@@ -204,19 +207,18 @@
           <!--</div>
         </div>-->
       </div>
-      <div class="page-region bg-color-white">
-        <div class="page-region-content">
-          <div class="span10">
-           <div class=padding10 id=loader></div>
-           <table class="hovered" align=center id='bugTable'>
+
+
+      <div class="page-region bg-color-black">
+        <div class="page-region-content" id="title">
+           <table class="hovered bg-color-white" align='center' id='bugTable' style="table-layout: fixed;">
              <thead>
                 <tr id="titlerow" class=info>
                 </tr>
              </thead>
-             <tbody id=tablecontent>
+             <tbody id='tablecontent'>
              </tbody>
            </table>
-        </div>
       </div>
     </div>
    </div>
