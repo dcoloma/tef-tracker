@@ -51,6 +51,7 @@ var assignedMonth = initArray(numPeople, 0);
 var blockersMonth = initArray(numPeople, 0);
 var otherMonth = initArray(numPeople, 0);
 var bugs;
+var interval;
 
 people=devs+","+qa+","+mgr+","+ux;
 
@@ -58,6 +59,16 @@ people=devs+","+qa+","+mgr+","+ux;
 
   $(window).ready(function() {
     console.log("window ready");
+
+       var spins = ["←↖↑↗→↘↓↙", "▁▃▄▅▆▇█▇▆▅▄▃", "▉▊▋▌▍▎▏▎▍▌▋▊▉", "▖▘▝▗", "┤┘┴└├┌┬┐", "◢◣◤◥", "◰ ◳ ◲ ◱", "◴◷◶◵", "◐◓◑◒", "|/-\\"];
+       var spin = spins[0];
+       i=0;
+
+       interval = setInterval(function() {
+          i = i==spin.length-1 ? 0 : ++i;
+          $(".loading").text(spin[i] +' Loading');
+        },300);
+
     var searches = [];
 
       searches.push({
@@ -104,6 +115,7 @@ people=devs+","+qa+","+mgr+","+ux;
            //document.getElementById("fixed").innerHTML = result;
            console.log(result + " All bugs fixed by Telefónica Team during last day")
            document.getElementById("blockerDay").innerHTML = "<h1>" + result + "</h1>";
+           clearInterval(interval);
          }
       })
 
@@ -118,7 +130,7 @@ people=devs+","+qa+","+mgr+","+ux;
             'value0-0-0': '+',
             'changed_field': 'Resolution',
             'changed_field_to': 'FIXED',
-            'changed_after': '-168h',
+            'changed_after': '-7d',
             'email1_type':'equals_any',
             'email1_assigned_to': '1',
             'email1': people 
@@ -127,7 +139,7 @@ people=devs+","+qa+","+mgr+","+ux;
            //document.getElementById("fixed").innerHTML = result;
            console.log(result + " bugs fixed by Telefónica Team during last week")
                       document.getElementById("allWeek").innerHTML = "<h1>" + result + "</h1>";
-
+           clearInterval(interval);
          }
       })
 
@@ -142,7 +154,7 @@ people=devs+","+qa+","+mgr+","+ux;
             'value0-0-0': '+',
             'changed_field': 'Resolution',
             'changed_field_to': 'FIXED',
-            'changed_after': '-168h',
+            'changed_after': '-7d',
             'email1_type':'equals_any',
             'email1_assigned_to': '1',
             'email1': people 
@@ -151,6 +163,7 @@ people=devs+","+qa+","+mgr+","+ux;
            //document.getElementById("fixed").innerHTML = result;
            console.log(result + " Blocker bugs fixed by Telefónica Team during last week")
            document.getElementById("blockerWeek").innerHTML = "<h1>" + result + "</h1>";
+           clearInterval(interval);
          }
       })
 
@@ -171,6 +184,7 @@ people=devs+","+qa+","+mgr+","+ux;
            //document.getElementById("fixed").innerHTML = result;
            console.log(" number of bugs day " + result.length);
            processBugsDay(result);
+           clearInterval(interval);
 
          }
       })
@@ -183,7 +197,7 @@ people=devs+","+qa+","+mgr+","+ux;
             'resolution': 'FIXED',
             'changed_field': 'Resolution',
             'changed_field_to': 'FIXED',
-            'changed_after': '-168h',
+            'changed_after': '-7d',
             'email1_type':'equals_any',
             'email1_assigned_to': '1',
             'email1': people 
@@ -191,6 +205,7 @@ people=devs+","+qa+","+mgr+","+ux;
          callback: function(result) {
             console.log(" number of bugs week " + result.length);
             processBugsWeek(result);
+           clearInterval(interval);
          }
       })
 
@@ -210,6 +225,7 @@ people=devs+","+qa+","+mgr+","+ux;
          callback: function(result) {
             console.log(" number of bugs month " + result.length);
             processBugsMonth(result);
+           clearInterval(interval);
          }
       })
 
@@ -217,6 +233,9 @@ people=devs+","+qa+","+mgr+","+ux;
 
     searches.forEach(function(search) {
       //document.getElementById("title").innerHTML += ' <img src="images/preloader-w8-line-black.gif"> Retrieving team details, please be patient (this may take 1 minute)';
+
+       
+
       Bugzilla.ajax({
         url: '/' + search.type,
         data: search.options,
@@ -252,13 +271,13 @@ function processBugsDay(response)
      }
   }
 
-  peopleFixedBlockersDay="<h2> Fixed Today </h2>";  
-  peopleFixedBugsDay="<h2> Fixed Today </h2><ul>";  
+  peopleFixedBlockersDay="<h3> Fixed Today </h3><ul>";  
+  peopleFixedBugsDay="<h3> Fixed Today </h3><ul>";  
   for (i=0; i < blockersDay.length; i++)
   {
     if(blockersDay[i]>0)
     {
-      peopleFixedBlockersDay += "<li>" + names[i] + " fixed " + blockersDay[i] +" blocker bug(s) /li>"
+      peopleFixedBlockersDay += "<li>" + names[i] + " fixed " + blockersDay[i] +" blocker bug(s) </li>"
     }
     else if(otherDay[i]>0)
     {
@@ -290,22 +309,24 @@ function processBugsWeek(response)
      }
   }
 
-  peopleFixedBlockersWeek="<h3> Fixed this week </h3><ul>";  
-  peopleFixedBugsWeek="<h3> Fixed this week </h3><ul>";  
+  peopleFixedBlockersWeek="<h8> Fixed this week <ul>";  
+  peopleFixedBugsWeek="<h8> Fixed this week <ul>";  
   for (i=0; i < blockersWeek.length; i++)
   {
     if(blockersWeek[i]>0)
     {
       peopleFixedBlockersWeek += "<li>" + names[i] + " fixed " + blockersWeek[i] +" blocker bug(s) </li>"
     }
-    else if(otherWeek[i]>0)
+    if(otherWeek[i]>0)
     {
       peopleFixedBugsWeek += "<li>" + names[i] + " fixed " + otherWeek[i] +" bug(s) </li>"
     }
   }
 
-peopleFixedBlockersWeek += "</ul>";
-  peopleFixedBugsWeek += "</ul>";
+peopleFixedBlockersWeek += "</ul></h8>";
+  peopleFixedBugsWeek += "</ul></h8>";
+
+   console.log(peopleFixedBugsWeek)
 
 
   document.getElementById("listBlockersWeek").innerHTML = peopleFixedBlockersWeek;
@@ -392,7 +413,7 @@ function findIndexOfGreatest(array) {
 
     </style>
 <div class="page">
-<div class="nav-bar">
+<div class="nav-bar bg-color-darken">
     <div class="nav-bar-inner padding10">
         <span class="pull-menu"></span>
          <a href="http://www.firefoxos.es"><span class="element brand">
@@ -450,21 +471,21 @@ function findIndexOfGreatest(array) {
                     </div>
                 </div>
                 <div class="tile bg-color-orange">
-                        <div class="tilecontent" align="center" id="blockerDay">Loading...</div>
+                        <div class="tilecontent loading" align="center" id="blockerDay"></div>
                         <div class="brand">
                             <span class="name">Fixed Last Day</span>
                         </div>
                 </div>
                 <div class="tile bg-color-orange">
-                        <div class="tilecontent" align="center" id="blockerWeek">Loading...</div>
+                        <div class="tilecontent loading" align="center" id="blockerWeek"></div>
                         <div class="brand">
                             <span class="name">Fixed Last Week</span>
                         </div>
                 </div>
                <div class="tile double bg-color-orange" data-role="tile-slider" data-param-period="6000">
-                                    <div class="tile-content" style="position: absolute; left: 0px; top: -150px;" id="listBlockersDay">Loading...
+                                    <div class="tile-content " style="position: absolute; left: 0px; top: -150px;" id="listBlockersDay">
                                     </div>
-                                    <div class="tile-content" style="position: absolute; left: 0px; top: 0px;" id="listBlockersWeek">
+                                    <div class="tile-content " style="position: absolute; left: 0px; top: 0px;" id="listBlockersWeek">
                                     </div>
                                 </div>
                                 </div>
@@ -476,22 +497,22 @@ function findIndexOfGreatest(array) {
                     </div>
                 </div>
     <div class="tile bg-color-blueDark ">
-                        <div class="tilecontent" align="center" id="allDay">Loading...</div>
+                        <div class="tilecontent loading" align="center" id="allDay"></div>
                         <div class="brand">
                             <span class="name">Fixed Last Day</span>
                         </div>
                 </div>
                 <div class="tile bg-color-blueDark">
-                        <div class="tilecontent" align="center" id="allWeek">Loading...</div>
+                        <div class="tilecontent loading" align="center" id="allWeek"></div>
                         <div class="brand">
                             <span class="name">Fixed Last Week</span>
                         </div>
                 </div>
                <div class="tile double bg-color-blueDark" data-role="tile-slider" data-param-period="6000">
-                                  <div class="tile-content" style="position: absolute; left: 0px; top: -150px;" id="listBugsDay">
-                                    Loading... 
+                                  <div class="tile-content " style="position: absolute; left: 0px; top: -150px;" id="listBugsDay">
+                                    
                                     </div>
-                                    <div class="tile-content" style="position: absolute; left: 0px; top: 0px;" id="listBugsWeek">
+                                    <div class="tile-content " style="position: absolute; left: 0px; top: 0px;" id="listBugsWeek">
                                     </div>
                                 </div>
 
@@ -510,15 +531,13 @@ function findIndexOfGreatest(array) {
         <div class="page-region-content">
               <div class="tiles clearfix" >
                 <div class="tile double bg-color-pinkDark">
-                   <div class="tile-content" id="topBlockers">
-                        Loading...
+                   <div class="tile-content loading" id="topBlockers">
                     </div>
                     <div class="brand"><span class="badge" id="badgeBlockers"></span></div>
                 </div>
 
                 <div class="tile double bg-color-pinkDark">
-                   <div class="tile-content" id="topBugs">
-                        Loading...
+                   <div class="tile-content loading" id="topBugs">
                     </div>
                     <div class="brand"><span class="badge" id="badgeBugs"></span></div>
                   </div>
@@ -526,15 +545,7 @@ function findIndexOfGreatest(array) {
         </div>
       </div>
     </div>
-    <div class="page">
-        <div class="nav-bar">
-            <div class="nav-bar-inner padding10">
-                <span class="element">
-                    Built with <a class="fg-color-white" href="http://metroui.org.ua/">Metro UI CSS</a>
-                </span>
-            </div>
-        </div>
-    </div>
+
 </div>
     <script type="text/javascript" src="js/google-code-prettify/prettify.js"></script>
     <script src="js/sharrre/jquery.sharrre-1.3.4.min.js"></script>

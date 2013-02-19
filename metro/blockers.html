@@ -38,7 +38,7 @@
   // add event emitter to window scope
   var self = this
   var minutos = 60;
-  EventEmitter.call(self)
+  interval = 0;
 
   $(window).ready(function() {
 
@@ -51,13 +51,31 @@
       request.open('GET', 'http://ffostracker.appspot.com?type=blockers', true);
 
       //document.getElementById("title").innerHTML += ' <div class="bg-color-white fg-color-black"><img src="images/preloader-w8-line-black.gif"> <span class="fg-color-black">Retrieving team details, please be patient (this may take 1 minute)</span></div>';
-      document.getElementById("title").innerHTML = "<p class='long-text fg-color-white'>Retrieving team details, please be patient (this may take 1 minute)</p>";
+       var spins = [
+    "←↖↑↗→↘↓↙",
+    "▁▃▄▅▆▇█▇▆▅▄▃",
+    "▉▊▋▌▍▎▏▎▍▌▋▊▉",
+    "▖▘▝▗",
+    "┤┘┴└├┌┬┐",
+    "◢◣◤◥",
+    "◰ ◳ ◲ ◱",
+    "◴◷◶◵",
+    "◐◓◑◒",
+    "|/-\\"];
+       var spin = spins[0];
+       i=0;
+
+        interval = setInterval(function() {
+          i = i==spin.length-1 ? 0 : ++i;
+          $(title).text('('+ spin[i] +') This may take 1 minute');
+        },300);
 
       request.onreadystatechange=function()
       {
         console.log("onreadystatechanged " + request.readyState + " status " + request.status);
         if (request.readyState==4 && request.status==200)
         {
+          clearInterval(interval);
           document.getElementById("title").innerHTML = 'Blocker Bugs';
           //console.log(request.responseText);
           lista = JSON.parse(request.responseText);
@@ -191,26 +209,22 @@
 
 
     <div class="page secondary">
-      <!--<div class="page-header">
-        <div class="page-header-content">-->
           <div class="grid">
             <div class="row">
               <div class="span8">
                 <h1 class="fg-color-white">Firefox OS</h1>
               </div>
-              <div class="span4">
-                <h2 class="fg-color-white" id='title'> Blocker Bugs </h2>
+              <div class="span4" align="right">
+                <h3 class="fg-color-white" id='title'> </h3>
                 <h3 class="fg-color-white">Countdown: <span id="countdown"></span></h3>
               </div>
             </div>
           </div>
-          <!--</div>
-        </div>-->
       </div>
 
 
-      <div class="page-region bg-color-black">
-        <div class="page-region-content" id="title">
+      <div class="page-region bg-color-darken">
+        <div class="page-region-content">
            <table class="hovered bg-color-white" align='center' id='bugTable' style="table-layout: fixed;">
              <thead>
                 <tr id="titlerow" class=info>
@@ -221,6 +235,7 @@
            </table>
       </div>
     </div>
+
    </div>
 </div>
 </body>

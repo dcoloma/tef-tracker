@@ -28,7 +28,6 @@
     <script type="text/javascript" src="js/eventEmitter.js" ></script>
     <script type="text/javascript" src="js/Bugzilla.js" ></script>
 
-    <title>Metro UI CSS</title>
 </head>
 
 <script> 
@@ -50,6 +49,8 @@ var other = initArray(numPeople, 0);
 var created = initArray(numPeople, 0);
 var bugs;
 
+var interval = 0;
+
 people=devs+","+qa+","+mgr+","+ux;
 
 
@@ -69,17 +70,35 @@ people=devs+","+qa+","+mgr+","+ux;
       },
       callback: function(result) {
         console.log("numero " + result.length);
-        document.getElementById("title").innerHTML = "<h1 class='bg-color-white'>The team</h1>"; 
+        clearInterval(interval);
         bugs = result;
         processBugs(result);
         createList();
-        $(document).trigger("ready")
-        $(document).trigger("init")
+        document.getElementById("title").innerHTML = ""; 
       }
     });
 
     searches.forEach(function(search) {
-      document.getElementById("title").innerHTML += ' <div class="bg-color-white fg-color-black"><img src="images/preloader-w8-line-black.gif"> <span class="fg-color-black">Retrieving team details, please be patient (this may take 1 minute)</span></div>';
+       var spins = [
+    "←↖↑↗→↘↓↙",
+    "▁▃▄▅▆▇█▇▆▅▄▃",
+    "▉▊▋▌▍▎▏▎▍▌▋▊▉",
+    "▖▘▝▗",
+    "┤┘┴└├┌┬┐",
+    "◢◣◤◥",
+    "◰ ◳ ◲ ◱",
+    "◴◷◶◵",
+    "◐◓◑◒",
+    "|/-\\"];
+       var spin = spins[0];
+       i=0;
+
+        interval = setInterval(function() {
+          i = i==spin.length-1 ? 0 : ++i;
+          $(title).text('('+ spin[i] +') This may take 1 minute');
+        },300);
+
+
       Bugzilla.ajax({
         url: '/' + search.type,
         data: search.options,
@@ -187,10 +206,10 @@ function initArray(length, value) {
 
     </style>
 
-<body class="modern-ui" onload="prettyPrint()">
+<body class="modern-ui">
 <div class="page">
 
-<div class="nav-bar">
+<div class="nav-bar bg-color-darken">
     <div class="nav-bar-inner padding10 ">
         <span class="pull-menu"></span>
 
@@ -225,21 +244,28 @@ function initArray(length, value) {
                 </ul>
             </li>
         </ul>
-    </div>
+  </div>
 </div>
 
-  <div class="page" style="width: 1100px">
-   <div class="page-header">  
-     <div class="page-header-content" id="title">
-       <h1 class="fg-color-white">The team</h1>
-     </div>
-   </div>
+    <div class="page secondary">
+          <div class="grid">
+            <div class="row">
+              <div class="span6">
+                <h1 class="fg-color-white">Firefox OS</h1>
+              </div>
+              <div class="span6">
+                <h1 class="fg-color-white"> The team </h1>
+                <h3 class="fg-color-white" id="title"></h3>
+              </div>
+            </div>
+          </div>
+    </div>
+   
    <div class="page-region">
      <div class="page-region-content tiles">
-       <div class="tile-group tile-drag" style="width: auto;" id="devlist">
+       <div class="tile-group tile-drag" style="width: 1000px;" id="devlist">
         </div>
      </div>
-
-
+   </div>
 </div>
 </body>

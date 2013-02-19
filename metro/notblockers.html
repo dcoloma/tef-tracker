@@ -27,7 +27,6 @@
     <script type="text/javascript" src="js/modern/tile-drag.js"></script>
     <script type="text/javascript" src="js/eventEmitter.js" ></script>
 
-    <title>Metro UI CSS</title>
 </head>
 
 <style>
@@ -48,6 +47,7 @@
   // add event emitter to window scope
   var self = this
   var minutos = 60;
+  var interval = 0;
   EventEmitter.call(self)
 
   $(window).ready(function() {
@@ -55,22 +55,25 @@
     function executeSearches() {
 
       var request = new XMLHttpRequest();
-
-
-
       request.open('GET', 'http://ffostracker.appspot.com?type=notblockers', true);
 
-      document.getElementById("loader").innerHTML = ' <img src="images/preloader-w8-cycle-black.gif"> <img src="images/preloader-w8-line-black.gif">Retrieving your bugs, please be patient (this may take 1 minute)';
+       var spins = ["←↖↑↗→↘↓↙", "▁▃▄▅▆▇█▇▆▅▄▃", "▉▊▋▌▍▎▏▎▍▌▋▊▉", "▖▘▝▗", "┤┘┴└├┌┬┐", "◢◣◤◥", "◰ ◳ ◲ ◱", "◴◷◶◵", "◐◓◑◒", "|/-\\"];
+       var spin = spins[0];
+       i=0;
+
+        interval = setInterval(function() {
+          i = i==spin.length-1 ? 0 : ++i;
+          $(title).text('('+ spin[i] +') This may take 1 minute');
+        },300);
 
       request.onreadystatechange=function()
       {
         console.log("onreadystatechanged " + request.readyState + " status " + request.status);
         if (request.readyState==4 && request.status==200)
         {
-          document.getElementById("loader").innerHTML = '';
-          //console.log(request.responseText);
+          document.getElementById("title").innerHTML = "Non Blocker Bugs";
+          clearInterval(interval);
           lista = JSON.parse(request.responseText);
-          //console.log(lista.bugs.length);
           document.getElementById("tablecontent").innerHTML = "";
           var t = document.getElementById("tablecontent");
           var columns = 0;
@@ -83,11 +86,11 @@
                 console.log("key: " + key + ", value: " + lista.bugs[i][key]);
                 var th = document.createElement("th");
                 th.innerHTML = lista.bugs[i][key]; 
+                th.setAttribute("class", "bg-color-orangeDark fg-color-white");
                 document.getElementById("titlerow").appendChild(th);
                 columns++;
               }
               console.log("columnas ..." + columns);
-              //document.getElementById("disclaimer").setAttribute("colspan", columns);
             }
             else if (lista.bugs[i]["separator"] != null)
             {
@@ -148,7 +151,7 @@
 <body class="modern-ui" onload="prettyPrint()">
 <div class="page">
 
-<div class="nav-bar">
+<div class="nav-bar bg-color-darken">
     <div class="nav-bar-inner padding10">
         <span class="pull-menu"></span>
 
@@ -193,28 +196,28 @@
               <div class="span8">
                 <h1 class="fg-color-white">Firefox OS</h1>
               </div>
-              <div class="span4">
-                <h2 class="fg-color-white"> Not Blocker Bugs </h2>
+              <div class="span4" align="right">
+                <h3 class="fg-color-white" id="title"> Not Blocker Bugs </h3>
                 <h3 class="fg-color-white">Countdown: <span id="countdown"></span></h3>
               </div>
             </div>
           </div>
       </div>
-      <div class="page-region bg-color-white">
+
+   <div class="page-region bg-color-black">
         <div class="page-region-content">
-          <div class="span10">
-           <div class=padding10 id=loader></div>
-           <table class="hovered" align=center id='bugTable'>
+           <table class="hovered bg-color-white" align='center' id='bugTable' style="table-layout: fixed;">
              <thead>
                 <tr id="titlerow" class=info>
                 </tr>
              </thead>
-             <tbody id="tablecontent">
+             <tbody id='tablecontent'>
              </tbody>
            </table>
-        </div>
       </div>
     </div>
+
+
    </div>
 </div>
 </body>
