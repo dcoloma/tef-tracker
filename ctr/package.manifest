@@ -1,5 +1,24 @@
 {
   "name": "Cut the Rope",
   "package_path": "http://dcoloma.github.com/tef-tracker/ctr/package.zip",
-  "version": "1.0"
+  "version": "1.0",
+  "developer": {
+    "name": "ZeptoLab",
+    "url": "http://www.zeptolab.com"
+  },
+  "locales": {
+    "de": {
+      "description": "Durchtrenne die Seile, um Om Nom in diesem Physikpuzzler zu füttern!",
+      "launch_path": "/?lang=de"
+    },
+    "fr": {
+      "description": "Coupez les cordes pour nourrir Om Nom dans ce jeu basé sur la physique!",
+      "launch_path": "/?lang=fr"
+    },
+    "ru": {
+      "description": "Перерезайте веревки, чтобы накормить Ам Няма леденцами и открыть новые уровни!",
+      "launch_path": "/?lang=ru"
+    }
+  },
+  "default_locale": "en"
 }
