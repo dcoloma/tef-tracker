@@ -5,14 +5,14 @@
   ], 
   "default_locale": "en", 
   "icons": {
-    "120": "app.png", 
-    "60": "app.png"
+    "120": "app120.png", 
+    "60": "app60.png"
   }, 
   "installs_allowed_from": [
     "http://dcoloma.github.com"
   ], 
   "description": "Walktrough main UI tips on FirefoxOS", 
-  "package_path": "https://dcoloma.github.com/tef-tracker/ismael/package.zip", 
+  "package_path": "http://dcoloma.github.com/tef-tracker/ismael/package.zip", 
   "launch_path": "index.html", 
   "developer": {
     "url": "http://basiclines.es", 
