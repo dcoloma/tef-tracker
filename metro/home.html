@@ -127,310 +127,111 @@ function initArray(length, value) {
             'value0-0-0': 'tef+'
          },
          callback: function(result) {
-           document.getElementById("remaining").innerHTML = "<h1>" +result+"</h1>";
+           document.getElementById("TOTAL").innerHTML = "<h1>" +result+"</h1>";
          }
       })
 
-/*
-   searches.push({
+      searches.push({
          key: "allfixed",
          type: 'count',
          options: {
             'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'status_whiteboard_type': 'notsubstring',
+            'status_whiteboard': '[NPOTB]',
             'field0-0-0': 'cf_blocking_b2g',
             'type0-0-0': 'contains_any',
             'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-15d',
-            'chagned_after': '-16d'
          },
          callback: function(result) {
-            console.log("15 days ago " + result);
-            //created[15] = result;
+           document.getElementById("POTB").innerHTML = "<h1>" +result+"</h1>";
+           console.log("without NOPTB: " + result)
          }
       })
 
-   searches.push({
+      // --- TOTAL ---
+      // NPOTB POTB POVB BURI SHIRA
+      searches.push({
          key: "allfixed",
          type: 'count',
          options: {
             'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'status_whiteboard_type': 'not_contains_any',
+            'status_whiteboard': '[NPOTB],[POVB]',
             'field0-0-0': 'cf_blocking_b2g',
             'type0-0-0': 'contains_any',
             'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-14d',
-            'changed_before': '-15d',
          },
          callback: function(result) {
-            console.log("14 days ago " + result);
-            created[14] = result;
+           document.getElementById("PODB").innerHTML = "<h1>" +result+"</h1>";
+           console.log("without NOPTB or POVB: " + result)
          }
       })
 
-   searches.push({
+      searches.push({
          key: "allfixed",
          type: 'count',
          options: {
             'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'status_whiteboard_type': 'contains',
+            'status_whiteboard': '[NPOTB]',
             'field0-0-0': 'cf_blocking_b2g',
             'type0-0-0': 'contains_any',
             'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-13d',
-                        'changed_after': '-14d',
          },
          callback: function(result) {
-            console.log("13 days ago " + result);
-            created[13] = result;
-         }
-      })
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-12d',
-                        'changed_after': '-13d',
-         },
-         callback: function(result) {
-            console.log("12 days ago " + result);
-            created[12] = result;
-         }
-      })
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-11d',
-                        'changed_after': '-12d',
-         },
-         callback: function(result) {
-            console.log("11 days ago " + result);
-            created[11] = result;
+           document.getElementById("NPOTB").innerHTML = "<h1>" +result+"</h1>";
+           console.log("NOPTB: " + result)
          }
       })
 
-searches.push({
+      searches.push({
          key: "allfixed",
          type: 'count',
          options: {
             'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'status_whiteboard_type': 'contains',
+            'status_whiteboard': '[POVB]',
             'field0-0-0': 'cf_blocking_b2g',
             'type0-0-0': 'contains_any',
             'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-10d',
-                        'changed_after': '-11d',
          },
          callback: function(result) {
-            console.log("10 days ago " + result);
-            created[10] = result;
+           document.getElementById("POVB").innerHTML = "<h1>" +result+"</h1>";
+           console.log("POVB: " + result)
          }
       })
 
-searches.push({
+      searches.push({
          key: "allfixed",
          type: 'count',
          options: {
             'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'status_whiteboard_type': 'contains_all',
+            'status_whiteboard': '[POVB],ikura',
             'field0-0-0': 'cf_blocking_b2g',
             'type0-0-0': 'contains_any',
             'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-9d',
-                        'changed_after': '-10d',
          },
          callback: function(result) {
-            console.log("9 days ago " + result);
-            created[9] = result;
+           document.getElementById("IKURA").innerHTML = "<h1>" +result+"</h1>";
+           console.log("POVB ikura: " + result)
          }
       })
 
-searches.push({
+      searches.push({
          key: "allfixed",
          type: 'count',
          options: {
             'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'status_whiteboard_type': 'allwordssubstr',
+            'status_whiteboard': '[POVB],buri',
             'field0-0-0': 'cf_blocking_b2g',
             'type0-0-0': 'contains_any',
             'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-8d',
-                        'changed_after': '-9d',
          },
          callback: function(result) {
-            console.log("8 days ago " + result);
-            created[8] = result;
-         }
-      })
-
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-7d',
-                        'changed_after': '-8d',
-         },
-         callback: function(result) {
-            console.log("7 days ago " + result);
-            created[7] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-6d',
-                        'changed_after': '-7d',
-         },
-         callback: function(result) {
-            console.log("6 days ago " + result);
-            created[6] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-5d',
-                        'changed_after': '-6d',
-         },
-         callback: function(result) {
-            console.log("5 days ago " + result);
-            created[5] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-4d',
-                        'changed_after': '-5d',
-         },
-         callback: function(result) {
-            console.log("4 days ago " + result);
-            created[4] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-3d',
-                        'changed_after': '-4d',
-         },
-         callback: function(result) {
-            console.log("3 days ago " + result);
-            created[3] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-2d',
-                        'changed_after': '-3d',
-         },
-         callback: function(result) {
-            console.log("2 days ago " + result);
-            created[2] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-1d',
-                        'changed_after': '-2d',
-         },
-         callback: function(result) {
-            console.log("1 days ago " + result);
-            created[1] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-                        'changed_after': '-1d',
-         },
-         callback: function(result) {
-            created[0] = result;
-            console.log("0 days ago " + result);
+           document.getElementById("BURI").innerHTML = "<h1>" +result+"</h1>";
+           console.log("POVB buri: " + result)
          }
       })
 
@@ -438,324 +239,60 @@ searches.push({
          key: "allfixed",
          type: 'count',
          options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
+            'status_whiteboard_type': 'allwordssubstr',
+            'status_whiteboard': '[POVB],COM_RIL',
             'field0-0-0': 'cf_blocking_b2g',
             'type0-0-0': 'contains_any',
             'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-15d',
-            'chagned_after': '-16d'
          },
          callback: function(result) {
-            console.log("15 days ago " + result);
-            //fixed[15] = result;
+           document.getElementById("COM_RIL").innerHTML = "<h1>" +result+"</h1>";
+           console.log("POVB buri: " + result)
          }
       })
 
-   searches.push({
+      searches.push({
          key: "allfixed",
          type: 'count',
          options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
+            'bug_status': ['NEW', 'UNCONFIRMED', 'READY', 'ASSIGNED', 'REOPENED'],
             'field0-0-0': 'cf_blocking_b2g',
             'type0-0-0': 'contains_any',
             'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-14d',
-            'changed_after': '-15d',
+            'field1-0-0': 'blocks',
+            'type1-0-0': 'equals',
+            'value1-0-0': 855378,
+            'field1-0-1': 'blocks',
+            'type1-0-1': 'equals',
+            'value1-0-1': 855322
          },
          callback: function(result) {
-            console.log("14 days ago " + result);
-            fixed[14] = result;
+           document.getElementById("opencert").innerHTML = result;
+           console.log("CERT Blockers: " + result)
          }
       })
 
-   searches.push({
+         searches.push({
          key: "allfixed",
          type: 'count',
          options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
+            'bug_status': ['RESOLVED','VERIFIED','CLOSED'],
             'field0-0-0': 'cf_blocking_b2g',
             'type0-0-0': 'contains_any',
             'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-13d',
-                        'changed_after': '-14d',
+            'field1-0-0': 'blocks',
+            'type1-0-0': 'equals',
+            'value1-0-0': 855378,
+            'field1-0-1': 'blocks',
+            'type1-0-1': 'equals',
+            'value1-0-1': 855322
          },
          callback: function(result) {
-            console.log("13 days ago " + result);
-            fixed[13] = result;
+           document.getElementById("closedcert").innerHTML = result;
+           console.log("CERT Blockers FIXED: " + result)
          }
       })
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-12d',
-                        'changed_after': '-13d',
-         },
-         callback: function(result) {
-            console.log("12 days ago " + result);
-            fixed[12] = result;
-         }
-      })
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-11d',
-                        'changed_after': '-12d',
-         },
-         callback: function(result) {
-            console.log("11 days ago " + result);
-            fixed[11] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-10d',
-                        'changed_after': '-11d',
-         },
-         callback: function(result) {
-            console.log("10 days ago " + result);
-            fixed[10] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-9d',
-                        'changed_after': '-10d',
-         },
-         callback: function(result) {
-            console.log("9 days ago " + result);
-            fixed[9] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-8d',
-                        'changed_after': '-9d',
-         },
-         callback: function(result) {
-            console.log("8 days ago " + result);
-            fixed[8] = result;
-         }
-      })
-
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-7d',
-                        'changed_after': '-8d',
-         },
-         callback: function(result) {
-            console.log("7 days ago " + result);
-            fixed[7] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-6d',
-                        'changed_after': '-7d',
-         },
-         callback: function(result) {
-            console.log("6 days ago " + result);
-            fixed[6] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-5d',
-                        'changed_after': '-6d',
-         },
-         callback: function(result) {
-            console.log("5 days ago " + result);
-            fixed[5] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-4d',
-                        'changed_after': '-5d',
-         },
-         callback: function(result) {
-            console.log("4 days ago " + result);
-            fixed[4] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-3d',
-                        'changed_after': '-4d',
-         },
-         callback: function(result) {
-            console.log("3 days ago " + result);
-            fixed[3] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-2d',
-                        'changed_after': '-3d',
-         },
-         callback: function(result) {
-            console.log("2 days ago " + result);
-            fixed[2] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-            'changed_before': '-1d',
-                        'changed_after': '-2d',
-         },
-         callback: function(result) {
-            console.log("1 days ago " + result);
-            fixed[1] = result;
-         }
-      })
-
-searches.push({
-         key: "allfixed",
-         type: 'count',
-         options: {
-            'bug_status': ['RESOLVED', 'VERIFIED'],
-            'resolution': 'FIXED',
-            'field0-0-0': 'cf_blocking_b2g',
-            'type0-0-0': 'contains_any',
-            'value0-0-0': 'tef+',
-            'changed_field': 'cf_blocking_b2g',
-            'changed_field_to': 'tef+',
-                        'changed_after': '-1d',
-         },
-         callback: function(result) {
-            fixed[0] = result;
-            console.log("0 days ago " + result);
-         }
-      })*/
-
-
-
-
-
 
 
     searches.forEach(function(search) {
@@ -796,14 +333,14 @@ searches.push({
          </span></a>
         <div class="divider"></div>
 
-        <ul class="menu">
+         <ul class="menu">
             <li><a href="home.html">Home</a></li>
             <li data-role="dropdown">
                 <a href="#">Bug Queries</a>
                 <ul class="dropdown-menu">
                     <li><a href="blockers.html">All Blockers</a></li>
-                    <li><a href="ux.html">UX Bugs</a></li>
-                    <li><a href="notblockers.html">Non-Blockers</a></li>
+                    <li><a href="v1_0_1.html">v1.0.1 Bugs</a></li>
+                    <li><a href="all.html">All Bugs</a></li>
                     </li>
                 </ul>
             </li>
@@ -811,11 +348,6 @@ searches.push({
                 <ul class="dropdown-menu">
                     <li><a href="people.html">Team Dashboard</a></li>
                     <li><a href="live.html">Live Chart</a></li>
-                </ul>
-            </li>
-            <li data-role="dropdown"><a href="#">UX Bugs in Detail</a>
-                <ul class="dropdown-menu">
-                    <li><a href="ux-p1.html">UX-P1 Split</a></li>
                 </ul>
             </li>
         </ul>
@@ -826,66 +358,144 @@ searches.push({
 <div class="page" id="page-index">
   <div class="page-header">
      <div class="page-header-content fg-color-white" id="title">
-       <h1 class="fg-color-white">Firefox OS Dashboard</h1>
+       <h1 class="fg-color-white">Firefox OS v1.0.1 Dashboard</h1>
      </div>
    </div>
+
+<div class="grid"></div>
+<div class="grid">
+
+
+                <div class="row">
+                    <div class="span4 bg-color-blue"><a href="https://bugzilla.mozilla.org/buglist.cgi?f10=CP&v15=855322&v6=tef%2B&list_id=6340890&f8=OP&j13=OR&f15=blocked&resolution=---&j14=OR&o16=equals&query_based_on=certification-tef%2B&f13=OP&o6=equals&o15=equals&query_format=advanced&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=READY&bug_status=ASSIGNED&bug_status=REOPENED&f14=OP&f17=CP&f6=cf_blocking_b2g&known_name=certification-tef%2B&f16=blocked&v16=855378" target="_blank">
+                        
+                        <h3 class="fg-color-white">&nbsp;Open Certification Blockers</h3>
+                        <h1 id="opencert" class="fg-color-white" align="center">....</h1>
+                    </a>
+                    </div>
+
+                    <div class="span4 bg-color-blueDark"><a href="https://bugzilla.mozilla.org/buglist.cgi?f10=CP&v15=855322&v6=tef%2B&list_id=6340923&f8=OP&j13=OR&f15=blocked&resolution=FIXED&resolution=INVALID&resolution=WONTFIX&resolution=DUPLICATE&resolution=WORKSFORME&resolution=INCOMPLETE&resolution=SUPPORT&resolution=EXPIRED&resolution=MOVED&j14=OR&o16=equals&query_based_on=certification-tef%2B&f13=OP&o6=equals&o15=equals&query_format=advanced&bug_status=RESOLVED&bug_status=VERIFIED&bug_status=CLOSED&f14=OP&f17=CP&f6=cf_blocking_b2g&known_name=certification-tef%2B&f16=blocked&v16=855378" target="_blank">
+                        
+                        <h3 class="fg-color-white">&nbsp;Fixed Certification Blockers</h3>
+                        <h1 id="closedcert" class="fg-color-white" align="center">...</h1>
+                    </a></div>
+                </div>
+             
+
+       </div>
+
     <div class="page-region">
         <div class="page-region-content">
 
-             <div class="grid">
-                <div class="row" align="center">
-                    <div class="span4 bg-color-pinkDark offset3" align="center">
-                        <h2 class="fg-color-white">Firefox OS v1.0.1</h2><small class="fg-color-white"> Release Date 15th Feb </small>
-                      </div>
+
+
+
+              <div class="tiles clearfix" >
+                 <div class="tile bg-color-orange"><a href="https://bugzilla.mozilla.org/buglist.cgi?f1=OP&list_id=6331511&f0=OP&columnlist=short_short_desc%2Cbug_status%2Cresolution%2Ccf_status_b2g18%2Ccf_status_b2g18_1_0_1%2Ccomponent%2Cassigned_to&resolution=---&query_based_on=QC-TEF%20&o2=equals&f4=OP&query_format=advanced&j1=OR&f3=CP&f2=cf_blocking_b2g&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=READY&bug_status=ASSIGNED&bug_status=REOPENED&j4=OR&f6=CP&v2=tef%2B&f7=CP&known_name=QC-TEF" target="_blank">
+                        <p></p>
+                        <div class="tile-content" align="center" id="TOTAL"></div>
+                        <div class="brand" align="center">
+                            <span class="name">TOTAL</span>
+                        </div>
+                 </a></div>
+                 <div class="tile bg-color-orange"><a href="https://bugzilla.mozilla.org/buglist.cgi?f1=cf_blocking_b2g&o3=notsubstring&list_id=6333987&v3=POVB&o1=equals&resolution=---&resolution=DUPLICATE&o2=anywords&query_format=advanced&f3=status_whiteboard&f2=status_whiteboard&v1=tef%2B&v2=NPOTB" target="_blank">
+                        <p></p>
+                        <div class="tile-content" align="center" id="NPOTB"></div>
+                        <div class="brand">
+                            <span class="name">NPOTB <br>(Not Part Of The Build)</span>
+                        </div>
+                 </a></div>
+                 <div class="tile bg-color-orange"><a href="https://bugzilla.mozilla.org/buglist.cgi?f1=cf_blocking_b2g&o1=equals&resolution=---&o2=notsubstring&query_format=advanced&f2=status_whiteboard&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=READY&bug_status=ASSIGNED&bug_status=REOPENED&v1=tef%2B&v2=NPOTB" target="_blank">
+                        <p></p>
+                        <div class="tile-content" align="center" id="POTB"></div>
+                        <div class="brand">
+                            <span class="name">POTB<br> (Part Of The Build)</span>
+                        </div>
+                 </a></div>
+                 <div class="tile double bg-color-darken">
+                        <div class="tile-content">
+                         <h3><p><ul>
+                            <li>Total: Total number of tef+ bugs</li>
+                            <li>NPOTB: Bugs that do not affect the build</li>
+                            <li>POTB: Bugs that affect the build</li>
+                         </ul></p></h3>
+                        </div>
+                 </div>
+              </div>
+
+              <div class="tiles clearfix" >
+               <div class="tile bg-color-darken double">
+                        <div class="tile-content">
+                         <h3><p><ul>
+                            <li>PODB: Bugs to be fixed by Moz/TEF team </li>
+                            <li>POVB: Bugs that should be fixed by vendors</li>
+                        </ul></p></h3>
+                        </div>
+              </div>
+
+
+                <div class="tile bg-color-orangeDark"><a href="https://bugzilla.mozilla.org/buglist.cgi?o5=nowordssubstr&f1=OP&list_id=6331486&f0=OP&columnlist=short_short_desc%2Cbug_status%2Cresolution%2Ccf_status_b2g18%2Ccf_status_b2g18_1_0_1%2Ccomponent%2Cassigned_to&resolution=---&query_based_on=QC-TEF%2B&o2=equals&f4=OP&v5=[NPOTB]%20POVB&query_format=advanced&j1=OR&f3=CP&f2=cf_blocking_b2g&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=READY&bug_status=ASSIGNED&bug_status=REOPENED&j4=OR&f5=status_whiteboard&f6=CP&v2=tef%2B&f7=CP&known_name=QC-TEF%2B" target="_blank">
+                        <p></p>
+                        <div class="tile-content" align="center" id="PODB"></div>
+                        <div class="brand">
+                            <span class="name">PODB<br>Part of Default Build</span>
+                        </div></a>
                 </div>
+                                <div class="tile bg-color-orangeDark"><a href="https://bugzilla.mozilla.org/buglist.cgi?f1=cf_blocking_b2g&list_id=6334035&o1=equals&resolution=---&resolution=DUPLICATE&o2=anywords&query_format=advanced&f2=status_whiteboard&v1=tef%2B&v2=POVB" target="_blank">
+                        <p></p>
+                        <div class="tile-content" align="center" id="POVB"></div>
+                        <div class="brand">
+                                                       <span class="name">POVB<br>Part of Vendor Build</span>
+
+                        </div></a>
+                </div>
+                <div class="tile bg-color-darken">
+                        <div class="tile-content" align="center"></div>
+                        <div class="brand">
+                        </div>
+                </div>   
+
+
+
             </div>
 
 
               <div class="tiles clearfix" >
-
-                <div class="tile bg-color-orange">
-                        <div class="tilecontent" align="center" id="remaining"></div>
+     <div class="tile bg-color-darken double">
+                        <div class="tilecontent" align="center"></div>
                         <div class="brand">
-                            <span class="name">Remaining Bugs</span>
-                        </div>
-                </div>
-                                <div class="tile bg-color-orange">
-                        <div class="tilecontent" align="center" id="openDay"></div>
-                        <div class="brand">
-                            <span class="name">Opened Last 24 hours</span>
-                        </div>
-                </div>
-                <div class="tile bg-color-orange">
-                        <div class="tilecontent" align="center" id="fixedDay"></div>
-                        <div class="brand">
-                            <span class="name">Fixed Last 24 hours</span>
-                        </div>
-                </div>
-                                <div class="tile bg-color-orange">
-                        <div class="tilecontent" align="center" id="openWeek"></div>
-                        <div class="brand">
-                            <span class="name">Opened Last Week</span>
-                        </div>
-                </div>
-                <div class="tile bg-color-orange">
-                        <div class="tilecontent" align="center" id="fixedWeek"></div>
-                        <div class="brand">
-                            <span class="name">Fixed Last Week</span>
                         </div>
                 </div>
 
+ 
+                                <div class="tile bg-color-yellow">
+                        <p></p>
+                        <div class="tile-content" align="center" id="BURI"></div>
+                        <div class="brand">
+                                                       <span class="name">BURI</span>
 
-               
-             
+                        </div>
+                </div>
+                <div class="tile bg-color-yellow">
+                        <p></p>
+                        <div class="tile-content" align="center" id="IKURA"></div>
+                        <div class="brand">
+                            <span class="name">IKURA</span>
+                        </div>
+                </div>   
+                                <div class="tile bg-color-yellow">
+                        <p></p>
+                        <div class="tile-content" align="center" id="COM_RIL"></div>
+                        <div class="brand">
+                            <span class="name">COM_RIL</span>
+                        </div>
+                </div>   
+
+
             </div>
 
-                <!--<div class="grid">
-                <div class="row">
-                    <div class="span8 bg-color-white">
-                        <a href="https://datazilla.allizom.org/b2g/"> Firefox OS Performance (App Start-up) </small>
-                      </div>
-                </div>
-            </div>-->
+       
+
     </div>
     <div class="page">
         <div class="nav-bar">
