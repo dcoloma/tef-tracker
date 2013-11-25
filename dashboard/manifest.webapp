@@ -1,0 +1,19 @@
+{
+  "name": "FirefoxOS Tracker",
+  "description": "FirefoxOS Status Tracker",
+  "launch_path": "/home.html",
+  "developer": {
+    "name": "Daniel Coloma",
+    "url": "https://github.com/dcoloma/"
+  },
+  "locales": {
+    "en-US": {
+      "name": "FirefoxOS Tracker",
+      "description": "FirefoxOS Status Tracker"
+    }
+  },
+  "default_locale": "en-US",
+  "icons": {
+    "128": "/style/icons/firefox.png"
+  }
+}
