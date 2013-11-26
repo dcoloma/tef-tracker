@@ -89,8 +89,21 @@ $(window).ready(function() {
 function readFromLS()
 {
   console.log("*** METHOD readFromLS");
-  for (var x in domnodes)
-    asyncStorage.getItem(domnodes[x], createLocalStorageCB(domnodes[x]));
+
+  if (window.indexedDB)
+  {  
+    for (var x in domnodes)
+      asyncStorage.getItem(domnodes[x], createLocalStorageCB(domnodes[x]));
+  }
+  else // Thanks Apple for not supporting indexedDB
+  {
+    for (var x in domnodes)
+    {  
+      var value = localStorage.getItem(domnodes[x]);
+      if (value != null)
+        document.getElementById(domnodes[x]).innerHTML = "<h1>"+value+"</h1><h5>(Cached)</h5>"; 
+    }
+  }
 }
 
 
@@ -120,7 +133,10 @@ function createFirebaseCB(node)
   return function(snapshot){
     snapshot.forEach(function(childSnapshot) {
       console.log("*** METHOD FirebaseCB: Item " + node + childSnapshot.name() + " value " + childSnapshot.val());
-      asyncStorage.setItem(node + childSnapshot.name(),childSnapshot.val()); 
+      if (window.indexedDB)
+        asyncStorage.setItem(node + childSnapshot.name(),childSnapshot.val()); 
+      else
+        localStorage.setItem(node + childSnapshot.name(),childSnapshot.val()); 
       var d = document.getElementById(node + childSnapshot.name());
       if (d != null)
         d.innerHTML = "<h1>"+childSnapshot.val()+"</h1>";
