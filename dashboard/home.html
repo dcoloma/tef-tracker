@@ -82,7 +82,8 @@ $(window).ready(function() {
   
   showElement('index');
   readFromLS();
-  readFromFB();
+  if (navigator.online)
+    readFromFB();
 });  
 
 // Retrieves information from Local Storage
