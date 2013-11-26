@@ -91,9 +91,16 @@ function readFromLS()
 {
   console.log("*** METHOD readFromLS");
   for (var x in domnodes)
-  {
-    console.log("--- readFromLS var " + domnodes[x]);
-    asyncStorage.getItem(domnodes[x], function(value){if (value!=null){document.getElementById(domnodes[x]).innerHTML = value; console.log("--- readFromLS value " + value);} else{console.log("value is null for " + domnodes[x])}});
+    asyncStorage.getItem(domnodes[x], createLocalStorageCB(domnodes[x]));
+}
+
+
+// Closure for adding listeners to every node
+function createLocalStorageCB(domnode)
+{
+  return function(value){
+    console.log("*** METHOD LocalStorageCB: Item " + domnode + " value " + value);
+    document.getElementById(domnode).innerHTML = value; 
   }
 }
 
@@ -157,7 +164,7 @@ function fill(version, tag, links, ids, names, color, colorDark)
      content += color + " icon'><b class='check'></b>";
     else
      content += colorDark + " icon'><b class='check'></b>";
-    content+= "<div class='tile-content' id='" + ids[x] + "''></div>";
+    content+= "<div class='tile-content' id='" + ids[x] + "'></div>";
     content+= "<div class='brand'><span class='name'>" + version + " " + names[x]
     content+= "</span><span class='badge'></span></div></div></a>"
   }  
