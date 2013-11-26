@@ -89,15 +89,18 @@ $(window).ready(function() {
 // Retrieves information from Local Storage
 function readFromLS()
 {
+  console.log("*** METHOD readFromLS");
   for (var x in domnodes)
   {
-    asyncStorage.getItem(domnodes[x], function(value){if (value!=null){document.getElementById(domnodes[x]).innerHTML = value;} else{console.log("value is null for " + domnodes[x])}});
+    console.log("--- readFromLS var " + domnodes[x]);
+    asyncStorage.getItem(domnodes[x], function(value){if (value!=null){document.getElementById(domnodes[x]).innerHTML = value; console.log("--- readFromLS value " + value);} else{console.log("value is null for " + domnodes[x])}});
   }
 }
 
 // Retrieves information from Firebase
 function readFromFB()
 {
+  console.log("*** METHOD readFromFB");
   for (var x in nodes)
   {
     fb = new Firebase(baseURL + nodes[x]);
@@ -110,7 +113,7 @@ function createFirebaseCB(node)
 {
   return function(snapshot){
     snapshot.forEach(function(childSnapshot) {
-      console.log("Item " + node + childSnapshot.name() + " value " + childSnapshot.val());
+      console.log("*** METHOD FirebaseCB: Item " + node + childSnapshot.name() + " value " + childSnapshot.val());
       asyncStorage.setItem(node + childSnapshot.name(),childSnapshot.val()); 
       var d = document.getElementById(node + childSnapshot.name());
       if (d != null)
