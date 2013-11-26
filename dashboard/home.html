@@ -82,8 +82,7 @@ $(window).ready(function() {
   
   showElement('index');
   readFromLS();
-  if (navigator.online)
-    readFromFB();
+  readFromFB();
 });  
 
 // Retrieves information from Local Storage
@@ -100,7 +99,7 @@ function createLocalStorageCB(domnode)
 {
   return function(value){
     console.log("*** METHOD LocalStorageCB: Item " + domnode + " value " + value);
-    document.getElementById(domnode).innerHTML = value; 
+    document.getElementById(domnode).innerHTML = "<h1>"+value+"</h1><h5>(Cached)</h5>"; 
   }
 }
 
