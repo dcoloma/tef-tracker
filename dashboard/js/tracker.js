@@ -236,6 +236,18 @@ function installMessage()
        document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App";
      }
    }
+   if (isFirefox)
+   {
+     if (navigator.mozApps.checkInstalled(manifestUrl);) {
+       document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
+       document.getElementById('installLink').style.display = 'none';
+     }
+     else
+     {
+       document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App. You can also add a Bookmark or include it in your FFOS Homescreen.";
+     }
+   }
+
 }
 
 function install()
@@ -244,7 +256,7 @@ function install()
   { 
     console.log("Using Chrome");
     chrome.webstore.install("https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh",
-                            function(){alert("FirefoxOS Tracker Successfully installed");},
+                            function(){alert("FirefoxOS Tracker Successfully installed");installMessage();},
                             function(error){alert("App could not be installed " + error);});
   }
   else if (isFirefox)
@@ -255,6 +267,7 @@ function install()
     var req = navigator.mozApps.installPackage(manifestUrl);
     req.onsuccess = function() {
       alert("FirefoxOS Tracker Successfully installed");
+      installMessage();
     };
     req.onerror = function() {
       alert("App could not be installed " + this.error.name);
