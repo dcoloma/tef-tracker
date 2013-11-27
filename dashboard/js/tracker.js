@@ -40,7 +40,7 @@ ids = [["UserStories/StableVersion/P1/OPEN", "UserStories/StableVersion/P2/OPEN"
 
 var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
 var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
-var isChrome = !!window.chrome && !isOpera;  
+var isChrome = !!window.chrome && !!window.chrome.webstore;  
 
 $(window).ready(function() {
   document.getElementById("homebutton").onclick = makeShowElementCallback("index");
@@ -227,7 +227,7 @@ function configure()
 
 function installMessage()
 {
-   if (isChrome)
+  if (isChrome)
    {
      if (chrome.app.isInstalled) {
        document.getElementById('installText').innerHTML = "You have already installed this app to Chrome";
@@ -238,7 +238,7 @@ function installMessage()
        document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App";
      }
    }
-   else if (isFirefox)
+   else if (navigator.mozApps != null)
    {
      if (navigator.mozApps.checkInstalled(manifestUrl)) {
        document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
@@ -261,7 +261,7 @@ function install()
                             function(){alert("FirefoxOS Tracker Successfully installed");installMessage();},
                             function(error){alert("App could not be installed " + error);});
   }
-  else if (isFirefox)
+  else if (navigator.mozApps != null)
   {
     console.log("Using Firefox")
     // This URL must be a full url.
