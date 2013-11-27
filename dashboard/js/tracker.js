@@ -54,8 +54,6 @@ $(window).ready(function() {
   readFromFB(); // Read Data from FireBase
 });  
 
-
-
 // Retrieves information from Local Storage
 function readFromLS()
 {
@@ -229,25 +227,27 @@ function installMessage()
 {
   if (isChrome)
    {
-     if (chrome.app.isInstalled) {
+     /*if (chrome.app.isInstalled) {
        document.getElementById('installText').innerHTML = "You have already installed this app to Chrome";
        document.getElementById('installLink').style.display = 'none';
      }
      else
      {
        document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App";
-     }
+     }*/
+     document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App";
    }
    else if (navigator.mozApps != null)
    {
-     if (navigator.mozApps.checkInstalled(manifestUrl)) {
+     /*if (navigator.mozApps.checkInstalled(manifestUrl)) {
        document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
        document.getElementById('installLink').style.display = 'none';
      }
      else
      {
        document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App. You can also add a Bookmark or include it in your FFOS Homescreen.";
-     }
+     }*/
+     document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App. In FirefoxOS you can simply add it to Homeescreen by clicking on the star below and selecting 'Add to Homescreen'";
    }
 
 }
