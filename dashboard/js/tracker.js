@@ -238,7 +238,7 @@ function installMessage()
    }
    if (isFirefox)
    {
-     if (navigator.mozApps.checkInstalled(manifestUrl);) {
+     if (navigator.mozApps.checkInstalled(manifestUrl)) {
        document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
        document.getElementById('installLink').style.display = 'none';
      }
