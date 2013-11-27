@@ -24,6 +24,8 @@ regions = regions.concat(versionNames);
 var baseURL = "https://owd.firebaseio.com/";
 var nodes = ["UserStories/StableVersion/P1/", "UserStories/StableVersion/P2/", "UserStories/DevVersion/P1/", "UserStories/DevVersion/P2/", 
              "UserStories/PlanVersion/P1/", "UserStories/PlanVersion/P2/", "blockers/StableVersion/", "blockers/DevVersion/", "blockers/PlanVersion/"];
+var manifestUrl = 'http://dcoloma.github.com/tef-tracker/dashboard/package/manifest.webapp';
+
 
 // Boxes Titles
 names = ["P1 Open US", "P2 Open US", "P1 Closed US", "P2 Closed US", "Total Blockers", "Gaia Blockers", "Platform Blockers"];
@@ -236,7 +238,7 @@ function installMessage()
        document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App";
      }
    }
-   if (isFirefox)
+   else if (isFirefox)
    {
      if (navigator.mozApps.checkInstalled(manifestUrl)) {
        document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
@@ -263,7 +265,6 @@ function install()
   {
     console.log("Using Firefox")
     // This URL must be a full url.
-    var manifestUrl = 'http://dcoloma.github.com/tef-tracker/dashboard/package/manifest.webapp';
     var req = navigator.mozApps.installPackage(manifestUrl);
     req.onsuccess = function() {
       alert("FirefoxOS Tracker Successfully installed");
