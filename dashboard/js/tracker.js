@@ -36,6 +36,10 @@ ids = [["UserStories/StableVersion/P1/OPEN", "UserStories/StableVersion/P2/OPEN"
        ["UserStories/PlanVersion/P1/OPEN", "UserStories/PlanVersion/P2/OPEN", "UserStories/PlanVersion/P1/CLOSED", 
              "UserStories/PlanVersion/P2/CLOSED", "blockers/PlanVersion/all", "blockers/PlanVersion/Gaia", "blockers/PlanVersion/platform"]];
 
+var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+var isChrome = !!window.chrome && !isOpera;  
+
 $(window).ready(function() {
   document.getElementById("homebutton").onclick = makeShowElementCallback("index");
   configure(); // Create basic config parameters for versions
@@ -43,9 +47,12 @@ $(window).ready(function() {
   for (i in versionNumbers) // DOM For every version
     createVersionTiles(versionNumbers[i], versionNames[i], links[i], ids[i], names, colors[i]);
   showElement('index'); // Show only navigation structure
+  installMessage();
   readFromLS(); // Read From Local Storage the info just in case there is no connection
   readFromFB(); // Read Data from FireBase
 });  
+
+
 
 // Retrieves information from Local Storage
 function readFromLS()
@@ -216,16 +223,33 @@ function configure()
       links[i][j] = baseURLs[j]+versionCodes[i]+prefixURLs[j];
 }
 
+function installMessage()
+{
+   if (isChrome)
+   {
+     if (chrome.app.isInstalled) {
+       document.getElementById('installText').innerHTML = "You have already installed this app to Chrome";
+       document.getElementById('installLink').style.display = 'none';
+     }
+     else
+     {
+       document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App";
+     }
+   }
+}
+
 function install()
 {
-  var is_chrome = /chrome/i.test( navigator.userAgent );
-
-  if (is_chrome)
-  {
-    chrome.webstore.install("http://dcoloma.github.com/tef-tracker/dashboard/package/package.crx");
+  if (isChrome)
+  { 
+    console.log("Using Chrome");
+    chrome.webstore.install("https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh",
+                            function(){alert("FirefoxOS Tracker Successfully installed");},
+                            function(error){alert("App could not be installed " + error);});
   }
-  else
+  else if (isFirefox)
   {
+    console.log("Using Firefox")
     // This URL must be a full url.
     var manifestUrl = 'http://dcoloma.github.com/tef-tracker/dashboard/package/manifest.webapp';
     var req = navigator.mozApps.installPackage(manifestUrl);
@@ -235,5 +259,9 @@ function install()
     req.onerror = function() {
       alert("App could not be installed " + this.error.name);
     };
+  }
+  else
+  {
+    alert("Your Browser does")
   }
 }

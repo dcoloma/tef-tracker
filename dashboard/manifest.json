@@ -8,5 +8,8 @@
       "launch": {
          "local_path": "home.html"
       }
-   }
+   },
+   "icons": { "16": "style/icons/firefox-16.png",
+           "48": "style/icons/firefox-48.png",
+          "128": "style/icons/firefox-128.png" }
 }
