@@ -24,7 +24,7 @@ regions = regions.concat(versionNames);
 var baseURL = "https://owd.firebaseio.com/";
 var nodes = ["UserStories/StableVersion/P1/", "UserStories/StableVersion/P2/", "UserStories/DevVersion/P1/", "UserStories/DevVersion/P2/", 
              "UserStories/PlanVersion/P1/", "UserStories/PlanVersion/P2/", "blockers/StableVersion/", "blockers/DevVersion/", "blockers/PlanVersion/"];
-var manifestUrl = 'http://dcoloma.github.com/tef-tracker/dashboard/package/manifest.webapp';
+var manifestUrl = 'http://dcoloma.github.io/tef-tracker/dashboard/package/manifest.webapp';
 
 
 // Boxes Titles
