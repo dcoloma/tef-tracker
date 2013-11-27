@@ -1,17 +1,14 @@
 CACHE MANIFEST
-#2013-11-26:v6
+#2013-11-27:v1
 
 CACHE:
 home.html
 css/modern-responsive.css
-css/site.css
 css/modern.css
-css/theme-dark.css 
 fonts/iconFont.eot
 fonts/iconFont.svg
 fonts/iconFont.ttf
 fonts/iconFont.woff
-fonts/license.txt
 images/Firefox-develop.png
 images/Firefox-plan.png
 images/Firefox-stable.png
@@ -19,4 +16,3 @@ js/assets/jquery-1.9.0.min.js
 js/bugzilla.js
 js/async_storage.js
 js/firebase.js
-style/icons/firefox.png

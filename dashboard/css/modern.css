@@ -83,6 +83,7 @@ textarea {
  */
 body {
   margin: 0;
+  background: #1d1d1d;
 }
 /* =============================================================================
    Links
@@ -2563,6 +2564,7 @@ ol.unstyled,
   min-height: 100%;
   width: 100%;
   *zoom: 1;
+  background: #1d1d1d;
 }
 .page:before,
 .page:after {
@@ -4972,7 +4974,8 @@ th[class*="span"] {
   bottom: 0;
   left: 0;
   margin-bottom: 5px;
-  margin-left: 15px;
+  margin-left: 5px;
+  text-align: center;
   font-family: 'Segoe UI', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-size: 9pt;
