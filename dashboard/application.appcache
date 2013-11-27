@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#2013-11-27:v1
+#2013-11-27:v2
 
 CACHE:
 home.html
@@ -9,9 +9,9 @@ fonts/iconFont.eot
 fonts/iconFont.svg
 fonts/iconFont.ttf
 fonts/iconFont.woff
-images/Firefox-Develop.png
-images/Firefox-Plan.png
-images/Firefox-Stable.png
+images/Firefox-develop.png
+images/Firefox-plan.png
+images/Firefox-stable.png
 js/assets/jquery-1.9.0.min.js
 js/bugzilla.js
 js/async_storage.js
