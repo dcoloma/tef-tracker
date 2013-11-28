@@ -4,7 +4,7 @@ var versionNames = ["stable", "develop", "plan"];
 var versionCodes = ["koi", "1.3", "1.4"];
 var keys = ["StableVersion", "DevVersion", "PlanVersion"];
 var colors = ["blue", "pink", "green"];
-var hostedApp = true;
+var hostedApp = false;
 
 // Bugzilla base links
 baseLinkClosedUS = "https://bugzilla.mozilla.org/buglist.cgi?resolution=FIXED&bug_status=RESOLVED&bug_status=VERIFIED&" +
@@ -278,7 +278,7 @@ function installMessage()
     {
        console.log("installMessage en FFOS");
        nodeInstall += "<p id='installText' class='fg-color-white'>" +
-           "Click on the icon above to install it as a FirefoxOS App</p><p class="fg-color-white">You can also add it to Homeescreen by clicking on the star below and selecting 'Add to Homescreen'";
+           "Click on the icon above to install it as a FirefoxOS App</p><p class='fg-color-white'>You can also add it to Homeescreen by clicking on the star below and selecting 'Add to Homescreen'";
     }
     else
     {
