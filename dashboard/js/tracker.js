@@ -3,7 +3,8 @@ var versionNumbers = ["1_2", "1_3", "1_4"];
 var versionNames = ["stable", "develop", "plan"];
 var versionCodes = ["koi", "1.3", "1.4"];
 var keys = ["StableVersion", "DevVersion", "PlanVersion"];
-var colors = ["blue", "pink", "green"]
+var colors = ["blue", "pink", "green"];
+var hostedApp = true;
 
 // Bugzilla base links
 baseLinkClosedUS = "https://bugzilla.mozilla.org/buglist.cgi?resolution=FIXED&bug_status=RESOLVED&bug_status=VERIFIED&" +
@@ -49,6 +50,7 @@ $(window).ready(function() {
   for (i in versionNumbers) // DOM For every version
     createVersionTiles(versionNumbers[i], versionNames[i], links[i], ids[i], names, colors[i]);
   showElement('index'); // Show only navigation structure
+  hidePackageddApp();
   installMessage();
   readFromLS(); // Read From Local Storage the info just in case there is no connection
   readFromFB(); // Read Data from FireBase
@@ -75,8 +77,8 @@ function readFromLS()
         var value = localStorage.getItem(ids[i][j]);
         if (value != null)
         {
-          document.getElementById(domnodes[x]).innerHTML = "<h1>"+value+"</h1>";
-          document.getElementById("badge"+domnodes[x]).innerHTML = "<i class='icon-link-2'></i>";
+          document.getElementById(ids[i][j]).innerHTML = "<h1>"+value+"</h1>";
+          document.getElementById("badge"+ids[i][j]).innerHTML = "<i class='icon-link-2'></i>";
         }
       }
     }
@@ -108,7 +110,6 @@ function readFromFB()
 function createFirebaseCB(node)
 {
   return function(snapshot){
-  console.log("INVOKED FB CALLBACK")
     snapshot.forEach(function(childSnapshot) {
       console.log("*** METHOD FirebaseCB: Item " + node + childSnapshot.name() + " value " + childSnapshot.val());
       if (window.indexedDB)
@@ -141,6 +142,15 @@ function showElement(elementToShow)
       document.getElementById(regions[element]).style.visibility="hidden";
       document.getElementById(regions[element]).style.display="none";
     }
+  }
+}
+
+function hidePackageddApp()
+{
+  if (!hostedApp) 
+  {
+      document.getElementById("hostedApp").style.visibility="hidden";
+      document.getElementById("hostedApp").style.display="none";
   }
 }
 
@@ -225,8 +235,13 @@ function configure()
 
 function installMessage()
 {
+  var nodeInstall = "";
+
   if (isChrome)
-   {
+  {
+    console.log("installMessage en Chrome")
+    nodeInstall += "<p id='installLink'><h3><a href='javascript:install()''> Install FFOS Tracker " +
+    "<i class='icon-rocket on-left' style='background: blue; color: white; padding: 10px; border-radius: 60%''></i></a></h3></p>";
      /*if (chrome.app.isInstalled) {
        document.getElementById('installText').innerHTML = "You have already installed this app to Chrome";
        document.getElementById('installLink').style.display = 'none';
@@ -235,21 +250,44 @@ function installMessage()
      {
        document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App";
      }*/
-     document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App";
-   }
-   else if (navigator.mozApps != null)
-   {
-     /*if (navigator.mozApps.checkInstalled(manifestUrl)) {
-       document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
-       document.getElementById('installLink').style.display = 'none';
-     }
-     else
-     {
-       document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App. You can also add a Bookmark or include it in your FFOS Homescreen.";
-     }*/
-     document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App. In FirefoxOS you can simply add it to Homeescreen by clicking on the star below and selecting 'Add to Homescreen'";
-   }
+     nodeInstall += "<p id='installText' class='fg-color-white'>" +
+                    "Click on the icon above to install it as a Chrome App</p>";
+     document.getElementById("hostedApp").innerHTML = nodeInstall;
+  }
+  else if (navigator.mozApps != null)
+  {
+    nodeInstall += "<p id='installLink'><h3><a href='javascript:install()''> Install FFOS Tracker " +
+    "<i class='icon-rocket on-left' style='background: blue; color: white; padding: 10px; border-radius: 60%''></i></a></h3></p>";
+    /*if (navigator.mozApps.checkInstalled(manifestUrl)) {
+      document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
+      document.getElementById('installLink').style.display = 'none';
+    }
+    else
+    {
+      document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App. You can also add a Bookmark or include it in your FFOS Homescreen.";
+    }*/
 
+    // we are in Firefox
+
+    if(enyo.platform.FirefoxOS)
+       nodeInstall += "<p id='installText' class='fg-color-white'>" +
+           "Click on the icon above to install it as a FirefoxOS App</p><p>You can also add it to Homeescreen by clicking on the star below and selecting 'Add to Homescreen'";
+    else
+       nodeInstall += "<p id='installText' class='fg-color-white'>" +
+           "Click on the icon above to install it as a FirefoxOS App</p>";
+     document.getElementById("hostedApp").innerHTML = nodeInstall;
+  }
+  else if(enyo.platform.iOS)
+  {
+     console.log("installMessage en iOS")
+     nodeInstall += "<p id='installText' class='fg-color-white'>" +
+           "Click on the arrow below and the select 'Add to Homescreen' to have this Application always available, even when you are offline</p>";
+     document.getElementById("hostedApp").innerHTML = nodeInstall;
+  }
+  else
+  {
+     console.log("Not ChromeApps, not Firefox Apps, not iPhone... ");
+  }
 }
 
 function install()
@@ -275,7 +313,5 @@ function install()
     };
   }
   else
-  {
-    alert("Your Browser does")
-  }
+    alert("Your browser does not support WebApps :(")
 }
