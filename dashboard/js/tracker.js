@@ -131,7 +131,7 @@ function createFirebaseCB(node)
 // Menu handler
 function showElement(elementToShow)
 {
-  console.log("INVOKED showElement")
+  console.log("INVOKED showElement " + elementToShow)
   for (var element in regions)
   { 
     if(regions[element] == elementToShow)
@@ -145,6 +145,19 @@ function showElement(elementToShow)
       document.getElementById(regions[element]).style.display="none";
     }
   }
+
+  if (elementToShow == "index")
+  {
+     console.log("element index")
+     document.getElementById("hostedApp").style.visibility="visible";
+     document.getElementById("hostedApp").style.display="inline-block";
+  }
+  else
+  {
+     document.getElementById("hostedApp").style.visibility="hidden";
+     document.getElementById("hostedApp").style.display="none";
+  }
+
 }
 
 function hidePackageddApp()
@@ -263,16 +276,18 @@ function installMessage()
   else if (navigator.mozApps != null)
   {
     console.log("installMessage en Firefox")
-    nodeInstall += "<p id='installLink'><h3><a id='installer'> Install FFOS Tracker " +
-    "<i class='icon-rocket on-left' style='background: blue; color: white; padding: 10px; border-radius: 60%''></i></a></h3></p>";
-    /*if (navigator.mozApps.checkInstalled(manifestUrl)) {
-      document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
-      document.getElementById('installLink').style.display = 'none';
-    }
-    else
+
+    if (hostedApp)
     {
-      document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App. You can also add a Bookmark or include it in your FFOS Homescreen.";
-    }*/
+      if (navigator.mozApps.checkInstalled(manifestUrl)) {
+        document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
+        document.getElementById('installLink').style.display = 'none';
+      }
+      else
+      {
+        document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App. You can also add a Bookmark or include it in your FFOS Homescreen.";
+      }
+    }
 
     // we are in Firefox
 
@@ -285,16 +300,18 @@ function installMessage()
     else
     {
        console.log("installMessage en FF");
+       nodeInstall += "<p id='installLink'><h3><a id='installer'> Install FFOS Tracker " +
+        "<i class='icon-rocket on-left' style='background: blue; color: white; padding: 10px; border-radius: 60%''></i></a></h3></p>";
        nodeInstall += "<p id='installText' class='fg-color-white'>" +
            "Click on the icon above to install it as a FirefoxOS App</p>";
 
        //unless it is already installed
 
-       if (navigator.mozApps.checkInstalled(manifestUrl)) {
+       /*if (navigator.mozApps.checkInstalled(manifestUrl)) {
          console.log("You have already installed this app to Firefox as a Packaged App");
          document.getElementById('installLink').style.display = 'none';
          document.getElementById('installLink').style.visibility = 'hidden';
-       }
+       }*/
     }
     document.getElementById("hostedApp").innerHTML = nodeInstall;
     var hr = document.getElementById("installer");
