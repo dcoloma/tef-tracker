@@ -276,19 +276,6 @@ function installMessage()
   else if (navigator.mozApps != null)
   {
     console.log("installMessage en Firefox")
-
-    if (hostedApp)
-    {
-      if (navigator.mozApps.checkInstalled(manifestUrl)) {
-        document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
-        document.getElementById('installLink').style.display = 'none';
-      }
-      else
-      {
-        document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App. You can also add a Bookmark or include it in your FFOS Homescreen.";
-      }
-    }
-
     // we are in Firefox
 
     if(enyo.platform.firefoxOS)
@@ -296,6 +283,7 @@ function installMessage()
        console.log("installMessage en FFOS");
        nodeInstall += "<p id='installText' class='fg-color-white'>" +
            "Click on the star below and select 'Add to Homescreen' to have this App always available, even when you are offline</p>";
+       document.getElementById("hostedApp").innerHTML = nodeInstall;
     }
     else
     {
@@ -305,7 +293,16 @@ function installMessage()
        nodeInstall += "<p id='installText' class='fg-color-white'>" +
            "Click on the icon above to install it as a FirefoxOS App</p>";
 
+       document.getElementById("hostedApp").innerHTML = nodeInstall;
        //unless it is already installed
+
+       if (hostedApp)
+       {
+         if (navigator.mozApps.checkInstalled(manifestUrl)) {
+           document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
+           document.getElementById('installLink').style.display = 'none';
+         }
+       }
 
        /*if (navigator.mozApps.checkInstalled(manifestUrl)) {
          console.log("You have already installed this app to Firefox as a Packaged App");
@@ -313,7 +310,6 @@ function installMessage()
          document.getElementById('installLink').style.visibility = 'hidden';
        }*/
     }
-    document.getElementById("hostedApp").innerHTML = nodeInstall;
     var hr = document.getElementById("installer");
     hr.onclick = install;
   }
