@@ -260,6 +260,7 @@ function installMessage()
   }
   else if (navigator.mozApps != null)
   {
+    console.log("installMessage en Firefox")
     nodeInstall += "<p id='installLink'><h3><a href='javascript:install()''> Install FFOS Tracker " +
     "<i class='icon-rocket on-left' style='background: blue; color: white; padding: 10px; border-radius: 60%''></i></a></h3></p>";
     /*if (navigator.mozApps.checkInstalled(manifestUrl)) {
@@ -273,15 +274,21 @@ function installMessage()
 
     // we are in Firefox
 
-    if(enyo.platform.FirefoxOS)
+    if(enyo.platform.firefoxOS)
+    {
+       console.log("installMessage en FFOS");
        nodeInstall += "<p id='installText' class='fg-color-white'>" +
            "Click on the icon above to install it as a FirefoxOS App</p><p>You can also add it to Homeescreen by clicking on the star below and selecting 'Add to Homescreen'";
+    }
     else
+    {
+       console.log("installMessage en FF");
        nodeInstall += "<p id='installText' class='fg-color-white'>" +
            "Click on the icon above to install it as a FirefoxOS App</p>";
+    }
      document.getElementById("hostedApp").innerHTML = nodeInstall;
   }
-  else if(enyo.platform.iOS)
+  else if(enyo.platform.ios)
   {
      console.log("installMessage en iOS")
      nodeInstall += "<p id='installText' class='fg-color-white'>" +
