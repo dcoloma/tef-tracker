@@ -244,7 +244,7 @@ function installMessage()
   if (isChrome)
   {
     console.log("installMessage en Chrome")
-    nodeInstall += "<p id='installLink'><h3><a href='javascript:install()''> Install FFOS Tracker " +
+    nodeInstall += "<p id='installLink'><h3><a id='installer'> Install FFOS Tracker " +
     "<i class='icon-rocket on-left' style='background: blue; color: white; padding: 10px; border-radius: 60%''></i></a></h3></p>";
      /*if (chrome.app.isInstalled) {
        document.getElementById('installText').innerHTML = "You have already installed this app to Chrome";
@@ -257,11 +257,13 @@ function installMessage()
      nodeInstall += "<p id='installText' class='fg-color-white'>" +
                     "Click on the icon above to install it as a Chrome App</p>";
      document.getElementById("hostedApp").innerHTML = nodeInstall;
+     var hr = document.getElementById("installer");
+     hr.onclick = install;
   }
   else if (navigator.mozApps != null)
   {
     console.log("installMessage en Firefox")
-    nodeInstall += "<p id='installLink'><h3><a href='javascript:install()''> Install FFOS Tracker " +
+    nodeInstall += "<p id='installLink'><h3><a id='installer'> Install FFOS Tracker " +
     "<i class='icon-rocket on-left' style='background: blue; color: white; padding: 10px; border-radius: 60%''></i></a></h3></p>";
     /*if (navigator.mozApps.checkInstalled(manifestUrl)) {
       document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
@@ -287,6 +289,9 @@ function installMessage()
            "Click on the icon above to install it as a FirefoxOS App</p>";
     }
      document.getElementById("hostedApp").innerHTML = nodeInstall;
+     var hr = document.getElementById("installer");
+     hr.onclick = install;
+
   }
   else if(enyo.platform.ios)
   {
