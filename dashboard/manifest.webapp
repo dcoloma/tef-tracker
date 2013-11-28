@@ -1,12 +1,12 @@
 {
   "name": "FirefoxOS Tracker",
   "description": "FirefoxOS Status Tracker",
-  "launch_path": "/home.html",
+  "launch_path": "tef-tracker/dashboard/home.html",
   "developer": {
     "name": "Daniel Coloma",
     "url": "https://github.com/dcoloma/"
   },
-  "appcache_path": "/application.cache",
+  "appcache_path": "tef-tracker/dashboard/application.cache",
   "locales": {
     "en-US": {
       "name": "FirefoxOS Tracker",
@@ -15,6 +15,6 @@
   },
   "default_locale": "en-US",
   "icons": {
-    "128": "/style/icons/firefox.png"
+    "128": "style/icons/firefox.png"
   }
 }

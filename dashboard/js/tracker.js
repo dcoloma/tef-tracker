@@ -25,8 +25,7 @@ regions = regions.concat(versionNames);
 var baseURL = "https://owd.firebaseio.com/";
 var nodes = ["UserStories/StableVersion/P1/", "UserStories/StableVersion/P2/", "UserStories/DevVersion/P1/", "UserStories/DevVersion/P2/", 
              "UserStories/PlanVersion/P1/", "UserStories/PlanVersion/P2/", "blockers/StableVersion/", "blockers/DevVersion/", "blockers/PlanVersion/"];
-var manifestUrl = 'http://dcoloma.github.io/tef-tracker/dashboard/package/manifest.webapp';
-
+var manifestUrl = 'http://dcoloma.github.io/tef-tracker/dashboard/manifest.webapp';
 
 // Boxes Titles
 names = ["P1 Open US", "P2 Open US", "P1 Closed US", "P2 Closed US", "Total Blockers", "Gaia Blockers", "Platform Blockers"];
@@ -50,8 +49,8 @@ $(window).ready(function() {
   for (i in versionNumbers) // DOM For every version
     createVersionTiles(versionNumbers[i], versionNames[i], links[i], ids[i], names, colors[i]);
   showElement('index'); // Show only navigation structure
-  hidePackageddApp();
   installMessage();
+  hidePackageddApp();
   readFromLS(); // Read From Local Storage the info just in case there is no connection
   readFromFB(); // Read Data from FireBase
 });  
@@ -241,6 +240,15 @@ function installMessage()
   console.log("*** METHOD installMessage with UA " + navigator.userAgent);
   var nodeInstall = "";
 
+  var pattern = /^((http|https|ftp):\/\/)/;
+
+  if(!pattern.test(window.location.href))
+    hostedApp = false;
+  else
+    hostedApp = true;
+
+  console.log("For window.location.href " + window.location.href + " hostedApp " + hostedApp);
+
   if (isChrome)
   {
     console.log("installMessage en Chrome")
@@ -281,6 +289,7 @@ function installMessage()
        console.log("installMessage en FFOS");
        nodeInstall += "<p id='installText' class='fg-color-white'>" +
            "Click on the icon above to install it as a FirefoxOS App</p><p class='fg-color-white'>You can also add it to Homescreen by clicking on the star below and selecting 'Add to Homescreen'</p>";
+           "Click on the icon above to install it as a FirefoxOS App</p><p class='fg-color-white'>You can also add it to Homescreen by clicking on the star below and selecting 'Add to Homescreen'</p>";
     }
     else
     {
@@ -319,7 +328,7 @@ function install()
   {
     console.log("Using Firefox")
     // This URL must be a full url.
-    var req = navigator.mozApps.installPackage(manifestUrl);
+    var req = navigator.mozApps.install(manifestUrl);
     req.onsuccess = function() {
       alert("FirefoxOS Tracker Successfully installed");
       installMessage();
