@@ -254,14 +254,6 @@ function installMessage()
     console.log("installMessage en Chrome")
     nodeInstall += "<p id='installLink'><h3><a id='installer'> Install FFOS Tracker " +
     "<i class='icon-rocket on-left' style='background: blue; color: white; padding: 10px; border-radius: 60%''></i></a></h3></p>";
-     /*if (chrome.app.isInstalled) {
-       document.getElementById('installText').innerHTML = "You have already installed this app to Chrome";
-       document.getElementById('installLink').style.display = 'none';
-     }
-     else
-     {
-       document.getElementById('installText').innerHTML = "Click on the icon above to install it as a Chrome App";
-     }*/
      nodeInstall += "<p id='installText' class='fg-color-white'>" +
                     "Click on the icon above to install it as a Chrome App</p>";
      document.getElementById("hostedApp").innerHTML = nodeInstall;
@@ -288,19 +280,25 @@ function installMessage()
     {
        console.log("installMessage en FFOS");
        nodeInstall += "<p id='installText' class='fg-color-white'>" +
-           "Click on the icon above to install it as a FirefoxOS App</p><p class='fg-color-white'>You can also add it to Homescreen by clicking on the star below and selecting 'Add to Homescreen'</p>";
-           "Click on the icon above to install it as a FirefoxOS App</p><p class='fg-color-white'>You can also add it to Homescreen by clicking on the star below and selecting 'Add to Homescreen'</p>";
+           "Click on the star below and select 'Add to Homescreen' to have this App always available, even when you are offline</p>";
     }
     else
     {
        console.log("installMessage en FF");
        nodeInstall += "<p id='installText' class='fg-color-white'>" +
            "Click on the icon above to install it as a FirefoxOS App</p>";
-    }
-     document.getElementById("hostedApp").innerHTML = nodeInstall;
-     var hr = document.getElementById("installer");
-     hr.onclick = install;
 
+       //unless it is already installed
+
+       if (navigator.mozApps.checkInstalled(manifestUrl)) {
+         console.log("You have already installed this app to Firefox as a Packaged App");
+         document.getElementById('installLink').style.display = 'none';
+         document.getElementById('installLink').style.visibility = 'hidden';
+       }
+    }
+    document.getElementById("hostedApp").innerHTML = nodeInstall;
+    var hr = document.getElementById("installer");
+    hr.onclick = install;
   }
   else if(enyo.platform.ios)
   {
