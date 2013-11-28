@@ -296,13 +296,13 @@ function installMessage()
        document.getElementById("hostedApp").innerHTML = nodeInstall;
        //unless it is already installed
 
-       if (hostedApp)
+       /*if (hostedApp)
        {
          if (navigator.mozApps.checkInstalled(manifestUrl)) {
            document.getElementById('installText').innerHTML = "You have already installed this app to Firefox as a Packaged App. ";
            document.getElementById('installLink').style.display = 'none';
          }
-       }
+       }*/
 
        /*if (navigator.mozApps.checkInstalled(manifestUrl)) {
          console.log("You have already installed this app to Firefox as a Packaged App");
