@@ -7,6 +7,7 @@
     "name": "Daniel Coloma",
     "url": "https://github.com/dcoloma/"
   },
+  "appcache_path": "/application.cache",
   "locales": {
     "en-US": {
       "name": "FirefoxOS Tracker",

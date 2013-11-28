@@ -76,10 +76,10 @@ function readFromLS()
       {  
         var value = localStorage.getItem(ids[i][j]);
         if (value != null)
-        {
           document.getElementById(ids[i][j]).innerHTML = "<h1>"+value+"</h1>";
-          document.getElementById("badge"+ids[i][j]).innerHTML = "<i class='icon-link-2'></i>";
-        }
+        else
+          document.getElementById(ids[i][j]).innerHTML = "<h1>?</h1>";
+        document.getElementById("badge"+ids[i][j]).innerHTML = "<i class='icon-link-2'></i>";
       }
     }
   }
@@ -90,7 +90,10 @@ function createLocalStorageCB(domnode)
 {
   return function(value){
     console.log("*** METHOD LocalStorageCB: Item " + domnode + " value " + value);
-    document.getElementById(domnode).innerHTML = "<h1>"+value+"</h1>"; 
+    if (value != null)
+      document.getElementById(domnode).innerHTML = "<h1>"+value+"</h1>"; 
+    else
+      document.getElementById(domnode).innerHTML = "<h1>?</h1>"; 
     document.getElementById("badge"+domnode).innerHTML = "<i class='icon-link-2'></i>";
   }
 }
@@ -235,6 +238,7 @@ function configure()
 
 function installMessage()
 {
+  console.log("*** METHOD installMessage with UA " + navigator.userAgent);
   var nodeInstall = "";
 
   if (isChrome)
