@@ -322,7 +322,7 @@ function configureInstallation()
     }
     else if (navigator.mozApps != null)
     {
-      if(enyo.platform.firefoxos)
+      if(enyo.platform.firefoxOS)
       {
          nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
                         "<a id='installer' class='bg-color-orangeDark span4 subheader text-center fg-color-white introduce_r download_link'> " +
