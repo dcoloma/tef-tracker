@@ -12,6 +12,7 @@ fonts/iconFont.woff
 images/Firefox-develop.png
 images/Firefox-plan.png
 images/Firefox-stable.png
+images/Firefox-all.png
 js/assets/jquery-1.9.0.min.js
 js/bugzilla.js
 js/async_storage.js
