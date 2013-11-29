@@ -323,7 +323,12 @@ function configureInstallation()
     }
     else if (navigator.mozApps != null)
     {
-      if(enyo.platform.firefoxOS)
+      nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
+                      "<a id='installer' class='bg-color-orangeDark span4 subheader text-center fg-color-white introduce_r download_link'> " +
+                      "<h3 class='fg-color-white'>Download as a Firefox App </h3><span class='icon-download-2'></span></a> </div>";
+      document.getElementById("install").innerHTML = nodeInstall;
+      var hr = document.getElementById("installer");
+      /*if(enyo.platform.firefoxOS)
       {
          nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
                         "<a id='installer' class='bg-color-orangeDark span4 subheader text-center fg-color-white introduce_r download_link'> " +
@@ -338,7 +343,7 @@ function configureInstallation()
         document.getElementById("install").innerHTML = nodeInstall;
         var hr = document.getElementById("installer");
         hr.onclick = install;
-      }
+      }*/
       
     }
   }
