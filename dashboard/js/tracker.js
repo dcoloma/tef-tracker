@@ -43,6 +43,7 @@ var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
 var isChrome = !!window.chrome && !!window.chrome.webstore;  
 
 $(window).ready(function() {
+  makeAppInstallable();
   document.getElementById("homebutton").onclick = makeShowElementCallback("index");
 
   configure(); // Create basic config parameters for versions
@@ -361,4 +362,41 @@ function install()
       alert("App could not be installed " + this.error.name);
     };
   }
+}
+
+function makeAppInstallable()
+{
+  // Installable as apps
+  var appleMobileWeb = document.createElement('meta');
+  appleMobileWeb.setAttribute('name', 'apple-mobile-web-app-capable');
+  appleMobileWeb.setAttribute('content', 'yes');
+  var html5MobileWeb = document.createElement('meta'); // Google
+  html5MobileWeb.setAttribute('name', 'mobile-web-app-capable');
+  html5MobileWeb.setAttribute('content', 'yes');
+  // Icons 
+  var appleIcon = document.createElement('link'); // Google
+  appleIcon.setAttribute('rel', 'apple-touch-icon-precomposed');
+  appleIcon.setAttribute('href', 'style/icons/firefox-128.png');
+  var favIcon = document.createElement('link'); // Google
+  favIcon.setAttribute('rel', 'shortcut icon');
+  favIcon.setAttribute('href', 'favicon.ico');
+  // Names
+  var html5Name = document.createElement('meta'); // Google
+  html5Name.setAttribute('name', 'application-name');
+  html5Name.setAttribute('href', 'FFOS Tracker');
+  var appleName = document.createElement('meta'); // Google
+  appleName.setAttribute('name', 'application-mobile-web-app-title');
+  appleName.setAttribute('href', 'FFOS Tracker');
+  // Chrome Item
+  var chromeStoreItem = document.createElement('link'); // Google
+  chromeStoreItem.setAttribute('rel', 'chrome-webstore-item');
+  chromeStoreItem.setAttribute('href', 'https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh');
+
+  document.getElementsByTagName('head')[0].appendChild(appleMobileWeb);
+  document.getElementsByTagName('head')[0].appendChild(html5MobileWeb);
+  document.getElementsByTagName('head')[0].appendChild(appleIcon);
+  document.getElementsByTagName('head')[0].appendChild(favIcon);
+  document.getElementsByTagName('head')[0].appendChild(html5Name);
+  document.getElementsByTagName('head')[0].appendChild(appleName);
+  document.getElementsByTagName('head')[0].appendChild(chromeStoreItem);
 }
