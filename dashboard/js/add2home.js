@@ -31,7 +31,7 @@ var addToHome = (function (w) {
 			lifespan: 15000,			// 15 seconds before it is automatically destroyed
 			bottomOffset: 14,			// Distance of the balloon from bottom
 			expire: 0,					// Minutes to wait before showing the popup again (0 = always displayed)
-			message: '',				// Customize your message or force a language ('' = automatic)
+			message: 'en_us',				// Customize your message or force a language ('' = automatic)
 			touchIcon: false,			// Display the touch icon
 			arrow: true,				// Display the balloon arrow
 			hookOnLoad: true,			// Should we hook to onload event? (really advanced usage)
@@ -70,9 +70,17 @@ var addToHome = (function (w) {
 			zh_tw: '您可以將此應用程式安裝到您的 %device 上。請按 %icon 然後點選<strong>加入主畫面螢幕</strong>。'
 		};
 
+		 intlff = {
+			en_us: 'Install this web app on your FFOS Device: tap %icon and then <strong>Add to Home Screen</strong>.',
+			es_es: 'Para instalar esta app en su %device, pulse %icon y seleccione <strong>Añadir a pantalla de inicio</strong>.'
+		};
+
 	function init () {
 		// Preliminary check, all further checks are performed on iDevices only
-		if ( !isIDevice ) return;
+		// XXX
+		//if ( !isIDevice) return;
+		console.log("add2home")
+		if (( !isIDevice) && (!enyo.platform.firefox) && (!enyo.platform.firefoxOS)) return;
 
 		var now = Date.now(),
 			i;
@@ -85,6 +93,9 @@ var addToHome = (function (w) {
 		}
 		if ( !options.autostart ) options.hookOnLoad = false;
 
+        // XXXX
+        isFirefox = enyo.platform.firefox;
+        isFirefoxOS = enyo.platform.firefoxOS;
 		isIPad = (/ipad/gi).test(nav.platform);
 		isRetina = w.devicePixelRatio && w.devicePixelRatio > 1;
 		isSafari = (/Safari/i).test(nav.appVersion) && !(/CriOS/i).test(nav.appVersion);
@@ -104,15 +115,17 @@ var addToHome = (function (w) {
 
 		if ( options.hookOnLoad ) w.addEventListener('load', loaded, false);
 		else if ( !options.hookOnLoad && options.autostart ) loaded();
+		console.log("loaded listener added")
 	}
 
 	function loaded () {
+		console.log("loaded")
 		w.removeEventListener('load', loaded, false);
-
 		if ( !isReturningVisitor ) w.localStorage.setItem('addToHome', Date.now());
 		else if ( options.expire && isExpired ) w.localStorage.setItem('addToHome', Date.now() + options.expire * 60000);
 
-		if ( !overrideChecks && ( !isSafari || !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
+		//if ( !overrideChecks && ( !isSafari || !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
+		if ( !overrideChecks && ( !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
 
 		var touchIcon = '',
 			platform = nav.platform.split(' ')[0],
@@ -120,6 +133,7 @@ var addToHome = (function (w) {
 
 		balloon = document.createElement('div');
 		balloon.id = 'addToHomeScreen';
+		// XXX
 		balloon.style.cssText += 'left:-9999px;-webkit-transition-property:-webkit-transform,opacity;-webkit-transition-duration:0;-webkit-transform:translate3d(0,0,0);position:' + (OSVersion < 5 ? 'absolute' : 'fixed');
 
 		// Localize message
@@ -141,11 +155,24 @@ var addToHome = (function (w) {
 			}
 		}
 
-		balloon.className = (OSVersion >=7 ? 'addToHomeIOS7 ' : '') + (isIPad ? 'addToHomeIpad' : 'addToHomeIphone') + (touchIcon ? ' addToHomeWide' : '');
-		balloon.innerHTML = touchIcon +
+
+        if (isFirefoxOS){
+        	platform = "FirefoxOS";
+		   balloon.className = 'addToHomeIphone';
+		   balloon.innerHTML = touchIcon +
+			options.message.replace('%device', platform).replace('%icon', '<span class="addToHomeStar">+</span>') +
+			'<span class="addToHomeArrow"></span>' +
+			(options.closeButton ? '<span class="addToHomeClose">\u00D7</span>' : '');
+        }
+        else
+        {
+		  balloon.className = (OSVersion >=7 ? 'addToHomeIOS7 ' : '') + (isIPad ? 'addToHomeIpad' : 'addToHomeIphone') + (touchIcon ? ' addToHomeWide' : '');
+		  balloon.innerHTML = touchIcon +
 			options.message.replace('%device', platform).replace('%icon', OSVersion >= 4.2 ? '<span class="addToHomeShare"></span>' : '<span class="addToHomePlus">+</span>') +
 			(options.arrow ? '<span class="addToHomeArrow"' + (OSVersion >= 7 && isIPad && touchIcon ? ' style="margin-left:-32px"' : '') + '></span>' : '') +
 			(options.closeButton ? '<span class="addToHomeClose">\u00D7</span>' : '');
+        }
+
 
 		document.body.appendChild(balloon);
 
@@ -334,6 +361,7 @@ var addToHome = (function (w) {
 	}
 
 	// Bootstrap!
+	console.log("bootstrap")
 	init();
 
 	return {

@@ -17,13 +17,18 @@
 	text-align:left;
 	font-family:helvetica;
 	background-image:-webkit-gradient(linear,0 0,0 100%,color-stop(0,#fff),color-stop(0.02,#eee),color-stop(0.98,#ccc),color-stop(1,#a3a3a3));
+	background-image:gradient(linear,0 0,0 100%,color-stop(0,#fff),color-stop(0.02,#eee),color-stop(0.98,#ccc),color-stop(1,#a3a3a3));
+	background-color: white;
 	border:1px solid #505050;
 	-webkit-border-radius:8px;
 	-webkit-background-clip:padding-box;
+	border-radius:8px;
+	background-clip:padding-box;
 	color:#333;
 	text-shadow:0 1px 0 rgba(255,255,255,0.75);
 	line-height:130%;
 	-webkit-box-shadow:0 0 4px rgba(0,0,0,0.5);
+	box-shadow:0 0 4px rgba(0,0,0,0.5);
 }
 
 #addToHomeScreen.addToHomeIOS7 {
@@ -62,21 +67,26 @@
 #addToHomeScreen .addToHomeArrow {
 	position:absolute;
 	background-image:-webkit-gradient(linear,0 0,100% 100%,color-stop(0,rgba(204,204,204,0)),color-stop(0.4,rgba(204,204,204,0)),color-stop(0.4,#ccc));
+	background-color:white;
 	border-width:0 1px 1px 0;
 	border-style:solid;
 	border-color:#505050;
 	width:16px; height:16px;
 	-webkit-transform:rotateZ(45deg);
+	transform:rotateZ(45deg);
 	bottom:-9px;
 	left:50%;
 	margin-left:-8px;
 	-webkit-box-shadow:inset -1px -1px 0 #a9a9a9;
+	box-shadow:inset -1px -1px 0 #a9a9a9;
 	-webkit-border-bottom-right-radius:2px;
+	border-bottom-right-radius:2px;
 }
 
 #addToHomeScreen.addToHomeIOS7 .addToHomeArrow {
 	background-image:-webkit-gradient(linear,0 0,100% 100%,color-stop(0,rgba(204,204,204,0)),color-stop(0.4,rgba(204,204,204,0)),color-stop(0.4,#f2f2f2)) !important;
 	-webkit-box-shadow:inset -1px -1px 0 #fff !important;
+	background-color: white;
 	border-color:#ccc !important;
 }
 
@@ -87,8 +97,12 @@
  */
 #addToHomeScreen.addToHomeIpad .addToHomeArrow {
 	-webkit-transform:rotateZ(-135deg);
+	transform:rotateZ(-135deg);
 	background-image:-webkit-gradient(linear,0 0,100% 100%,color-stop(0,rgba(238,238,238,0)),color-stop(0.4,rgba(238,238,238,0)),color-stop(0.4,#eee));
+	background-image:gradient(linear,0 0,100% 100%,color-stop(0,rgba(238,238,238,0)),color-stop(0.4,rgba(238,238,238,0)),color-stop(0.4,#eee));
+	background-color:white;
 	-webkit-box-shadow:inset -1px -1px 0 #fff;
+	box-shadow:inset -1px -1px 0 #fff;
 	top:-9px; bottom:auto; left:50%;
 }
 
@@ -108,9 +122,11 @@
 	text-align:center;
 	text-indent:1px;
 	-webkit-border-radius:9px;
+	border-radius:9px;
 	background:rgba(0,0,0,0.12);
 	color:#888;
 	-webkit-box-shadow:0 1px 0 #fff;
+	box-shadow:0 1px 0 #fff;
 	font-size:16px;
 }
 
@@ -120,6 +136,8 @@
 	background:transparent;
 	border: 1px solid #888;
 	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
 }
 
 /**
@@ -131,7 +149,6 @@
 	font-weight:bold;
 	font-size:1.3em;
 }
-
 
 /**
  *
@@ -154,6 +171,29 @@
 	background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAA8CAYAAAAQTCjdAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAASCQAAEgkB80sG3AAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKjSURBVGiB7dpPiFVVHMDxz7m9NCtMyI2bEJEC25WrEkzHUXCRraIwdNE8ZxfYIlcis1ZEbGEzT1QCF4XgH1CyWhUoJKIWNRGEiCNKmkSiYTzfcfGuOokx77x3ZlS8382959zfn+/invvn3RdijHIRBrwkOINCYXEcdjpb7VyiYdBsLScwt5y6IloYdzqXo36Ro0gY9IKWo+5JwmzBt2HQnBw9ehYNazyn5TBee8Dh+Vq+CWu92GufnkTDR6ab7gDeBNHouMM/l9tXTXM0fGBmL726Fg1Dam74EsvKqR8VNowL2Yzj5f7rnnE4DHq2235diYYhhTGfC94up35T0y+6di/ITU0rKVd+sEi0P7xr2pSJOu8zvF+OzqEv7vDH/WFxt7/cshy/ticsN8sXYUht0kXDOlsF9XJ4UaEvNoz9X3zc5bKaZThbyr5jzJ4wlNY7KTgM+ES0vhz+KeiPw36fKC/ucAF9uFBOrTZm26SJCtaV27+xIo7cXdkTEhvOoh+XyxprU1qnim7CQdGK2HAyKRexYVShT3RItDElN+mkjiP2Ym+S3f01hv2EVal5WW6hU0ElmptaqJuBpXg6MbeFH2LDpU6CQ93zWIKnEvs0cayGU3glMfkOo1jQYewZzOuyz7FC95Jwo5OgUFfgeg993hh/eTqCTxOSm/iuk8DY0Ap1b2GhtHXxsfZN4j/X0fOx4auEIknEhqv4OiUn1L13Z/+xWfWVaG4q0dxUormpRHNTieamEs1NJZqbJ1Q0jHvdiJo5S2cVjSNOCHZhn3/SnuYnIvl3yomIIz7MXZMn9hydRCrR3FSiualEc1OJ5qYSzU0lmptKNDePjWgwcPePT7/g+4cp8wCW4GXaryK3tL+mLdD5x62ppllgu7bso8q/2HIbzGWdNmWnSJwAAAAASUVORK5CYII=);
 	background-size:11px 15px;
 }
+
+/**
+ *
+ * The 'share' icon, displayed only on iOS >= 4.2
+ *
+ */
+#addToHomeScreen .addToHomeStar {
+	display:inline-block;
+	width:18px;
+	height:15px;
+	background-repeat:no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAABM0lEQVRIx+3Wz0oCURgF8LOYRTtp0zrIVwh6BJfuhPIF9AHMpbhq07Z/CEFQEroQFIKiIApKeoICF7n0Bdwkp3OnS8FAeJ25DkHzwY8Z7v2+OczowABZZfXXii+oGemGPmOVQ8xCOk8v+Al1oVVPJ/QBK3zEWGiNzdryg+9RFUZUlxt6i3XeYSSMGJm95AHX2JJd3mBfOjKUiXCOie3thLPmGrqWe/AVmkJPmovd9QAV9jU4iOlrthLvkfdQFsZUTvZ7d1EULqjo5998iYLQUcHfa3SBNZ5jKpxjanr9BZ+hJHRU8hd8iobQUcNfcAttYcSeFV1v+wk9RiDvQqvPE2x87+s8XPvZN71B8uBD5ORD3niEzV/7tKeeV5mZGR/BAQ+wo2PeoTev3m0zk32jZfX/6hMbYPlpl9t63wAAAABJRU5ErkJggg==);
+	background-size:18px 15px;
+	text-indent:-9999em;
+	overflow:hidden;
+}
+
+#addToHomeScreen.addToHomeIOS7 .addToHomeStar {
+	width:11px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAABM0lEQVRIx+3Wz0oCURgF8LOYRTtp0zrIVwh6BJfuhPIF9AHMpbhq07Z/CEFQEroQFIKiIApKeoICF7n0Bdwkp3OnS8FAeJ25DkHzwY8Z7v2+OczowABZZfXXii+oGemGPmOVQ8xCOk8v+Al1oVVPJ/QBK3zEWGiNzdryg+9RFUZUlxt6i3XeYSSMGJm95AHX2JJd3mBfOjKUiXCOie3thLPmGrqWe/AVmkJPmovd9QAV9jU4iOlrthLvkfdQFsZUTvZ7d1EULqjo5998iYLQUcHfa3SBNZ5jKpxjanr9BZ+hJHRU8hd8iobQUcNfcAttYcSeFV1v+wk9RiDvQqvPE2x87+s8XPvZN71B8uBD5ORD3niEzV/7tKeeV5mZGR/BAQ+wo2PeoTev3m0zk32jZfX/6hMbYPlpl9t63wAAAABJRU5ErkJggg==);
+	background-size:11px 15px;
+}
+
 
 /**
  *

@@ -14,7 +14,7 @@
     }
   },
   "default_locale": "en-US",
-  "icons": {
-    "128": "tef-tracker/dashboard/style/icons/firefox.png"
-  }
+   "icons": { "16": "tef-tracker/dashboard/style/icons/firefox-16.png",
+           "48": "/dashboard/style/icons/firefox-48.png",
+          "128": "/dashboard/style/icons/firefox-128.png" }
 }
