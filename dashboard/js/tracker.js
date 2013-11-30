@@ -309,11 +309,7 @@ function configureInstallation()
     // Check Browser
     if(enyo.platform.ios)
     {
-      /*nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
-                        "<a id='installer' class='bg-color-orangeDark span4 subheader text-center fg-color-white introduce_r download_link'> " +
-                        "<h3 class='fg-color-white'>Click on the arrow below and select 'Add to Homescreen' to install this app</h3></a> </div>";
-      document.getElementById("install").innerHTML = nodeInstall;
-      $("install").html(nodeInstall);*/
+      // Handled by add2home library
       console.log("IOS");
     }
     else if (isChrome)
@@ -332,7 +328,7 @@ function configureInstallation()
         console.log("Error calling getInstalled: " + request.error.name);
       };
       request.onsuccess = function(e) {
-        alert("Success, number of apps: " + request.result.length);
+        console.log("Success, number of apps: " + request.result.length);
         if (request.result.length == 0)
         {
           nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
@@ -343,23 +339,6 @@ function configureInstallation()
           hr.onclick = install;
         }
       };
-      /*if(enyo.platform.firefoxOS)
-      {
-         nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
-                        "<a id='installer' class='bg-color-orangeDark span4 subheader text-center fg-color-white introduce_r download_link'> " +
-                        "<h3 class='fg-color-white'>Click on the star <span class='icon-star'></span>below and select 'Add to Homescreen' to install this app</h3></a> </div>";
-         document.getElementById("install").innerHTML = nodeInstall;
-      }
-      else
-      {
-        nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
-                      "<a id='installer' class='bg-color-orangeDark span4 subheader text-center fg-color-white introduce_r download_link'> " +
-                      "<h3 class='fg-color-white'>Download as a Firefox App </h3><span class='icon-download-2'></span></a> </div>";
-        document.getElementById("install").innerHTML = nodeInstall;
-        var hr = document.getElementById("installer");
-        hr.onclick = install;
-      }*/
-      
     }
   }
 }
@@ -377,6 +356,8 @@ function install()
     var req = navigator.mozApps.install(manifestUrl);
     req.onsuccess = function() {
       alert("FirefoxOS Tracker Successfully installed");
+      nodeInstall = ""; 
+      document.getElementById("install").innerHTML = nodeInstall;
     };
     req.onerror = function() {
       alert("App could not be installed " + this.error.name);

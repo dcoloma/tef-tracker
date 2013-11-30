@@ -161,7 +161,7 @@ var addToHome = (function (w) {
 		   balloon.className = 'addToHomeIphone';
 		   balloon.innerHTML = touchIcon +
 			options.message.replace('%device', platform).replace('%icon', '<span class="addToHomeStar">+</span>') +
-			'<span class="addToHomeArrow" style="left:80%"></span>' +
+			'<span class="addToHomeArrow" style="left:90%"></span>' +
 			(options.closeButton ? '<span class="addToHomeClose">\u00D7</span>' : '');
         }
         else
