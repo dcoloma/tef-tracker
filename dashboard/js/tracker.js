@@ -26,7 +26,7 @@ var baseURL = "https://owd.firebaseio.com/";
 var nodes = ["UserStories/StableVersion/P1/", "UserStories/StableVersion/P2/", "UserStories/DevVersion/P1/", "UserStories/DevVersion/P2/", 
              "UserStories/PlanVersion/P1/", "UserStories/PlanVersion/P2/", "blockers/StableVersion/", "blockers/DevVersion/", "blockers/PlanVersion/"];
 var manifestUrl = 'http://dcoloma.github.io/tef-tracker/dashboard/manifest.webapp';
-
+  
 // Boxes Titles
 names = ["P1 Open US", "P2 Open US", "P1 Closed US", "P2 Closed US", "Total Blockers", "Gaia Blockers", "Platform Blockers"];
 
@@ -43,6 +43,9 @@ var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
 var isChrome = !!window.chrome && !!window.chrome.webstore;  
 
 $(window).ready(function() {
+
+
+
   makeAppInstallable();
   document.getElementById("homebutton").onclick = makeShowElementCallback("index");
 
@@ -306,11 +309,12 @@ function configureInstallation()
     // Check Browser
     if(enyo.platform.ios)
     {
-      nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
+      /*nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
                         "<a id='installer' class='bg-color-orangeDark span4 subheader text-center fg-color-white introduce_r download_link'> " +
                         "<h3 class='fg-color-white'>Click on the arrow below and select 'Add to Homescreen' to install this app</h3></a> </div>";
       document.getElementById("install").innerHTML = nodeInstall;
-      $("install").html(nodeInstall);
+      $("install").html(nodeInstall);*/
+      console.log("IOS");
     }
     else if (isChrome)
     {
@@ -323,12 +327,22 @@ function configureInstallation()
     }
     else if (navigator.mozApps != null)
     {
-      nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
+      var request = window.navigator.mozApps.getInstalled();
+      request.onerror = function(e) {
+        console.log("Error calling getInstalled: " + request.error.name);
+      };
+      request.onsuccess = function(e) {
+        alert("Success, number of apps: " + request.result.length);
+        if (request.result.length == 0)
+        {
+          nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
                       "<a id='installer' class='bg-color-orangeDark span4 subheader text-center fg-color-white introduce_r download_link'> " +
                       "<h3 class='fg-color-white'>Download as a Firefox App </h3><span class='icon-download-2'></span></a> </div>";
-      document.getElementById("install").innerHTML = nodeInstall;
-      var hr = document.getElementById("installer");
-      hr.onclick = install;
+          document.getElementById("install").innerHTML = nodeInstall;
+          var hr = document.getElementById("installer");
+          hr.onclick = install;
+        }
+      };
       /*if(enyo.platform.firefoxOS)
       {
          nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
