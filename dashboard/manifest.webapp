@@ -6,7 +6,7 @@
     "name": "Daniel Coloma",
     "url": "https://github.com/dcoloma/"
   },
-  "appcache_path": "tef-tracker/dashboard/application.cache",
+  "appcache_path": "tef-tracker/dashboard/application.appcache",
   "locales": {
     "en-US": {
       "name": "FirefoxOS Tracker",
