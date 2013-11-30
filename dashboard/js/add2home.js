@@ -193,7 +193,7 @@ var addToHome = (function (w) {
             startY = w.innerHeight + w.scrollY;
 
 				startX = Math.round((w.innerWidth - balloon.offsetWidth) / 2) + w.scrollX;
-				balloon.style.left = startX+30 + 'px';
+				balloon.style.left = startX+ 'px';
 				balloon.style.top = startY - balloon.offsetHeight - options.bottomOffset + 'px';
 
 			switch ( options.animationIn ) {
