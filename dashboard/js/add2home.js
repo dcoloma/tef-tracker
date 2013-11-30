@@ -161,7 +161,7 @@ var addToHome = (function (w) {
 		   balloon.className = 'addToHomeIphone';
 		   balloon.innerHTML = touchIcon +
 			options.message.replace('%device', platform).replace('%icon', '<span class="addToHomeStar">+</span>') +
-			'<span class="addToHomeArrow"></span>' +
+			'<span class="addToHomeArrow" style="left:80%"></span>' +
 			(options.closeButton ? '<span class="addToHomeClose">\u00D7</span>' : '');
         }
         else
@@ -193,7 +193,7 @@ var addToHome = (function (w) {
             startY = w.innerHeight + w.scrollY;
 
 				startX = Math.round((w.innerWidth - balloon.offsetWidth) / 2) + w.scrollX;
-				balloon.style.left = startX+ 'px';
+				balloon.style.left = startX+30 + 'px';
 				balloon.style.top = startY - balloon.offsetHeight - options.bottomOffset + 'px';
 
 			switch ( options.animationIn ) {
