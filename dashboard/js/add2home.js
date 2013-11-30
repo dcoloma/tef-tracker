@@ -125,7 +125,7 @@ var addToHome = (function (w) {
 		if ( !isReturningVisitor ) w.localStorage.setItem('addToHome', Date.now());
 		else if ( options.expire && isExpired ) w.localStorage.setItem('addToHome', Date.now() + options.expire * 60000);
 
-		if ( !overrideChecks && ( (!isSafari && !isFirefoxOS) || !isExpired || isSessionActive || isStandalone || !isReturningVisitor )) return;
+		//if ( !overrideChecks && ( (!isSafari && !isFirefoxOS) || !isExpired || isSessionActive || isStandalone || !isReturningVisitor )) return;
 		//if ( !overrideChecks && ( !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
 
 		var touchIcon = '',
