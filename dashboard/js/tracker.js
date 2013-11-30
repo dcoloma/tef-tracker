@@ -328,6 +328,7 @@ function configureInstallation()
                       "<h3 class='fg-color-white'>Download as a Firefox App </h3><span class='icon-download-2'></span></a> </div>";
       document.getElementById("install").innerHTML = nodeInstall;
       var hr = document.getElementById("installer");
+      hr.onclick = install;
       /*if(enyo.platform.firefoxOS)
       {
          nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +

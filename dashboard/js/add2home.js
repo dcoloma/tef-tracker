@@ -80,7 +80,8 @@ var addToHome = (function (w) {
 		// XXX
 		//if ( !isIDevice) return;
 		console.log("add2home")
-		if (( !isIDevice) && (!enyo.platform.firefox) && (!enyo.platform.firefoxOS)) return;
+		//if (( !isIDevice) && (!enyo.platform.firefoxOS) && (!enyo.platform.firefox)) return;
+	    if (( !isIDevice) && (!enyo.platform.firefoxOS)) return;
 
 		var now = Date.now(),
 			i;
@@ -124,8 +125,8 @@ var addToHome = (function (w) {
 		if ( !isReturningVisitor ) w.localStorage.setItem('addToHome', Date.now());
 		else if ( options.expire && isExpired ) w.localStorage.setItem('addToHome', Date.now() + options.expire * 60000);
 
-		//if ( !overrideChecks && ( !isSafari || !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
-		if ( !overrideChecks && ( !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
+		if ( !overrideChecks && ( !isSafari || !isFirefoxOS !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
+		//if ( !overrideChecks && ( !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
 
 		var touchIcon = '',
 			platform = nav.platform.split(' ')[0],
@@ -155,9 +156,8 @@ var addToHome = (function (w) {
 			}
 		}
 
-
         if (isFirefoxOS){
-        	platform = "FirefoxOS";
+       	   platform = "FirefoxOS";
 		   balloon.className = 'addToHomeIphone';
 		   balloon.innerHTML = touchIcon +
 			options.message.replace('%device', platform).replace('%icon', '<span class="addToHomeStar">+</span>') +
@@ -188,8 +188,32 @@ var addToHome = (function (w) {
 		var duration,
 			iPadXShift = 208;
 
-		// Set the initial position
-		if ( isIPad ) {
+		// Set the initial positiona
+		if ( isFirefoxOS ) {
+            startY = w.innerHeight + w.scrollY;
+
+				startX = Math.round((w.innerWidth - balloon.offsetWidth) / 2) + w.scrollX;
+				balloon.style.left = startX+100 + 'px';
+				balloon.style.top = startY - balloon.offsetHeight - options.bottomOffset + 'px';
+
+			switch ( options.animationIn ) {
+				case 'drop':
+					duration = '0.6s';
+					balloon.style.webkitTransform = 'translate3d(0,' + -(w.scrollY + options.bottomOffset + balloon.offsetHeight) + 'px,0)';
+					balloon.style.transform = 'translate3d(0,' + -(w.scrollY + options.bottomOffset + balloon.offsetHeight) + 'px,0)';
+					break;
+				case 'bubble':
+					duration = '0.6s';
+					balloon.style.opacity = '0';
+					balloon.style.webkitTransform = 'translate3d(0,' + (startY + 50) + 'px,0)';
+					balloon.style.transform = 'translate3d(0,' + (startY + 50) + 'px,0)';
+					break;
+				default:
+					duration = '1s';
+					balloon.style.opacity = '0';
+			}
+		} 
+		else if ( isIPad ) {
 			if ( OSVersion < 5 ) {
 				startY = w.scrollY;
 				startX = w.scrollX;
@@ -246,8 +270,11 @@ var addToHome = (function (w) {
 
 		balloon.offsetHeight;	// repaint trick
 		balloon.style.webkitTransitionDuration = duration;
+		balloon.style.webkitTransitionDuration = duration;
+		balloon.style.transitionDuration = duration;
 		balloon.style.opacity = '1';
 		balloon.style.webkitTransform = 'translate3d(0,0,0)';
+		balloon.style.transform = 'translate3d(0,0,0)';
 		balloon.addEventListener('webkitTransitionEnd', transitionEnd, false);
 
 		closeTimeout = setTimeout(close, options.lifespan);
