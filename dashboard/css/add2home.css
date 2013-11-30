@@ -75,7 +75,7 @@
 	-webkit-transform:rotateZ(45deg);
 	transform:rotateZ(45deg);
 	bottom:-9px;
-	left:70%;
+	left:50%;
 	margin-left:-8px;
 	-webkit-box-shadow:inset -1px -1px 0 #a9a9a9;
 	box-shadow:inset -1px -1px 0 #a9a9a9;
@@ -103,7 +103,7 @@
 	background-color:white;
 	-webkit-box-shadow:inset -1px -1px 0 #fff;
 	box-shadow:inset -1px -1px 0 #fff;
-	top:-9px; bottom:auto; left:50%;
+	top:-9px; bottom:auto; left:70%;
 }
 
 
