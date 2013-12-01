@@ -80,6 +80,10 @@ var addToHome = (function (w) {
 		// XXX
 		//if ( !isIDevice) return;
 		console.log("add2home")
+
+
+        alert("Is FF " + enyo.platform.firefox)
+
 		if (( !isIDevice) && (!enyo.platform.firefoxOS) && (!enyo.platform.firefox)) return;
 	    //if (( !isIDevice) && (!enyo.platform.firefoxOS)) return;
 
@@ -133,6 +137,7 @@ var addToHome = (function (w) {
         }
         else if ((isFirefox) || (isFirefoxOS))
         {
+
           if (navigator.mozApps != null)
           {
              var request = window.navigator.mozApps.getInstalled();
@@ -235,9 +240,13 @@ var addToHome = (function (w) {
 		if ( (isFirefoxOS) || (isFirefox) ) {
             startY = w.innerHeight + w.scrollY;
 
-				startX = Math.round((w.innerWidth - balloon.offsetWidth) / 2) + w.scrollX;
-				balloon.style.left = startX+30 + 'px';
-				balloon.style.top = startY - balloon.offsetHeight - options.bottomOffset + 'px';
+				//startX = Math.round((w.innerWidth - balloon.offsetWidth) / 2) + w.scrollX;
+			    startX = Math.round((w.innerWidth) / 2) + w.scrollX;
+
+
+				balloon.style.left = startX + 'px';
+				//balloon.style.top = startY - balloon.offsetHeight - options.bottomOffset + 'px';
+			    balloon.style.top = w.innerHeight/2 + 'px';
 
 			switch ( options.animationIn ) {
 				case 'drop':
