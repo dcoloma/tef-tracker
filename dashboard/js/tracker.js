@@ -39,7 +39,15 @@ ids = [["UserStories/StableVersion/P1/OPEN", "UserStories/StableVersion/P2/OPEN"
              "UserStories/PlanVersion/P2/CLOSED", "blockers/PlanVersion/all", "blockers/PlanVersion/Gaia", "blockers/PlanVersion/platform"]];
 
 $(window).ready(function() {
-  alert(navigator.userAgent)
+  alert(navigator.userAgent);
+
+  if (match = /Android.+Chrome/.exec(navigator.userAgent)) {
+     for (i in match)
+       alert("match " + match[i]) 
+  }
+
+
+
   document.getElementById("homebutton").onclick = makeShowElementCallback("index");
   configure(); // Create basic config parameters for versions
   createMainMenu(); // DOM Navigation structure
