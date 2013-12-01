@@ -80,11 +80,13 @@ var addToHome = (function (w) {
 		// XXX
 		//if ( !isIDevice) return;
 		console.log("add2home")
+        if (navigator.mozApps != null)
+        {
+        	isFirefox = true;
+            alert("isFirefox")	
+        }
 
-
-        alert("Is FF " + enyo.platform.firefox)
-
-		if (( !isIDevice) && (!enyo.platform.firefoxOS) && (!enyo.platform.firefox)) return;
+		if (( !isIDevice) && (!isFirefox)) return;
 	    //if (( !isIDevice) && (!enyo.platform.firefoxOS)) return;
 
 		var now = Date.now(),
@@ -99,8 +101,9 @@ var addToHome = (function (w) {
 		if ( !options.autostart ) options.hookOnLoad = false;
 
         // XXXX
-        isFirefox = enyo.platform.firefox;
-        isFirefoxOS = enyo.platform.firefoxOS;
+        //isFirefox = enyo.platform.firefox;
+        //isFirefoxOS = enyo.platform.firefoxOS;
+
 		isIPad = (/ipad/gi).test(nav.platform);
 		isRetina = w.devicePixelRatio && w.devicePixelRatio > 1;
 		isSafari = (/Safari/i).test(nav.appVersion) && !(/CriOS/i).test(nav.appVersion);
@@ -135,7 +138,7 @@ var addToHome = (function (w) {
 		{
 		  if ( !overrideChecks && ( !isSafari || !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
         }
-        else if ((isFirefox) || (isFirefoxOS))
+        else if (isFirefox)
         {
 
           if (navigator.mozApps != null)
@@ -237,11 +240,12 @@ var addToHome = (function (w) {
 			iPadXShift = 208;
 
 		// Set the initial positiona
-		if ( (isFirefoxOS) || (isFirefox) ) {
-            startY = w.innerHeight + w.scrollY;
+		if (isFirefox) {
+            //startY = w.innerHeight + w.scrollY;
+            startY = 0;
 
 				//startX = Math.round((w.innerWidth - balloon.offsetWidth) / 2) + w.scrollX;
-			    startX = Math.round((w.innerWidth) / 2) + w.scrollX;
+			    startX = Math.round((w.innerWidth) / 2);
 
 
 				balloon.style.left = startX + 'px';

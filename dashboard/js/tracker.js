@@ -324,7 +324,7 @@ function configureInstallation()
     else if (navigator.mozApps != null)
     {
 
-      var request = window.navigator.mozApps.getInstalled();
+      /*var request = window.navigator.mozApps.getInstalled();
       request.onerror = function(e) {
         console.log("Error calling getInstalled: " + request.error.name);
       };
@@ -339,7 +339,7 @@ function configureInstallation()
           var hr = document.getElementById("installer");
           hr.onclick = install;
         }
-      };
+      };*/
     }
   }
 }
