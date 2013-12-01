@@ -8,6 +8,8 @@ var addToHome = (function (w) {
 		isIPad,
 		isRetina,
 		isSafari,
+		isFirefox,
+		isChrome,
 		isStandalone,
 		OSVersion,
 		startX = 0,
@@ -87,7 +89,7 @@ var addToHome = (function (w) {
         {
         	isFirefox = true;
         }
-        var isChrome = !!window.chrome && !!window.chrome.webstore;  
+        isChrome = !!window.chrome && !!window.chrome.webstore;  
 
 
 		if (( !isIDevice) && (!isFirefox) && (!isChrome)) return;

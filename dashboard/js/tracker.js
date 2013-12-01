@@ -38,22 +38,14 @@ ids = [["UserStories/StableVersion/P1/OPEN", "UserStories/StableVersion/P2/OPEN"
        ["UserStories/PlanVersion/P1/OPEN", "UserStories/PlanVersion/P2/OPEN", "UserStories/PlanVersion/P1/CLOSED", 
              "UserStories/PlanVersion/P2/CLOSED", "blockers/PlanVersion/all", "blockers/PlanVersion/Gaia", "blockers/PlanVersion/platform"]];
 
-var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
-var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
-var isChrome = !!window.chrome && !!window.chrome.webstore;  
-
 $(window).ready(function() {
-
-  //makeAppInstallable();
+  alert(navigator.userAgent)
   document.getElementById("homebutton").onclick = makeShowElementCallback("index");
-
   configure(); // Create basic config parameters for versions
   createMainMenu(); // DOM Navigation structure
   for (i in versionNumbers) // DOM For every version
     createVersionTiles(versionNumbers[i], versionNames[i], links[i], ids[i], names, colors[i]);
   showElement('index'); // Show only navigation structure
-  //installMessage();
-  //configureInstallation();
   readFromLS(); // Read From Local Storage the info just in case there is no connection
   readFromFB(); // Read Data from FireBase
 });  
@@ -289,115 +281,3 @@ function configure()
       links[i][j] = baseURLs[j]+versionCodes[i]+prefixURLs[j];
 }
 
-/*function configureInstallation()
-{
-  console.log("*** METHOD configureInstallation for UA " + navigator.userAgent);
-  var nodeInstall = "";
-
-  var pattern = /^((http|https|file):\/\/)/;
-  if(!pattern.test(window.location.href))
-    hostedApp = false;
-  else
-    hostedApp = true;
-
-  console.log("For window.location.href " + window.location.href + " hostedApp " + hostedApp);
-
-  if (hostedApp)
-  {
-    // Check Browser
-    if(enyo.platform.ios)
-    {
-      // Handled by add2home library
-      console.log("IOS");
-    }
-    else if (isChrome)
-    {
-       nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
-                      "<a id='installer' class='bg-color-orangeDark span4 subheader text-center fg-color-white introduce_r download_link'> " +
-                      "<h3 class='fg-color-white'>Download as a Chrome App </h3><span class='icon-download-2'></span></a> </div>";
-       document.getElementById("install").innerHTML = nodeInstall;
-       var hr = document.getElementById("installer");
-       hr.onclick = install;
-    }
-    else if (navigator.mozApps != null)
-    {
-
-      var request = window.navigator.mozApps.getInstalled();
-      request.onerror = function(e) {
-        console.log("Error calling getInstalled: " + request.error.name);
-      };
-      request.onsuccess = function(e) {
-        console.log("Success, number of apps: " + request.result.length);
-        if (request.result.length == 0)
-        {
-          nodeInstall += "<div class='span'></div> <div class='span4 bg-color-orangeDark text-center'>" +
-                      "<a id='installer' class='bg-color-orangeDark span4 subheader text-center fg-color-white introduce_r download_link'> " +
-                      "<h3 class='fg-color-white'>Download as a Firefox App </h3><span class='icon-download-2'></span></a> </div>";
-          document.getElementById("install").innerHTML = nodeInstall;
-          var hr = document.getElementById("installer");
-          hr.onclick = install;
-        }
-      };
-    }
-  }
-}*/
-
-/*function install()
-{
-  alert("INSTALL")
-  if (isChrome)
-  { 
-    chrome.webstore.install("https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh",
-                            function(){alert("FirefoxOS Tracker Successfully installed");},
-                            function(error){alert("App could not be installed " + error);});
-  }
-  else if (navigator.mozApps != null)
-  {
-    var req = navigator.mozApps.install(manifestUrl);
-    req.onsuccess = function() {
-      alert("FirefoxOS Tracker Successfully installed");
-      nodeInstall = ""; 
-      document.getElementById("install").innerHTML = nodeInstall;
-    };
-    req.onerror = function() {
-      alert("App could not be installed " + this.error.name);
-    };
-  }
-}*/
-
-function makeAppInstallable()
-{
-  // Installable as apps
-  var appleMobileWeb = document.createElement('meta');
-  appleMobileWeb.setAttribute('name', 'apple-mobile-web-app-capable');
-  appleMobileWeb.setAttribute('content', 'yes');
-  var html5MobileWeb = document.createElement('meta'); // Google
-  html5MobileWeb.setAttribute('name', 'mobile-web-app-capable');
-  html5MobileWeb.setAttribute('content', 'yes');
-  // Icons 
-  var appleIcon = document.createElement('link'); // Google
-  appleIcon.setAttribute('rel', 'apple-touch-icon-precomposed');
-  appleIcon.setAttribute('href', 'style/icons/firefox-128.png');
-  var favIcon = document.createElement('link'); // Google
-  favIcon.setAttribute('rel', 'shortcut icon');
-  favIcon.setAttribute('href', 'favicon.ico');
-  // Names
-  var html5Name = document.createElement('meta'); // Google
-  html5Name.setAttribute('name', 'application-name');
-  html5Name.setAttribute('href', 'FFOS Tracker');
-  var appleName = document.createElement('meta'); // Google
-  appleName.setAttribute('name', 'application-mobile-web-app-title');
-  appleName.setAttribute('href', 'FFOS Tracker');
-  // Chrome Item
-  var chromeStoreItem = document.createElement('link'); // Google
-  chromeStoreItem.setAttribute('rel', 'chrome-webstore-item');
-  chromeStoreItem.setAttribute('href', 'https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh');
-
-  document.getElementsByTagName('head')[0].appendChild(appleMobileWeb);
-  document.getElementsByTagName('head')[0].appendChild(html5MobileWeb);
-  document.getElementsByTagName('head')[0].appendChild(appleIcon);
-  document.getElementsByTagName('head')[0].appendChild(favIcon);
-  document.getElementsByTagName('head')[0].appendChild(html5Name);
-  document.getElementsByTagName('head')[0].appendChild(appleName);
-  document.getElementsByTagName('head')[0].appendChild(chromeStoreItem);
-}
