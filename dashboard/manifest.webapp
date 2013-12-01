@@ -14,12 +14,12 @@
     }
   },
   "default_locale": "en-US",
-   "icons": { "16": "style/icons/firefox-16.png",
-           "32": "style/icons/firefox-32.png",
-           "48": "style/icons/firefox-48.png",
-           "60": "style/icons/firefox-60.png",
-           "90": "style/icons/firefox-90.png",
-           "120": "style/icons/firefox-120.png",
-           "128": "style/icons/firefox-128.png",
-           "256": "style/icons/firefox-256.png"}
+   "icons": { "16": "/tef-tracker/dashboard/style/icons/firefox-16.png",
+           "32": "/tef-tracker/dashboard/style/icons/firefox-32.png",
+           "48": "/tef-tracker/dashboard/style/icons/firefox-48.png",
+           "60": "/tef-tracker/dashboard/style/icons/firefox-60.png",
+           "90": "/tef-tracker/dashboard/style/icons/firefox-90.png",
+           "120": "/tef-tracker/dashboard/style/icons/firefox-120.png",
+           "128": "/tef-tracker/dashboard/style/icons/firefox-128.png",
+           "256": "/tef-tracker/dashboard/style/icons/firefox-256.png"}
 }
