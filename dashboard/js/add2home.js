@@ -80,8 +80,8 @@ var addToHome = (function (w) {
 		// XXX
 		//if ( !isIDevice) return;
 		console.log("add2home")
-		//if (( !isIDevice) && (!enyo.platform.firefoxOS) && (!enyo.platform.firefox)) return;
-	    if (( !isIDevice) && (!enyo.platform.firefoxOS)) return;
+		if (( !isIDevice) && (!enyo.platform.firefoxOS) && (!enyo.platform.firefox)) return;
+	    //if (( !isIDevice) && (!enyo.platform.firefoxOS)) return;
 
 		var now = Date.now(),
 			i;
@@ -126,7 +126,62 @@ var addToHome = (function (w) {
 		else if ( options.expire && isExpired ) w.localStorage.setItem('addToHome', Date.now() + options.expire * 60000);
 
 		//if ( !overrideChecks && ( (!isSafari && !isFirefoxOS) || !isExpired || isSessionActive || isStandalone || !isReturningVisitor )) return;
-		if ( !overrideChecks && ( !isSafari || !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
+
+		if (isIDevice)
+		{
+		  if ( !overrideChecks && ( !isSafari || !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
+        }
+        else if ((isFirefox) || (isFirefoxOS))
+        {
+          if (navigator.mozApps != null)
+          {
+             var request = window.navigator.mozApps.getInstalled();
+             request.onerror = function(e) {
+               console.log("Error calling getInstalled: " + request.error.name);
+             };
+
+             request.onsuccess = function(e) {
+               console.log("Success, number of apps: " + request.result.length);
+               if (request.result.length == 0)
+               {
+		         balloon = document.createElement('div');
+		         balloon.id = 'addToHomeScreen';
+		         // XXX
+		         balloon.style.cssText += 'left:-9999px;transition-property:transform,opacity;transition-duration:0;transform:translate3d(0,0,0);position:fixed';
+
+                 // Let's hardcode the message text
+                 options.message = 'Download it as a Application for %device by clicking on this box',
+
+       	         platform = "Firefox";
+		         balloon.className = 'addToHomeIphone';
+		         balloon.innerHTML = options.message.replace('%device', platform) +
+			     (options.closeButton ? '<span class="addToHomeClose" id="closeButton">\u00D7</span>' : '');
+
+		         document.body.appendChild(balloon);
+
+		         // Add the close action
+		         if ( options.closeButton ) document.getElementById("closeButton").addEventListener('click', clicked, false);
+		         balloon.addEventListener('click', window.install, false);
+
+		         setTimeout(show, options.startDelay);
+
+               }
+               else
+               {
+               	 return;
+               }
+             };
+             return;
+          }
+          else
+          {
+          	return;
+          }
+        }
+        else
+        {
+        	return;
+        }
 
 		var touchIcon = '',
 			platform = nav.platform.split(' ')[0],
@@ -156,23 +211,11 @@ var addToHome = (function (w) {
 			}
 		}
 
-        if (isFirefoxOS){
-       	   platform = "FirefoxOS";
-		   balloon.className = 'addToHomeIphone';
-		   balloon.innerHTML = touchIcon +
-			options.message.replace('%device', platform).replace('%icon', '<span class="addToHomeStar">+</span>') +
-			'<span class="addToHomeArrow" style="left:90%"></span>' +
-			(options.closeButton ? '<span class="addToHomeClose">\u00D7</span>' : '');
-        }
-        else
-        {
 		  balloon.className = (OSVersion >=7 ? 'addToHomeIOS7 ' : '') + (isIPad ? 'addToHomeIpad' : 'addToHomeIphone') + (touchIcon ? ' addToHomeWide' : '');
 		  balloon.innerHTML = touchIcon +
 			options.message.replace('%device', platform).replace('%icon', OSVersion >= 4.2 ? '<span class="addToHomeShare"></span>' : '<span class="addToHomePlus">+</span>') +
 			(options.arrow ? '<span class="addToHomeArrow"' + (OSVersion >= 7 && isIPad && touchIcon ? ' style="margin-left:-32px"' : '') + '></span>' : '') +
 			(options.closeButton ? '<span class="addToHomeClose">\u00D7</span>' : '');
-        }
-
 
 		document.body.appendChild(balloon);
 
@@ -189,7 +232,7 @@ var addToHome = (function (w) {
 			iPadXShift = 208;
 
 		// Set the initial positiona
-		if ( isFirefoxOS ) {
+		if ( (isFirefoxOS) || (isFirefox) ) {
             startY = w.innerHeight + w.scrollY;
 
 				startX = Math.round((w.innerWidth - balloon.offsetWidth) / 2) + w.scrollX;

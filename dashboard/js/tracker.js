@@ -323,6 +323,7 @@ function configureInstallation()
     }
     else if (navigator.mozApps != null)
     {
+
       var request = window.navigator.mozApps.getInstalled();
       request.onerror = function(e) {
         console.log("Error calling getInstalled: " + request.error.name);
@@ -345,6 +346,7 @@ function configureInstallation()
 
 function install()
 {
+  alert("INSTALL")
   if (isChrome)
   { 
     chrome.webstore.install("https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh",
