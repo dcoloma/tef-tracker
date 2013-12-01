@@ -16,5 +16,8 @@
   "default_locale": "en-US",
    "icons": { "16": "tef-tracker/dashboard/style/icons/firefox-16.png",
            "48": "/dashboard/style/icons/firefox-48.png",
+           "60": "/dashboard/style/icons/firefox-60.png",
+           "90": "/dashboard/style/icons/firefox-90.png",
+           "120": "/dashboard/style/icons/firefox-120.png",
           "128": "/dashboard/style/icons/firefox-128.png" }
 }
