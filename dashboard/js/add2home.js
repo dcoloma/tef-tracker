@@ -75,6 +75,9 @@ var addToHome = (function (w) {
 			es_es: 'Para instalar esta app en su %device, pulse %icon y seleccione <strong>Añadir a pantalla de inicio</strong>.'
 		};
 
+		var manifestUrl = 'http://dcoloma.github.io/tef-tracker/dashboard/manifest.webapp';
+
+
 	function init () {
 		// Preliminary check, all further checks are performed on iDevices only
 		// XXX
@@ -83,10 +86,11 @@ var addToHome = (function (w) {
         if (navigator.mozApps != null)
         {
         	isFirefox = true;
-            alert("isFirefox")	
         }
+        var isChrome = !!window.chrome && !!window.chrome.webstore;  
 
-		if (( !isIDevice) && (!isFirefox)) return;
+
+		if (( !isIDevice) && (!isFirefox) && (!isChrome)) return;
 	    //if (( !isIDevice) && (!enyo.platform.firefoxOS)) return;
 
 		var now = Date.now(),
@@ -158,7 +162,7 @@ var addToHome = (function (w) {
 		         balloon.style.cssText += 'left:-9999px;transition-property:transform,opacity;transition-duration:0;transform:translate3d(0,0,0);position:fixed';
 
                  // Let's hardcode the message text
-                 options.message = 'Download it as a Application for %device by clicking on this box',
+                 options.message = 'Download it as a Application for %device by clicking <a id="installer"> here </a>',
 
        	         platform = "Firefox";
 		         balloon.className = 'addToHomeIphone';
@@ -169,14 +173,15 @@ var addToHome = (function (w) {
 
 		         // Add the close action
 		         if ( options.closeButton ) document.getElementById("closeButton").addEventListener('click', clicked, false);
-		         balloon.addEventListener('click', window.install, false);
+		         document.getElementById("installer").addEventListener("click", install, false);
+		         //balloon.addEventListener('click', window.install, false);
 
 		         setTimeout(show, options.startDelay);
 
                }
                else
                {
-               	 return;
+               	 return;	
                }
              };
              return;
@@ -184,6 +189,37 @@ var addToHome = (function (w) {
           else
           {
           	return;
+          }
+        }
+        else if (isChrome)
+        {
+          if (chrome.app.isInstalled) {
+            return;
+          }
+          else
+          {
+                 balloon = document.createElement('div');
+		         balloon.id = 'addToHomeScreen';
+		         // XXX
+		         balloon.style.cssText += 'left:-9999px;transition-property:transform,opacity;transition-duration:0;transform:translate3d(0,0,0);position:fixed';
+
+                 // Let's hardcode the message text
+                 options.message = 'Download it as a Application for %device by clicking <a id="installer"> here </a>',
+
+       	         platform = "Chrome";
+		         balloon.className = 'addToHomeIphone';
+		         balloon.innerHTML = options.message.replace('%device', platform) +
+			     (options.closeButton ? '<span class="addToHomeClose" id="closeButton">\u00D7</span>' : '');
+
+		         document.body.appendChild(balloon);
+
+		         // Add the close action
+		         if ( options.closeButton ) document.getElementById("closeButton").addEventListener('click', clicked, false);
+		         document.getElementById("installer").addEventListener("click", install, false);
+		         //balloon.addEventListener('click', window.install, false);
+
+		         setTimeout(show, options.startDelay);
+		         return;
           }
         }
         else
@@ -240,12 +276,12 @@ var addToHome = (function (w) {
 			iPadXShift = 208;
 
 		// Set the initial positiona
-		if (isFirefox) {
+		if ((isFirefox) || (isChrome)) {
             //startY = w.innerHeight + w.scrollY;
             startY = 0;
 
 				//startX = Math.round((w.innerWidth - balloon.offsetWidth) / 2) + w.scrollX;
-			    startX = Math.round((w.innerWidth) / 2);
+			    startX = Math.round((w.innerWidth-balloon.offsetWidth) / 2);
 
 
 				balloon.style.left = startX + 'px';
@@ -331,7 +367,7 @@ var addToHome = (function (w) {
 		balloon.style.opacity = '1';
 		balloon.style.webkitTransform = 'translate3d(0,0,0)';
 		balloon.style.transform = 'translate3d(0,0,0)';
-		balloon.addEventListener('webkitTransitionEnd', transitionEnd, false);
+		//balloon.addEventListener('webkitTransitionEnd', transitionEnd, false);
 
 		closeTimeout = setTimeout(close, options.lifespan);
 	}
@@ -398,6 +434,27 @@ var addToHome = (function (w) {
 		balloon.style.webkitTransform = 'translate3d(' + posX + 'px,' + posY + 'px,0)';
 	}
 
+    function install()
+    {
+      if (isChrome)
+      { 
+        chrome.webstore.install("https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh",
+                            function(){alert("FirefoxOS Tracker Successfully installed");close();},
+                            function(error){alert("App could not be installed " + error);});
+      }
+      else if (navigator.mozApps != null)
+      {
+        var req = navigator.mozApps.install(manifestUrl);
+        req.onsuccess = function() {
+          alert("FirefoxOS Tracker Successfully installed");
+          close();
+        };
+        req.onerror = function() {
+          alert("App could not be installed " + this.error.name);
+        };
+      }
+    }
+
 
 	function clicked () {
 		w.sessionStorage.setItem('addToHomeSession', '1');
@@ -443,8 +500,46 @@ var addToHome = (function (w) {
 		balloon.style.marginLeft = -Math.round(balloon.offsetWidth / 2) - ( w.orientation%180 && OSVersion >= 6 && OSVersion < 7 ? 40 : 0 ) + 'px';
 	}
 
+	function makeAppInstallable()
+    {
+  // Installable as apps
+  var appleMobileWeb = document.createElement('meta');
+  appleMobileWeb.setAttribute('name', 'apple-mobile-web-app-capable');
+  appleMobileWeb.setAttribute('content', 'yes');
+  var html5MobileWeb = document.createElement('meta'); // Google
+  html5MobileWeb.setAttribute('name', 'mobile-web-app-capable');
+  html5MobileWeb.setAttribute('content', 'yes');
+  // Icons 
+  var appleIcon = document.createElement('link'); // Google
+  appleIcon.setAttribute('rel', 'apple-touch-icon-precomposed');
+  appleIcon.setAttribute('href', 'style/icons/firefox-128.png');
+  var favIcon = document.createElement('link'); // Google
+  favIcon.setAttribute('rel', 'shortcut icon');
+  favIcon.setAttribute('href', 'favicon.ico');
+  // Names
+  var html5Name = document.createElement('meta'); // Google
+  html5Name.setAttribute('name', 'application-name');
+  html5Name.setAttribute('href', 'FFOS Tracker');
+  var appleName = document.createElement('meta'); // Google
+  appleName.setAttribute('name', 'application-mobile-web-app-title');
+  appleName.setAttribute('href', 'FFOS Tracker');
+  // Chrome Item
+  var chromeStoreItem = document.createElement('link'); // Google
+  chromeStoreItem.setAttribute('rel', 'chrome-webstore-item');
+  chromeStoreItem.setAttribute('href', 'https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh');
+
+  document.getElementsByTagName('head')[0].appendChild(appleMobileWeb);
+  document.getElementsByTagName('head')[0].appendChild(html5MobileWeb);
+  document.getElementsByTagName('head')[0].appendChild(appleIcon);
+  document.getElementsByTagName('head')[0].appendChild(favIcon);
+  document.getElementsByTagName('head')[0].appendChild(html5Name);
+  document.getElementsByTagName('head')[0].appendChild(appleName);
+  document.getElementsByTagName('head')[0].appendChild(chromeStoreItem);
+}
+
 	// Bootstrap!
 	console.log("bootstrap")
+	makeAppInstallable();
 	init();
 
 	return {

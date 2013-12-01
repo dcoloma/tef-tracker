@@ -44,9 +44,7 @@ var isChrome = !!window.chrome && !!window.chrome.webstore;
 
 $(window).ready(function() {
 
-
-
-  makeAppInstallable();
+  //makeAppInstallable();
   document.getElementById("homebutton").onclick = makeShowElementCallback("index");
 
   configure(); // Create basic config parameters for versions
@@ -55,7 +53,7 @@ $(window).ready(function() {
     createVersionTiles(versionNumbers[i], versionNames[i], links[i], ids[i], names, colors[i]);
   showElement('index'); // Show only navigation structure
   //installMessage();
-  configureInstallation();
+  //configureInstallation();
   readFromLS(); // Read From Local Storage the info just in case there is no connection
   readFromFB(); // Read Data from FireBase
 });  
@@ -291,7 +289,7 @@ function configure()
       links[i][j] = baseURLs[j]+versionCodes[i]+prefixURLs[j];
 }
 
-function configureInstallation()
+/*function configureInstallation()
 {
   console.log("*** METHOD configureInstallation for UA " + navigator.userAgent);
   var nodeInstall = "";
@@ -324,7 +322,7 @@ function configureInstallation()
     else if (navigator.mozApps != null)
     {
 
-      /*var request = window.navigator.mozApps.getInstalled();
+      var request = window.navigator.mozApps.getInstalled();
       request.onerror = function(e) {
         console.log("Error calling getInstalled: " + request.error.name);
       };
@@ -339,12 +337,12 @@ function configureInstallation()
           var hr = document.getElementById("installer");
           hr.onclick = install;
         }
-      };*/
+      };
     }
   }
-}
+}*/
 
-function install()
+/*function install()
 {
   alert("INSTALL")
   if (isChrome)
@@ -365,7 +363,7 @@ function install()
       alert("App could not be installed " + this.error.name);
     };
   }
-}
+}*/
 
 function makeAppInstallable()
 {
