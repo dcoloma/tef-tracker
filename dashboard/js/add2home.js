@@ -540,7 +540,7 @@ var addToHome = (function (w) {
 }
 
 	// Bootstrap!
-	console.log("bootstrap")
+	console.log("bootstrap");
 	makeAppInstallable();
 	init();
 
