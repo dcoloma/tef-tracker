@@ -103,7 +103,7 @@ var addToHome = (function (w) {
 
 
 
-		if (( !isIDevice) && (!isFirefox) && (!isChrome)) return;
+		if (( !isIDevice) && (!isFirefox) && (!isChrome) && (!isChromeMobile)) return;
 	    //if (( !isIDevice) && (!enyo.platform.firefoxOS)) return;
 
 		var now = Date.now(),
@@ -204,6 +204,30 @@ var addToHome = (function (w) {
           	return;
           }
         }
+        else if (isChromeMobile)
+        {
+                 balloon = document.createElement('div');
+		         balloon.id = 'addToHomeScreen';
+		         // XXX
+		         balloon.style.cssText += 'left:-9999px;transition-property:transform,opacity;transition-duration:0;transform:translate3d(0,0,0);position:fixed';
+
+                 // Let's hardcode the message text
+                 options.message = 'Add it to your device homescreen for %device by clicking on the options icon and then "Add to homescreen"',
+
+       	         platform = "Android";
+		         balloon.className = 'addToHomeIphone';
+		         balloon.innerHTML = options.message.replace('%device', platform) +
+			     (options.closeButton ? '<span class="addToHomeClose" id="closeButton">\u00D7</span>' : '');
+
+		         document.body.appendChild(balloon);
+
+		         // Add the close action
+		         if ( options.closeButton ) document.getElementById("closeButton").addEventListener('click', clicked, false);
+
+		         setTimeout(show, options.startDelay);
+		         return;
+
+        }
         else if (isChrome)
         {
           if (chrome.app.isInstalled) {
@@ -289,7 +313,7 @@ var addToHome = (function (w) {
 			iPadXShift = 208;
 
 		// Set the initial positiona
-		if ((isFirefox) || (isChrome)) {
+		if ((isFirefox) || (isChrome) || (isChromeMobile)) {
             //startY = w.innerHeight + w.scrollY;
             startY = 0;
 

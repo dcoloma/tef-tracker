@@ -1,7 +1,7 @@
 {
   "manifest_version": 2, 
   "name": "FirefoxOS Tracker",
-  "version": "7",
+  "version": "8",
   "content_security_policy": "script-src 'self' https://*.firebaseio.com; object-src 'self'",
   "minimum_chrome_version": "31",
    "app": {
@@ -15,7 +15,7 @@
       "width": 320
     }
    },
-   "offline_enabled": "true",
+   "offline_enabled": true,
    "icons": { "16": "style/icons/firefox-16.png",
            "48": "style/icons/firefox-48.png",
           "128": "style/icons/firefox-128.png" }
