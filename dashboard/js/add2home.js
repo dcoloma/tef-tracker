@@ -21,11 +21,11 @@ var addToHome = (function (w) {
 		isReturningVisitor,
 		balloon,
 		overrideChecks,
-		application-name="FFOS Tracker",
-		chromeItem='https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh',
-		manifestUrl = 'http://dcoloma.github.io/tef-tracker/dashboard/manifest.webapp';
-		icon-128='style/icons/firefox-128.png',
-		fav-icon ="favIcon.ico",
+		application-name
+		chromeItem,
+		manifestUrl,
+		icon-128,
+		fav-icon,
 
 
 		positionInterval,
@@ -79,11 +79,14 @@ var addToHome = (function (w) {
 			zh_tw: '您可以將此應用程式安裝到您的 %device 上。請按 %icon 然後點選<strong>加入主畫面螢幕</strong>。'
 		};
 
-		 intlff = {
-			en_us: 'Install this web app on your FFOS Device: tap %icon and then <strong>Add to Home Screen</strong>.',
-			es_es: 'Para instalar esta app en su %device, pulse %icon y seleccione <strong>Añadir a pantalla de inicio</strong>.'
-		};
 
+
+
+        application-name="FFOS Tracker",
+		chromeItem='https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh',
+		manifestUrl = 'http://dcoloma.github.io/tef-tracker/dashboard/manifest.webapp';
+		icon-128='style/icons/firefox-128.png',
+		fav-icon ="favIcon.ico",
 
 	function init () {
 		// Preliminary check, all further checks are performed on iDevices only
