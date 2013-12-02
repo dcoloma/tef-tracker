@@ -25,7 +25,7 @@ var addToHome = (function (w) {
 		chromeItem,
 		manifestUrl,
 		icon128,
-		fav-icon,
+		favoriteIcon,
 
 
 		positionInterval,
@@ -82,11 +82,11 @@ var addToHome = (function (w) {
 
 
 
-        application-name="FFOS Tracker",
+        applicationName="FFOS Tracker",
 		chromeItem='https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh',
 		manifestUrl = 'http://dcoloma.github.io/tef-tracker/dashboard/manifest.webapp';
-		icon-128='style/icons/firefox-128.png',
-		fav-icon ="favIcon.ico",
+		icon128='style/icons/firefox-128.png',
+		favoriteIcon ="favIcon.ico";
 
 	function init () {
 		// Preliminary check, all further checks are performed on iDevices only
@@ -558,7 +558,7 @@ var addToHome = (function (w) {
   appleIcon.setAttribute('href', icon128);
   var favIcon = document.createElement('link'); // Google
   favIcon.setAttribute('rel', 'shortcut icon');
-  favIcon.setAttribute('href', fav-icon);
+  favIcon.setAttribute('href', favoriteIcon);
   // Names
   var html5Name = document.createElement('meta'); // Google
   html5Name.setAttribute('name', 'application-name');
