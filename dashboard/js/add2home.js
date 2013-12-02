@@ -10,6 +10,7 @@ var addToHome = (function (w) {
 		isSafari,
 		isFirefox,
 		isChrome,
+		isChromeMobile,
 		isStandalone,
 		OSVersion,
 		startX = 0,
@@ -90,6 +91,16 @@ var addToHome = (function (w) {
         	isFirefox = true;
         }
         isChrome = !!window.chrome && !!window.chrome.webstore;  
+
+        isChromeMobile = false;
+        if (match = /Android.+(Chrome\S+)/.exec(navigator.userAgent)) {
+          if (match[1].substring(7,9) > 31)
+          {
+            alert("supported");
+            isChromeMobile = true;
+          }
+        }
+
 
 
 		if (( !isIDevice) && (!isFirefox) && (!isChrome)) return;

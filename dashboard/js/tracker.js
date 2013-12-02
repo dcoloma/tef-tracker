@@ -41,9 +41,19 @@ ids = [["UserStories/StableVersion/P1/OPEN", "UserStories/StableVersion/P2/OPEN"
 $(window).ready(function() {
   alert(navigator.userAgent);
 
-  if (match = /Android.+Chrome/.exec(navigator.userAgent)) {
-     for (i in match)
-       alert("match " + match[i]) 
+  var kk = "Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/32.0.1025.133 Mobile Safari/535.19"
+
+  if (match = /Android.+(Chrome\S+)/.exec(kk)) {
+     //var str= match[1]a
+     if (match[1].substring(7,9) > 31)
+     {
+       alert("supports is")
+     }
+     /*for (i in match)
+     {
+       alert("match " + match[i])
+       if
+     }*/
   }
 
 
