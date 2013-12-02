@@ -21,6 +21,12 @@ var addToHome = (function (w) {
 		isReturningVisitor,
 		balloon,
 		overrideChecks,
+		application-name="FFOS Tracker",
+		chromeItem='https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh',
+		manifestUrl = 'http://dcoloma.github.io/tef-tracker/dashboard/manifest.webapp';
+		icon-128='style/icons/firefox-128.png',
+		fav-icon ="favIcon.ico",
+
 
 		positionInterval,
 		closeTimeout,
@@ -78,8 +84,6 @@ var addToHome = (function (w) {
 			es_es: 'Para instalar esta app en su %device, pulse %icon y seleccione <strong>Añadir a pantalla de inicio</strong>.'
 		};
 
-		var manifestUrl = 'http://dcoloma.github.io/tef-tracker/dashboard/manifest.webapp';
-
 
 	function init () {
 		// Preliminary check, all further checks are performed on iDevices only
@@ -96,7 +100,6 @@ var addToHome = (function (w) {
         if (match = /Android.+(Chrome\S+)/.exec(navigator.userAgent)) {
           if (match[1].substring(7,9) > 31)
           {
-            alert("supported2");
             isChromeMobile = true;
           }
         }
@@ -114,10 +117,6 @@ var addToHome = (function (w) {
 			}
 		}
 		if ( !options.autostart ) options.hookOnLoad = false;
-
-        // XXXX
-        //isFirefox = enyo.platform.firefox;
-        //isFirefoxOS = enyo.platform.firefoxOS;
 
 		isIPad = (/ipad/gi).test(nav.platform);
 		isRetina = w.devicePixelRatio && w.devicePixelRatio > 1;
@@ -204,6 +203,12 @@ var addToHome = (function (w) {
         }
         else if (isChromeMobile)
         {
+		  if ( !overrideChecks && ( !isExpired || isSessionActive || !isReturningVisitor ) ) 
+		  {
+		  	return;
+		  }
+		  else
+		  {
                  balloon = document.createElement('div');
 		         balloon.id = 'addToHomeScreen';
 		         // XXX
@@ -224,7 +229,7 @@ var addToHome = (function (w) {
 
 		         setTimeout(show, options.startDelay);
 		         return;
-
+		  }
         }
         else if (isChrome)
         {
@@ -473,7 +478,7 @@ var addToHome = (function (w) {
     {
       if (isChrome)
       { 
-        chrome.webstore.install("https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh",
+        chrome.webstore.install(chromeItem,
                             function(){alert("FirefoxOS Tracker Successfully installed");close();},
                             function(error){alert("App could not be installed " + error);});
       }
@@ -547,21 +552,21 @@ var addToHome = (function (w) {
   // Icons 
   var appleIcon = document.createElement('link'); // Google
   appleIcon.setAttribute('rel', 'apple-touch-icon-precomposed');
-  appleIcon.setAttribute('href', 'style/icons/firefox-128.png');
+  appleIcon.setAttribute('href', icon-128);
   var favIcon = document.createElement('link'); // Google
   favIcon.setAttribute('rel', 'shortcut icon');
-  favIcon.setAttribute('href', 'favicon.ico');
+  favIcon.setAttribute('href', fav-icon);
   // Names
   var html5Name = document.createElement('meta'); // Google
   html5Name.setAttribute('name', 'application-name');
-  html5Name.setAttribute('href', 'FFOS Tracker');
+  html5Name.setAttribute('href', application-name);
   var appleName = document.createElement('meta'); // Google
   appleName.setAttribute('name', 'application-mobile-web-app-title');
-  appleName.setAttribute('href', 'FFOS Tracker');
+  appleName.setAttribute('href', application-name);
   // Chrome Item
   var chromeStoreItem = document.createElement('link'); // Google
   chromeStoreItem.setAttribute('rel', 'chrome-webstore-item');
-  chromeStoreItem.setAttribute('href', 'https://chrome.google.com/webstore/detail/mbpjgoggfhknoknpdobcmglakceigodh');
+  chromeStoreItem.setAttribute('href', chromeItem);
 
   document.getElementsByTagName('head')[0].appendChild(appleMobileWeb);
   document.getElementsByTagName('head')[0].appendChild(html5MobileWeb);
