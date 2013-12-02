@@ -21,7 +21,7 @@ var addToHome = (function (w) {
 		isReturningVisitor,
 		balloon,
 		overrideChecks,
-		application-name
+		application-name,
 		chromeItem,
 		manifestUrl,
 		icon-128,
