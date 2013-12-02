@@ -96,12 +96,10 @@ var addToHome = (function (w) {
         if (match = /Android.+(Chrome\S+)/.exec(navigator.userAgent)) {
           if (match[1].substring(7,9) > 31)
           {
-            alert("supported");
+            alert("supported2");
             isChromeMobile = true;
           }
         }
-
-
 
 		if (( !isIDevice) && (!isFirefox) && (!isChrome) && (!isChromeMobile)) return;
 	    //if (( !isIDevice) && (!enyo.platform.firefoxOS)) return;
