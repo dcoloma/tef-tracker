@@ -21,10 +21,10 @@ var addToHome = (function (w) {
 		isReturningVisitor,
 		balloon,
 		overrideChecks,
-		application-name,
+		applicationName,
 		chromeItem,
 		manifestUrl,
-		icon-128,
+		icon128,
 		fav-icon,
 
 
@@ -555,17 +555,17 @@ var addToHome = (function (w) {
   // Icons 
   var appleIcon = document.createElement('link'); // Google
   appleIcon.setAttribute('rel', 'apple-touch-icon-precomposed');
-  appleIcon.setAttribute('href', icon-128);
+  appleIcon.setAttribute('href', icon128);
   var favIcon = document.createElement('link'); // Google
   favIcon.setAttribute('rel', 'shortcut icon');
   favIcon.setAttribute('href', fav-icon);
   // Names
   var html5Name = document.createElement('meta'); // Google
   html5Name.setAttribute('name', 'application-name');
-  html5Name.setAttribute('href', application-name);
+  html5Name.setAttribute('href', applicationName);
   var appleName = document.createElement('meta'); // Google
   appleName.setAttribute('name', 'application-mobile-web-app-title');
-  appleName.setAttribute('href', application-name);
+  appleName.setAttribute('href', applicationName);
   // Chrome Item
   var chromeStoreItem = document.createElement('link'); // Google
   chromeStoreItem.setAttribute('rel', 'chrome-webstore-item');
